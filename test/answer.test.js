@@ -63,3 +63,13 @@ test('what else lists other works, never the one on screen', () => {
 test('anything else is left for the model', () => {
   assert.equal(ask('Why did she choose those colours?').matched, false);
 });
+
+test('a museum record with several sizes is said as one: overall, in centimetres', async () => {
+  const { plainSize, sizeOf } = await import('../public/scene.js');
+  const nga = 'painted surface (top of gilding): 62.2 × 34.8 cm (24 1/2 × 13 11/16 in.)\r\npainted surface (including painted border): 64.8 × 34.8 cm (25 1/2 × 13 11/16 in.)\r\noverall: 66.7 × 36.7 × 1.2 cm (26 1/4 × 14 7/16 × 1/2 in.)';
+  assert.equal(plainSize(nga), '66.7 × 36.7 × 1.2 cm');
+  assert.deepEqual(sizeOf(nga), { h: 66.7, w: 36.7 });
+  assert.equal(plainSize('48 × 64 cm (sheet)'), '48 × 64 cm (sheet)');
+  assert.equal(plainSize('92 x 122 cm'), '92 x 122 cm');
+  assert.equal(plainSize(''), '');
+});

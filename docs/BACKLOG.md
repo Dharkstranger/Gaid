@@ -15,7 +15,7 @@ Last updated: 11 October 2026.
 ## Outputs to submit (Devpost)
 
 - [x] Public repo, open-source licence (MIT)
-- [ ] Live site (Vercel)
+- [x] Live site: https://gaid-taupe.vercel.app (11 Oct; not openable from this container)
 - [ ] Demo video, under 3:00, English, public — the four moments
 - [ ] Description (`docs/submission.md`) — rewrite for the four moments
 - [ ] Feedback on Amazon tools — owner's own words
@@ -67,7 +67,9 @@ Last updated: 11 October 2026.
 
 ## Owner to do
 
-- [ ] Reconnect Vercel connector (access to `strangers-projects`)
+- [ ] Merge Galleris branch `claude/nga-photos`: 24 open-access paintings for the `openaccess` demo (fetched by a GitHub runner, 11 Oct)
+- [ ] Bedrock: needs an AWS account (not the Amazon Developer one) — or submit without Nova
+
 - [ ] Bedrock key → Vercel
 - [ ] GitHub → gaid → Settings → Security → private vulnerability reporting ON
 - [ ] Merge Galleris branch `claude/gaid-questions-log`

@@ -46,7 +46,7 @@ export const W = {
   show: 'Show',
   noQuestions: 'No questions yet',
   listOffline: 'List unavailable',
-  keyHint: 'Sample: no key',
+  keyHint: 'Demo: no key',
 
   // voice-first: what each icon is called (read by screen readers, never shown)
   listen: 'Listen',
@@ -76,6 +76,8 @@ export const W = {
     'Keeps nothing about you',
     'Speech: your browser',
     'Simulated Alexa+ · Not an Amazon product',
+    'Demo works: National Gallery of Art, open access',
+    'Not endorsed by the Gallery',
   ],
   source: 'Open source',
   privacy: 'Privacy',

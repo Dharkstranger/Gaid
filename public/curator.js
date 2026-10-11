@@ -35,7 +35,7 @@ async function load(key) {
 
 async function start() {
   for (const n of document.querySelectorAll('[data-w]')) { const v = W[n.dataset.w]; if (typeof v === 'string') n.textContent = v; }
-  $('key').placeholder = slug === 'sample' ? W.keyHint : W.key;
+  $('key').placeholder = ['sample', 'openaccess'].includes(slug) ? W.keyHint : W.key;
   try {
     const g = (await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json())?.gallery;
     if (g) { $('gallery').textContent = g.name; images = new Map(g.works.map((w) => [w.id, w.image])); }

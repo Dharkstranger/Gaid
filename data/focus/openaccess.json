@@ -1,0 +1,9 @@
+{
+  "_note": "Where to look, per work, as fractions of the picture. Chosen by a person looking at the photograph; one box per sentence of the gallery's words.",
+  "p1": [
+    { "x": 0.15, "y": 0.10, "w": 0.70, "h": 0.50 },
+    { "x": 0.25, "y": 0.15, "w": 0.50, "h": 0.33 },
+    { "x": 0.05, "y": 0.45, "w": 0.90, "h": 0.50 },
+    { "x": 0.35, "y": 0.62, "w": 0.40, "h": 0.30 }
+  ]
+}

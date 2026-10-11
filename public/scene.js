@@ -17,12 +17,25 @@ export function yearOf(s) {
 const TO_CM = { mm: 0.1, cm: 1, m: 100, in: 2.54, inches: 2.54, ft: 30.48 };
 
 /**
+ * One size, the way it is said aloud. A museum record can carry several
+ * ("painted surface: … / overall: …", each in cm and inches); a visitor needs
+ * one. The overall line if there is one, else the first; its label and the
+ * inches in brackets taken off. "48 × 64 cm (sheet)" keeps its bracket.
+ */
+export function plainSize(s) {
+  const lines = String(s ?? '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+  if (!lines.length) return '';
+  const line = lines.find((l) => /^overall\b/i.test(l)) ?? lines[0];
+  return line.replace(/^[a-z][a-z ()-]*:\s*/i, '').replace(/\s*\([^)]*\bin\.?\)/gi, '').trim();
+}
+
+/**
  * Height and width in centimetres from a size as a registrar writes it:
  * "92 x 122 cm", "48 × 64 cm (sheet)", "38 cm high", "12 x 9 in".
  * Height comes first, as it does on a wall label. null when it cannot tell.
  */
 export function sizeOf(s) {
-  const t = String(s ?? '').toLowerCase().replace(/,/g, '.');
+  const t = plainSize(s).toLowerCase().replace(/,/g, '.');
   const unitOf = (u) => TO_CM[u] ?? null;
   const two = t.match(/(\d+(?:\.\d+)?)\s*(?:x|×|by)\s*(\d+(?:\.\d+)?)(?:\s*(?:x|×|by)\s*\d+(?:\.\d+)?)?\s*(mm|cm|m|in|inches|ft)\b/);
   if (two) {
@@ -63,7 +76,7 @@ export function panelFor(gallery, work, topic) {
 
   if (topic === 'size') {
     const size = sizeOf(work.dimensions);
-    if (size) return { kind: 'scale', size, label: work.dimensions };
+    if (size) return { kind: 'scale', size, label: plainSize(work.dimensions) };
   }
 
   if ((topic === 'where' || topic === 'nearby') && work.room) {
