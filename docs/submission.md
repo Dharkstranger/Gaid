@@ -1,61 +1,87 @@
-# Devpost submission draft
+# Devpost submission
 
 Fields as the Devpost form usually asks them. Check each against the live form.
+Owner's words go where it says **[YOURS]**: judges read those.
 
-**Name:** GAID
+**Name:** GAID (said "guide")
 
 **Tagline:** Ask the work in front of you.
 
-**Track:** Alexa+ (simulated Alexa+ experience in a web app)
+**Track:** Alexa+. A simulated Alexa+ experience in a web app, calling GAID's
+own MCP server at runtime. Not an Amazon product.
 
 ## Inspiration
-In Lagos, a gallery's catalogue is a PDF sent on WhatsApp, and the wall label
-carries about forty words. The story of the work is known by the artist and
-the curator and almost nobody else in the room. We already build Galleris,
-which gives a gallery its own viewing room opened from a code on the wall.
-GAID is that viewing room you can talk to.
+In Lagos, a gallery's catalogue is a PDF sent on WhatsApp and a wall label
+carries about forty words. The story of a work lives with the artist and the
+curator, and almost nobody else in the room hears it. We already build
+Galleris, a gallery's own viewing room opened from a code on the wall. GAID is
+that viewing room you can talk to — out loud, with your eyes on the work.
 
 ## What it does
-Stand in front of a work and say "Alexa, tell me about the work in front of
-me". GAID answers with the gallery's own story, plays the artist's recording
-when there is one, and takes follow-ups: who made it, when, what it is made
-of, what else is in the room, "take me to" another work, and "say it in" one
-of the gallery's languages.
+Four moments.
+
+1. **Scan and ask.** Scan the code beside a work. Press ▶. GAID tells the
+   work's story in the gallery's own words. Ask anything: who made it, when,
+   what it is made of. "Look closer" walks the picture part by part. "Where
+   next?" points to the next work and says why. Pidgin and Yoruba on request.
+   No text on screen: the phone fades while GAID speaks ("Eyes up").
+2. **The room answers.** A Fire TV beside the work pairs with a 4-character
+   code. Whatever the visitor asks, the TV shows: the artist, a timeline, the
+   work to scale beside a person, the room on a plan. Pictures, no reading.
+3. **It follows you home.** Leaving, GAID gives three words — one per work
+   seen. That evening on an Echo Show: "Alexa, ask GAID about Lagoon, Towers,
+   Crossing." The visit comes back, ready for questions, and one press sends
+   an enquiry to the gallery on WhatsApp or email.
+4. **The gallery learns.** Every question GAID could not answer goes on the
+   curator's list. Nothing else about a visitor is kept.
 
 ## How we built it
-A static page and two serverless functions on Vercel. The gallery is read from
-its published Galleris file. Questions are answered in two steps: the
-gallery's own words by rule first, then Amazon Nova Lite through the Amazon
-Bedrock Converse API, given only that gallery's facts and told to say "the
-gallery has not said" rather than guess. Every failure falls back to the
-gallery's words.
+- **MCP server** (spec 2025-11-25, Streamable HTTP, stateless, official SDK)
+  with eight tools: `ask_work`, `find_work`, `whats_nearby`, `recall_visit`,
+  `where_next`, `look_closer`, `send_enquiry`, `visitor_questions`. The phone's
+  simulated Alexa+ calls it for every question.
+- **One brain** answers phone, TV and Echo Show alike: the gallery's own words
+  by rule first, then Amazon Nova Lite through the Bedrock Converse API, given
+  only that gallery's facts and told to say "the gallery has not said" rather
+  than guess. Nova also translates into Pidgin and Yoruba.
+- **A gateway**: GAID's server is the only door. The database functions need
+  GAID's own secret; the TV shows only words GAID's server has signed; every
+  caller is rate-limited.
+- **Phone ↔ TV** over a realtime channel named by the pairing code. Stores
+  nothing.
+- **Galleris galleries switch GAID on** (paid plans, off by default); GAID
+  reads only what a gallery has published.
+- Static pages and Node functions on Vercel. 87 automated tests; each guard
+  was proved by putting its bug back and watching the test fail.
 
 ## Challenges
-[TO FILL IN: what was hard for you two.]
+**[YOURS]** — e.g. keeping a voice guide from inventing a price; speech voices
+for Yoruba on ordinary phones; a design that does not look machine-made.
 
 ## Accomplishments
-A guide that cannot put words in a curator's mouth: 18 tests, including ones
-that fail if a missing fact is filled in or the instruction to stay inside the
-gallery's facts is removed.
+**[YOURS]** — suggestion: a guide that cannot put words in a curator's mouth,
+and a visit you take home in three words.
 
 ## What we learned
-[TO FILL IN.]
+**[YOURS]**
 
 ## What's next
-Real recordings from galleries in Lagos; Yoruba, Igbo and Hausa guides; and
-GAID inside every Galleris viewing room.
+Recorded voices from Lagos galleries; Igbo and Hausa; the Ask button inside
+every paid Galleris viewing room; a QR code on the TV.
 
 ## Built with
-Amazon Bedrock, Amazon Nova, AWS SDK for JavaScript, Vercel, JavaScript,
+Amazon Bedrock, Amazon Nova, Model Context Protocol, Alexa+ (simulated),
+Fire TV (web), Echo Show (web), Supabase Realtime, Vercel, JavaScript,
 Web Speech API, Galleris.
 
 ## Feedback on the Amazon tools
-[TO FILL IN from your own experience setting up Bedrock: what was easy, what
-was confusing, what you would change. Judges read this; it has to be yours.]
+**[YOURS]** — your own experience: Amazon Developer sign-in, the Devices
+Builder Tools MCP (`init-context`), Bedrock and Nova. What was easy, what was
+confusing, what you would change.
 
 ## Links
 - Code: https://github.com/Dharkstranger/gaid
-- Live: [Vercel link once deployed]
-- Video: [YouTube or Vimeo link, under 3 minutes]
+- Live: **[Vercel link]**
+- Video: **[YouTube link, public, under 3:00]**
 
 **Team:** Emeka Ugochukwu, Obianuju Nnadi (Hoo Socials Limited, Lagos)
