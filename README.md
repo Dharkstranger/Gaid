@@ -1,9 +1,11 @@
-# Gaid
+# GAID
+
+Said *guide*. [Design system](docs/design-system.md).
 
 **Ask the work in front of you.**
 
-Gaid is a voice guide for galleries. You stand in front of a painting and say
-*"Alexa, tell me about the work in front of me"*. Gaid answers with the
+GAID is a voice guide for galleries. You stand in front of a painting and say
+*"Alexa, tell me about the work in front of me"*. GAID answers with the
 gallery's own story of that work, plays the artist's or curator's recording if
 there is one, and takes follow-up questions: who made it, when, what it is made
 of, what else is in the room, and "say it in Yoruba".
@@ -19,7 +21,7 @@ nobody opens standing in front of the work.
 
 [Galleris](https://gallerismuseum.com) gives a gallery its own viewing room:
 every work with its picture, its story and an audio guide, opened from a code
-on the wall label. Gaid is that viewing room you can talk to.
+on the wall label. GAID is that viewing room you can talk to.
 
 ## How it works
 
@@ -37,14 +39,14 @@ on the wall label. Gaid is that viewing room you can talk to.
 
 1. **The gallery's own words answer first.** Most questions in a gallery are
    the same eight. Each has an exact answer in the gallery's published file, so
-   Gaid answers those by rule: instantly, at no cost, and never with anything
+   GAID answers those by rule: instantly, at no cost, and never with anything
    the curator did not write.
 2. **Amazon Nova answers the rest**, through the Bedrock Converse API. It is
    given only that gallery's facts and told to answer from them alone, to say
    "the gallery has not said" rather than guess, and to treat the visitor's
    words as a question, never as instructions.
 3. **Nothing in the plumbing turns a visitor away.** No key, a timeout, a
-   refusal: Gaid falls back to the gallery's own words.
+   refusal: GAID falls back to the gallery's own words.
 
 ## The screen beside the work
 
@@ -89,7 +91,7 @@ npm test                       # 27 tests, no network needed
 GALLERIS_LOCAL_DIR=fixtures npm run dev   # http://localhost:5173/?gallery=sample
 ```
 
-Without a key Gaid answers from the gallery's words only. To switch Amazon
+Without a key GAID answers from the gallery's words only. To switch Amazon
 Nova on, set one of these:
 
 | Setting | What |
@@ -107,7 +109,7 @@ in the code.
 
 ## Privacy
 
-Gaid stores nothing. A question goes to the server, is answered and is
+GAID stores nothing. A question goes to the server, is answered and is
 forgotten. The browser's own speech recognition turns your voice into words;
 in Chrome that service is Google's.
 

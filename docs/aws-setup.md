@@ -1,6 +1,6 @@
 # Switching Amazon Nova on
 
-About 20 minutes. Without this, Gaid still works and answers from the
+About 20 minutes. Without this, GAID still works and answers from the
 gallery's own words only.
 
 1. Sign in at <https://console.aws.amazon.com> with billing switched on.
@@ -11,7 +11,7 @@ gallery's own words only.
    to expire after the judging period (judging is reported as 9–20 November
    2026). Copy it once; it is not shown again.
    Amazon's guide: <https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys.html>
-5. In Vercel, open the Gaid project → **Settings → Environment Variables** and
+5. In Vercel, open the GAID project → **Settings → Environment Variables** and
    add `AWS_BEARER_TOKEN_BEDROCK` with the key as its value, for Production
    and Preview. Redeploy.
 6. Never paste the key into a chat, an email, the code or this repository.

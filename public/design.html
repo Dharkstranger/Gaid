@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAID design</title>
+<meta name="description" content="GAID, said “guide”. The design system: logo, colour, type, space, parts, words.">
+<meta name="theme-color" content="#14204A">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/design.css">
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
+  <p class="tag">Design system</p>
+</header>
+<main class="wrap ds">
+  <h1>GAID</h1>
+  <p class="lede">Said “guide”. Lagos made.</p>
+
+  <section aria-labelledby="h-logo">
+    <h2 id="h-logo">Logo</h2>
+    <div class="logos">
+      <div class="plate"><img src="/brand/gaid-wordmark.svg" alt="GAID logo, chalk on indigo" width="240" height="93"></div>
+      <div class="plate light"><img src="/brand/gaid-wordmark-ink.svg" alt="GAID logo, indigo on chalk" width="240" height="93"></div>
+      <div class="plate"><img src="/brand/gaid-icon.svg" alt="GAID app icon" width="96" height="96"></div>
+      <div class="plate"><img src="/brand/gaid-mark.svg" alt="GAID mark, the dot" width="64" height="64"></div>
+    </div>
+    <ul class="rules">
+      <li>The dot: adire, the voice. Always above the I.</li>
+      <li>Under 120 px wide: the mark, not the logo.</li>
+      <li>Clear space: one dot all round.</li>
+      <li>Never stretched, recoloured, outlined, or set in type.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-colour">
+    <h2 id="h-colour">Colour</h2>
+    <div class="grid">
+      <div class="sw"><i class="c-indigo"></i><b>Indigo</b>Ground</div>
+      <div class="sw"><i class="c-indigo-2"></i><b>Indigo 2</b>Surface</div>
+      <div class="sw"><i class="c-indigo-3"></i><b>Indigo 3</b>Raised</div>
+      <div class="sw"><i class="c-chalk"></i><b>Chalk</b>Text · 13.7:1</div>
+      <div class="sw"><i class="c-chalk-2"></i><b>Chalk 2</b>Quiet · 8.6:1</div>
+      <div class="sw"><i class="c-amber"></i><b>Amber</b>Voice · 7.6:1</div>
+      <div class="sw"><i class="c-amber-deep"></i><b>Amber deep</b>On chalk · 5.1:1</div>
+      <div class="sw"><i class="c-mount"></i><b>Mount</b>Under works</div>
+      <div class="sw"><i class="c-ok"></i><b>Done</b>9.5:1</div>
+      <div class="sw"><i class="c-alert"></i><b>Failed</b>8.2:1</div>
+    </div>
+    <div class="pair">
+      <div class="do"><b>Do</b>Works on the mount. Amber for the voice.</div>
+      <div class="dont"><b>Don’t</b>A work on indigo. Bright amber on chalk. A gallery’s colour.</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-type">
+    <h2 id="h-type">Type</h2>
+    <div class="steps">
+      <div class="step"><code>t-6 · 56</code><span class="ts-6">Eclipse</span></div>
+      <div class="step"><code>t-5 · 36</code><span class="ts-5">Compound wall</span></div>
+      <div class="step"><code>t-4 · 26</code><span class="ts-4">Adaeze Obi</span></div>
+      <div class="step"><code>t-3 · 20</code><span class="ts-3">The answer, read aloud.</span></div>
+      <div class="step"><code>t-2 · 16</code><span class="ts-2">Body, buttons, fields.</span></div>
+      <div class="step"><code>t-1 · 13</code><span class="ts-1">Labels, captions, legal.</span></div>
+    </div>
+    <p class="lede">Unbounded · titles. Work Sans · everything else.</p>
+  </section>
+
+  <section aria-labelledby="h-space">
+    <h2 id="h-space">Space</h2>
+    <div class="steps">
+      <div class="step"><code>s-1 · 4</code><span class="bar bw-1"></span></div>
+      <div class="step"><code>s-2 · 8</code><span class="bar bw-2"></span></div>
+      <div class="step"><code>s-3 · 12</code><span class="bar bw-3"></span></div>
+      <div class="step"><code>s-4 · 16</code><span class="bar bw-4"></span></div>
+      <div class="step"><code>s-5 · 24</code><span class="bar bw-5"></span></div>
+      <div class="step"><code>s-6 · 32</code><span class="bar bw-6"></span></div>
+      <div class="step"><code>s-7 · 48</code><span class="bar bw-7"></span></div>
+    </div>
+    <p class="lede">Tap: 44 · Radius: 0 mount, 6 parts, round dot</p>
+  </section>
+
+  <section aria-labelledby="h-parts">
+    <h2 id="h-parts">Parts</h2>
+    <div class="row-parts">
+      <button type="button" class="talk" data-state="idle"><span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Talk</span></button>
+      <button type="button" class="talk" data-state="listening"><span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Listening</span></button>
+      <button type="button" class="talk" data-state="speaking"><span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Speaking</span></button>
+    </div>
+    <div class="chips"><button type="button">Artist</button><button type="button">Date</button><button type="button">Size</button><button type="button">Yoruba</button></div>
+    <div class="ask"><label for="dsQ" class="sr">Question</label><input id="dsQ" placeholder="Ask this work"><button type="button" class="go">Ask</button></div>
+    <div class="said"><p class="you">You: Who made it?</p><p class="reply">Adaeze Obi. Painter working in oil and found pigment.</p><p class="source">Gallery’s words</p></div>
+  </section>
+
+  <section aria-labelledby="h-words">
+    <h2 id="h-words">Words</h2>
+    <ul class="rules">
+      <li>One word. Two words. A phrase.</li>
+      <li>Noun or verb, not a sentence.</li>
+      <li>Spoken answers: the gallery’s own words.</li>
+      <li>Written GAID. Said “guide”.</li>
+      <li>Never: invented facts, prices, owners.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-screens">
+    <h2 id="h-screens">Screens</h2>
+    <ul class="rules">
+      <li><a href="/?gallery=sample">Phone</a> · ask</li>
+      <li><a href="/screen.html?gallery=sample">Screen</a> · beside the work</li>
+    </ul>
+  </section>
+
+  <p class="foot">Not an Amazon product</p>
+</main>
+</body>
+</html>

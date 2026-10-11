@@ -1,9 +1,9 @@
-# Gaid: handover brief
+# GAID: handover brief
 
 Paste this into a new chat to carry on.
 
 ## The job
-Build and submit **Gaid** to the Amazon "Build, Ship, Shape" hackathon,
+Build and submit **GAID** to the Amazon "Build, Ship, Shape" hackathon,
 **Alexa+ track**, as a simulated Alexa+ experience in a web app.
 - Deadline: **23 October 2026, 12:00 Pacific = 20:00 Lagos.**
 - Entry needs: a public GitHub repo with an open-source licence (done: MIT),
@@ -13,16 +13,16 @@ Build and submit **Gaid** to the Amazon "Build, Ship, Shape" hackathon,
   simulated web app.
 - Team: Emeka Ugochukwu and Obianuju Nnadi, Hoo Socials Limited, Lagos.
 
-## What Gaid is
+## What GAID is
 A voice guide for galleries. You stand in front of a work and say "Alexa, tell
-me about the work in front of me". Gaid answers with the gallery's own story of
+me about the work in front of me". GAID answers with the gallery's own story of
 that work, plays the recording if there is one, and takes follow-ups: who made
 it, when, what it's made of, how big, where am I, what else is here, "take me
 to <title>", "say it in <language>".
 
 It reads a gallery published with Galleris (gallerismuseum.com), the owner's
 own product. The Galleris repository is private and must stay private; no
-Galleris code is copied into Gaid. Gaid reads only the public published file.
+Galleris code is copied into GAID. GAID reads only the public published file.
 
 ## Where the code is
 https://github.com/Dharkstranger/gaid, branch `main`. Already contains:
@@ -35,7 +35,7 @@ https://github.com/Dharkstranger/gaid, branch `main`. Already contains:
 - `lib/answer.js` — answers the common questions by rule from the gallery's words.
 - `lib/bedrock.js` — anything else goes to Amazon Nova Lite (`us.amazon.nova-lite-v1:0`)
   through the Bedrock Converse API, told to use ONLY that gallery's facts and to say
-  "the gallery has not said" rather than guess. Every failure returns null and Gaid
+  "the gallery has not said" rather than guess. Every failure returns null and GAID
   falls back to the gallery's words.
 - `lib/limit.js` — at most 20 model questions per caller per minute (`GAID_PER_MINUTE`).
 - `dev.mjs` — local server. `GALLERIS_LOCAL_DIR=fixtures npm run dev` → http://localhost:5173/?gallery=sample
@@ -63,7 +63,7 @@ Never paste a key into a chat, the code or the repo.
   wider than the screen, answers appear and are read aloud.
 
 ## Not done, in order
-1. **Owner:** Vercel → Add New → Project → import Gaid → Deploy. Note the link.
+1. **Owner:** Vercel → Add New → Project → import GAID → Deploy. Note the link.
 2. **Owner:** Amazon key, per `docs/aws-setup.md`, into Vercel; redeploy.
 3. **Check the live site:** `/?gallery=sample` loads 9 works; "Who made it?" answers
    "Adaeze Obi…" (from the gallery); "Why those colours?" shows "Answered by Amazon Nova".
@@ -79,7 +79,7 @@ Never paste a key into a chat, the code or the repo.
 ## Worth adding if there is time (in this order)
 - A recorded audio guide on one work, so the video plays a real voice, not the browser's.
 - A Yoruba translation on one work, so "say it in Yoruba" shows the real thing.
-  (Both live in the Galleris studio: record and translate there, publish, and Gaid reads them.)
+  (Both live in the Galleris studio: record and translate there, publish, and GAID reads them.)
 - A wall-label code on screen that opens `?at=<work id>`, to show the scan → ask moment.
 
 ## Rules to keep

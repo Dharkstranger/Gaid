@@ -1,9 +1,10 @@
-/* Gaid in the browser: show the work, listen, ask, speak the answer.
+/* GAID in the browser: show the work, listen, ask, speak the answer.
    Everything it knows comes from /api/gallery; everything it says comes from
    /api/ask. If the browser cannot listen, the question box does the job; if
    the server cannot answer, it says so plainly and the work stays on screen. */
 
-import { CHANNEL, strong } from '/scene.js';
+import { CHANNEL } from '/scene.js';
+import { W, spoken } from '/words.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -54,14 +55,18 @@ function show(work) {
   }
 }
 
-function setBar(s) { $('bar').dataset.state = s; }
+// One state for the voice: idle, listening or speaking. The talk button shows it.
+function setBar(s) {
+  const btn = $('talk');
+  btn.dataset.state = s;
+  $('talkWord').textContent = s === 'idle' ? W.talk : W[s];
+}
 
 function caption(you, reply, source) {
   $('you').hidden = !you; $('you').textContent = you ? `You: ${you}` : '';
   $('reply').textContent = reply;
   $('source').hidden = !source;
-  $('source').textContent = source === 'nova' ? 'Answered by Amazon Nova, from the gallery’s words.'
-    : source === 'gallery' ? 'From the gallery’s own words.' : '';
+  $('source').textContent = source === 'nova' ? W.fromNova : source === 'gallery' ? W.fromGallery : '';
 }
 
 /* ---------------------------------------------------------------- voice */
@@ -74,7 +79,7 @@ function stopTalking() {
 function speak(text) {
   if (!('speechSynthesis' in window) || !text) { setBar('idle'); return; }
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
+  const u = new SpeechSynthesisUtterance(spoken(text));
   u.lang = SPEECH[state.lang] || 'en-GB';
   const voice = speechSynthesis.getVoices().find((v) => v.lang?.toLowerCase().startsWith(u.lang.slice(0, 2)));
   if (voice) u.voice = voice;
@@ -103,7 +108,7 @@ async function ask(question) {
   const q = String(question || '').trim();
   if (!q || !state.gallery) return;
   stopTalking();
-  caption(q, 'Thinking…', '');
+  caption(q, W.thinking, '');
   let out = null;
   try {
     const res = await fetch('/api/ask', {
@@ -114,7 +119,7 @@ async function ask(question) {
     out = await res.json();
   } catch { out = null; }
   if (!out || out.ok !== true || typeof out.say !== 'string') {
-    caption(q, 'I could not reach the guide just now. The work is still here; try again in a moment.', '');
+    caption(q, W.offline, '');
     return;
   }
   const a = out.action;
@@ -147,7 +152,7 @@ function setupMic() {
     rec.interimResults = true;
     rec.maxAlternatives = 1;
     let finalText = '';
-    rec.onstart = () => { state.listening = true; btn.setAttribute('aria-pressed', 'true'); $('talkWord').textContent = 'Listening'; setBar('listening'); tellScreen({ type: 'listening' }); };
+    rec.onstart = () => { state.listening = true; btn.setAttribute('aria-pressed', 'true'); setBar('listening'); tellScreen({ type: 'listening' }); };
     rec.onresult = (e) => {
       const said = [...e.results].map((r) => r[0].transcript).join(' ');
       $('q').value = said;
@@ -155,7 +160,7 @@ function setupMic() {
     };
     rec.onerror = () => {};
     rec.onend = () => {
-      state.listening = false; btn.setAttribute('aria-pressed', 'false'); $('talkWord').textContent = 'Talk'; setBar('idle');
+      state.listening = false; btn.setAttribute('aria-pressed', 'false'); setBar('idle');
       if (finalText) { ask(finalText); $('q').value = ''; } else tellScreen({ type: 'idle' });
     };
     rec.start();
@@ -164,16 +169,15 @@ function setupMic() {
 
 /* ---------------------------------------------------------------- start */
 function chips() {
-  const asks = ['Alexa, tell me about the work in front of me', 'Who made it?', 'When was it made?', 'What else is here?'];
-  const other = state.gallery.languages.find((l) => l !== state.gallery.languages[0]);
-  if (other) asks.push(`Say it in ${other}`);
   const box = $('chips'); box.textContent = '';
-  for (const a of asks) {
+  const asks = [...W.chips];
+  const other = state.gallery.languages.find((l) => l !== state.gallery.languages[0]);
+  if (other) asks.push([other, W.sayIn(other)]);
+  for (const [label, question] of asks) {
     const b = document.createElement('button');
     b.type = 'button';
-    const words = a.replace(/^Alexa, /, '');
-    b.textContent = words[0].toUpperCase() + words.slice(1);
-    b.addEventListener('click', () => ask(a));
+    b.textContent = label;
+    b.addEventListener('click', () => ask(question));
     box.append(b);
   }
 }
@@ -189,7 +193,7 @@ function worksRow() {
     b.append(t, s);
     b.addEventListener('click', () => {
       stopTalking(); show(w);
-      const say = `You are in front of ${w.title}. Ask me about it.`;
+      const say = W.at(w.title);
       caption('', say, '');
       tellScreen({ type: 'answer', workId: w.id, topic: 'about', question: '', say });
     });
@@ -197,17 +201,26 @@ function worksRow() {
   }
 }
 
+// Every word on the page comes from words.js; the HTML only holds a fallback.
+function fillWords() {
+  for (const el of document.querySelectorAll('[data-w]')) {
+    const v = W[el.dataset.w];
+    if (typeof v === 'string') el.textContent = v;
+  }
+  $('q').placeholder = W.askHint;
+}
+
 async function start() {
+  fillWords();
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
   if (!data?.ok || !data.gallery) {
-    $('title').textContent = 'That gallery is not published.';
-    $('reply').textContent = 'Check the link name, or open the sample gallery.';
+    $('title').textContent = W.notFound;
+    $('reply').textContent = W.notFoundHint;
     return;
   }
   const g = state.gallery = data.gallery;
   state.lang = g.languages[0];
-  document.documentElement.style.setProperty('--accent', strong(g.accent));
   const sel = $('lang');
   for (const l of g.languages) { const o = document.createElement('option'); o.value = o.textContent = l; sel.append(o); }
   $('langWrap').hidden = g.languages.length < 2;
@@ -215,7 +228,7 @@ async function start() {
   worksRow();
   chips();
   show(g.works.find((w) => w.id === params.get('at')) ?? g.works[0] ?? null);
-  caption('', g.welcome || `Welcome to ${g.name}. Ask me about the work in front of you.`, '');
+  caption('', g.welcome || g.name, '');
   setupMic();
   $('askForm').addEventListener('submit', (e) => { e.preventDefault(); const v = $('q').value; $('q').value = ''; ask(v); });
 }

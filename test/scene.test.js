@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { yearOf, sizeOf, panelFor, strong } from '../public/scene.js';
+import { yearOf, sizeOf, panelFor } from '../public/scene.js';
 import { slim } from '../lib/gallery.js';
 import { answer } from '../lib/answer.js';
 
@@ -62,13 +62,6 @@ test('a panel the gallery has not written for falls back to the work', () => {
   assert.equal(panelFor(gallery, bare, 'artist').kind, 'about');
   assert.equal(panelFor(gallery, bare, 'size').kind, 'about');
   assert.equal(panelFor(gallery, bare, 'where').kind, 'about');
-});
-
-test('the accent is darkened until white text on it is readable', () => {
-  const lum = (hex) => hex.slice(1).match(/\w\w/g).map((x) => parseInt(x, 16) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-    .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
-  for (const c of ['#E2551F', '#F26B1D', '#FFD400']) assert.ok(1.05 / (lum(strong(c)) + 0.05) >= 4.5, c);
 });
 
 test('a room already called "The …" is not given a second "the"', () => {

@@ -1,0 +1,106 @@
+/* GAID design tokens. Said "guide".
+   Direction: Lagos made — adire indigo, palm amber, chalk.
+   Every colour, size, space, radius and duration on every GAID screen comes
+   from this file. A page that invents its own value is a bug: test/design.test.js
+   fails on it. Full guide: docs/design-system.md. Live: /design.html. */
+
+:root{
+  /* ---------------------------------------------------------------- colour: palette */
+  --indigo:        #14204A;  /* adire indigo — GAID's ground */
+  --indigo-2:      #1D2C5E;  /* surface on indigo */
+  --indigo-3:      #26376E;  /* raised, pressed, hover */
+  --indigo-line:   #3A4C8A;  /* dividers only — 1.9:1, never a control's edge */
+  --chalk:         #F4EFE4;  /* text on indigo; ground for print */
+  --chalk-2:       #B9BFD6;  /* quiet text on indigo, control edges (8.6:1) */
+  --amber:         #F0A43A;  /* palm amber — the voice: talk button, dot, focus */
+  --amber-deep:    #9A5205;  /* amber as text on chalk (5.1:1). Bright amber never sits on chalk */
+  --mount:         #E6E1D6;  /* the plate under every work. A work never sits on indigo */
+  --ink:           #14204A;  /* text on chalk or mount */
+  --ink-2:         #3E4A72;  /* quiet text on chalk or mount */
+  --ok:            #8FD9AE;  /* done, on indigo */
+  --alert:         #FFA494;  /* failed, on indigo */
+
+  /* ---------------------------------------------------------------- colour: roles */
+  --bg:            var(--indigo);
+  --surface:       var(--indigo-2);
+  --raised:        var(--indigo-3);
+  --text:          var(--chalk);
+  --text-2:        var(--chalk-2);
+  --line:          var(--indigo-line);
+  --edge:          var(--chalk-2);
+  --accent:        var(--amber);
+  --on-accent:     var(--indigo);
+  --focus:         var(--amber);
+  color-scheme: dark;
+
+  /* ---------------------------------------------------------------- type */
+  --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-body:    "Work Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* The scale. Six steps, no others. rem, so the TV scales it by its root size. */
+  --t-1: .8125rem;   /* 13 — labels, captions, legal */
+  --t-2: 1rem;       /* 16 — body, buttons */
+  --t-3: 1.25rem;    /* 20 — the answer */
+  --t-4: 1.625rem;   /* 26 — panel heads */
+  --t-5: 2.25rem;    /* 36 — titles */
+  --t-6: 3.5rem;     /* 56 — TV title, logo lockups */
+  --w-body: 400;
+  --w-strong: 600;
+  --w-display: 800;
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.5;
+  --track-label: .08em;
+  --track-display: -.02em;
+  --measure: 60ch;
+
+  /* ---------------------------------------------------------------- space (4-based) */
+  --s-1: .25rem;  /*  4 */
+  --s-2: .5rem;   /*  8 */
+  --s-3: .75rem;  /* 12 */
+  --s-4: 1rem;    /* 16 */
+  --s-5: 1.5rem;  /* 24 */
+  --s-6: 2rem;    /* 32 */
+  --s-7: 3rem;    /* 48 */
+  --gut: 16px;    /* side gutter, phone */
+  --page-max: 68rem;  /* widest a phone page's column gets */
+  --thumb-min: 8.5rem;/* narrowest a work card gets */
+  --room-min: 11rem;  /* narrowest a room card on the TV gets */
+
+  /* ---------------------------------------------------------------- shape */
+  --r-0: 0;        /* mounts and works: square, like a mat */
+  --r-1: 6px;      /* buttons, fields, cards */
+  --r-round: 999px;/* the dot, chips, the app icon's mark */
+  --b-1: 1px;
+  --b-2: 2px;
+  --b-focus: 3px;
+  --tap: 44px;     /* every control at least this, both ways */
+  --dot: 1.25rem;  /* the adire dot in the logo and the voice signal */
+
+  /* ---------------------------------------------------------------- motion */
+  --m-fast: 150ms;
+  --m-base: 300ms;
+  --m-slow: 600ms;
+  --ease: cubic-bezier(.2,.7,.2,1);
+
+  /* ---------------------------------------------------------------- texture */
+  /* Adire resist-dye dots, at 6% and 5% chalk: felt, not seen. Indigo grounds only. */
+  --adire:
+    radial-gradient(circle at 12px 12px, rgb(244 239 228 / .06) 3px, transparent 4px),
+    radial-gradient(circle at 12px 12px, transparent 7px, rgb(244 239 228 / .05) 8px, transparent 9px);
+  --adire-size: 24px 24px;
+}
+
+@media (min-width: 700px){ :root{ --gut: 28px; } }
+
+/* A part of the screen printed on chalk or mount: the roles flip, the brand stays. */
+.on-chalk{
+  --bg: var(--chalk); --surface: #FFFFFF; --raised: var(--mount);
+  --text: var(--ink); --text-2: var(--ink-2); --line: #D6D0C2; --edge: var(--ink-2);
+  --accent: var(--indigo); --on-accent: var(--chalk); --focus: var(--indigo);
+  color-scheme: light;
+}
+
+/* Reduced motion: every duration is zero, so nothing written against the tokens moves. */
+@media (prefers-reduced-motion: reduce){
+  :root{ --m-fast: 0ms; --m-base: 0ms; --m-slow: 0ms; }
+}

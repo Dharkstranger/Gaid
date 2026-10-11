@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="t">
+  <title id="t">GAID</title>
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#F0A43A" stroke-width="9"/>
+  <circle cx="32" cy="32" r="8" fill="#F0A43A"/>
+</svg>

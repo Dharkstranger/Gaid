@@ -5,7 +5,8 @@
 
    Every word on it is built with textContent: a gallery's file is somebody
    else's writing, and none of it is ever parsed as markup. */
-import { CHANNEL, panelFor, strong } from '/scene.js';
+import { CHANNEL, panelFor } from '/scene.js';
+import { W } from '/words.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -37,7 +38,7 @@ const draw = {
     box.append(el('h2', 'p-head', p.name));
     if (p.bio) box.append(el('p', 'p-text', p.bio));
     if (p.works.length) {
-      box.append(el('p', 'p-label', `Also by ${p.name}`));
+      box.append(el('p', 'p-label', W.moreBy(p.name)));
       const row = el('div', 'row');
       for (const w of p.works.slice(0, 4)) row.append(thumb(w));
       box.append(row);
@@ -47,7 +48,7 @@ const draw = {
 
   timeline(p) {
     const box = el('div', 'p-time');
-    box.append(el('p', 'p-label', `${state.gallery.name}, ${p.first} to ${p.last}`));
+    box.append(el('p', 'p-label', `${p.first}–${p.last}`));
     const row = el('ol', 'line');
     for (const w of p.works) {
       const li = el('li', w.id === state.work.id ? 'here' : '');
@@ -63,7 +64,7 @@ const draw = {
     box.append(el('h2', 'p-head', p.name));
     if (p.note) box.append(el('p', 'p-text', p.note));
     if (p.works.length) {
-      box.append(el('p', 'p-label', `Also in ${p.name.toLowerCase()}`));
+      box.append(el('p', 'p-label', W.moreIn(p.name)));
       const row = el('div', 'row');
       for (const w of p.works.slice(0, 4)) row.append(thumb(w));
       box.append(row);
@@ -110,7 +111,7 @@ const draw = {
     const t2 = add('text', { x: x + w / 2, y: 18, 'text-anchor': 'middle', class: 'lbl' }); t2.textContent = p.label;
 
     const box = el('div', 'p-scalebox');
-    box.append(svg, el('p', 'p-label', 'Drawn to scale beside a person 1.7 m tall'));
+    box.append(svg, el('p', 'p-label', `${W.toScale} · ${W.person}`));
     return box;
   },
 
@@ -122,7 +123,7 @@ const draw = {
       const card = el('section', here ? 'room here' : 'room');
       const head = el('h2', 'room-name', r.name);
       card.append(head);
-      card.append(el('p', 'room-floor', [r.floor, here ? 'You are here' : ''].filter(Boolean).join(' · ')));
+      card.append(el('p', 'room-floor', [r.floor, here ? W.here : ''].filter(Boolean).join(' · ')));
       const row = el('div', 'row small');
       for (const w of r.works.slice(0, 4)) row.append(thumb(w, w.id === state.work.id));
       card.append(row);
@@ -171,7 +172,7 @@ function caption(you, reply) {
 function receive(m) {
   if (!m || typeof m !== 'object' || !state.gallery) return;
   if (m.slug && m.slug !== slug) return;            // a different gallery's phone
-  if (m.type === 'listening') { $('reply').hidden = false; state.before = [$('you').dataset.q ?? '', $('reply').textContent]; caption('', 'Listening…'); return; }
+  if (m.type === 'listening') { $('reply').hidden = false; state.before = [$('you').dataset.q ?? '', $('reply').textContent]; caption('', W.tvListening); return; }
   if (m.type === 'idle') { if (state.before) caption(...state.before); state.before = null; return; }
   if (m.type !== 'answer') return;
   const work = state.gallery.works.find((w) => w.id === m.workId);
@@ -182,17 +183,17 @@ function receive(m) {
 }
 
 async function start() {
+  for (const n of document.querySelectorAll('[data-w]')) { const v = W[n.dataset.w]; if (typeof v === 'string') n.textContent = v; }
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
   if (!data?.ok || !data.gallery) {
-    $('title').textContent = 'That gallery is not published.';
+    $('title').textContent = W.notFound;
     return;
   }
   state.gallery = data.gallery;
-  document.documentElement.style.setProperty('--accent', strong(data.gallery.accent));
   showWork(data.gallery.works.find((w) => w.id === params.get('at')) ?? data.gallery.works[0] ?? null);
   showPanel('about');
-  caption('', 'Ask Gaid about this work.');
+  caption('', W.tvAsk);
 
   if ('BroadcastChannel' in window) {
     const ch = new BroadcastChannel(CHANNEL);

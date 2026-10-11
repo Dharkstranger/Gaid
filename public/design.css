@@ -1,0 +1,47 @@
+/* The design page itself. Values from tokens.css only. */
+.ds section{margin-top:var(--s-7);display:flex;flex-direction:column;gap:var(--s-4)}
+.ds h1{margin:var(--s-5) 0 0;font:var(--w-display) var(--t-6)/var(--lh-tight) var(--font-display);letter-spacing:var(--track-display)}
+.ds h2{margin:0;font:var(--w-display) var(--t-4)/var(--lh-snug) var(--font-display)}
+.ds .lede{margin:0;color:var(--text-2);font-size:var(--t-3)}
+.ds .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--thumb-min),1fr));gap:var(--s-3)}
+.ds .sw{display:flex;flex-direction:column;gap:var(--s-1);font-size:var(--t-1);color:var(--text-2)}
+.ds .sw i{display:block;aspect-ratio:3/2;max-width:100%;border:var(--b-1) solid var(--line);border-radius:var(--r-1)}
+.ds .sw b{color:var(--text);font-weight:var(--w-strong)}
+.ds .logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--room-min),1fr));gap:var(--s-3)}
+.ds .plate{display:flex;align-items:center;justify-content:center;padding:var(--s-6);border-radius:var(--r-1);background:var(--surface);min-height:calc(var(--tap) * 3)}
+.ds .plate.light{background:var(--chalk)}
+.ds .plate img{max-width:100%;height:auto}
+.ds .steps{display:flex;flex-direction:column;gap:var(--s-2)}
+.ds .step{display:flex;align-items:baseline;gap:var(--s-4);border-bottom:var(--b-1) solid var(--line);padding-bottom:var(--s-2);min-width:0}
+.ds .step code{flex:none;width:calc(var(--s-7) * 2);color:var(--text-2);font-size:var(--t-1)}
+.ds .step span{min-width:0;overflow-wrap:anywhere}
+.ds .bar{display:block;height:var(--s-3);background:var(--accent);border-radius:var(--r-round)}
+.ds .row-parts{display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center}
+.ds .rules{margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-2);max-width:var(--measure)}
+.ds .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-3)}
+@media (max-width:600px){.ds .pair{grid-template-columns:minmax(0,1fr)}}
+.ds .do,.ds .dont{padding:var(--s-4);border-radius:var(--r-1);background:var(--surface);display:flex;flex-direction:column;gap:var(--s-1)}
+.ds .do b{color:var(--ok)}.ds .dont b{color:var(--alert)}
+.ds .c-indigo{background:var(--indigo)}
+.ds .c-indigo-2{background:var(--indigo-2)}
+.ds .c-indigo-3{background:var(--indigo-3)}
+.ds .c-chalk{background:var(--chalk)}
+.ds .c-chalk-2{background:var(--chalk-2)}
+.ds .c-amber{background:var(--amber)}
+.ds .c-amber-deep{background:var(--amber-deep)}
+.ds .c-mount{background:var(--mount)}
+.ds .c-ok{background:var(--ok)}
+.ds .c-alert{background:var(--alert)}
+.ds .ts-6{font:var(--w-display) var(--t-6)/var(--lh-tight) var(--font-display)}
+.ds .ts-5{font:var(--w-display) var(--t-5)/var(--lh-tight) var(--font-display)}
+.ds .ts-4{font:var(--w-display) var(--t-4)/var(--lh-snug) var(--font-display)}
+.ds .ts-3{font-size:var(--t-3)}
+.ds .ts-2{font-size:var(--t-2)}
+.ds .ts-1{font-size:var(--t-1)}
+.ds .bw-1{width:var(--s-1)}
+.ds .bw-2{width:var(--s-2)}
+.ds .bw-3{width:var(--s-3)}
+.ds .bw-4{width:var(--s-4)}
+.ds .bw-5{width:var(--s-5)}
+.ds .bw-6{width:var(--s-6)}
+.ds .bw-7{width:var(--s-7)}

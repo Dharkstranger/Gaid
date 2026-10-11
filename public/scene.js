@@ -8,24 +8,6 @@
 
 export const CHANNEL = 'gaid-screen';
 
-/* ---------------------------------------------------------------- colour */
-function lum(hex) {
-  const c = hex.match(/\w\w/g).map((x) => parseInt(x, 16) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
-}
-
-/** The gallery's accent, darkened until white text on it clears 4.5:1. */
-export function strong(hex) {
-  let [r, g, b] = hex.slice(1).match(/\w\w/g).map((x) => parseInt(x, 16));
-  for (let i = 0; i < 40; i += 1) {
-    const h = '#' + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
-    if (1.05 / (lum(h) + 0.05) >= 4.5) return h;
-    r *= 0.92; g *= 0.92; b *= 0.92;
-  }
-  return '#14120E';
-}
-
 /** The first year in a date as the gallery wrote it ("c. 1950", "1974–76"), or null. */
 export function yearOf(s) {
   const m = String(s ?? '').match(/\b(\d{3,4})\b/);

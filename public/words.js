@@ -1,0 +1,58 @@
+/* Every word GAID puts on a screen. Said "guide".
+
+   The rule (the owner's): one word if you can, two words, a phrase. A noun or
+   a verb before a sentence. test/words.test.js holds every label to it.
+   What GAID SAYS aloud is the gallery's own words, and is not in here. */
+
+export const W = {
+  name: 'GAID',
+  said: 'Guide',               // what a speech engine is given instead of the name
+
+  // phone
+  tag: 'Simulated Alexa+',
+  talk: 'Talk',
+  listening: 'Listening',
+  speaking: 'Speaking',
+  question: 'Question',
+  askHint: 'Ask this work',
+  ask: 'Ask',
+  thinking: 'Thinking…',
+  offline: 'Offline. Try again.',
+  language: 'Language',
+  openScreen: 'Open screen',
+  works: 'Works',
+  fromGallery: 'Gallery’s words',
+  fromNova: 'Nova · gallery’s words',
+  notFound: 'Gallery not found',
+  notFoundHint: 'Try ?gallery=sample',
+  at: (title) => `At ${title}`,
+  foot: 'Not an Amazon product · Answers: gallery’s words, then Amazon Nova · Speech: your browser',
+
+  // the chips: a short label, and the question it asks
+  chips: [
+    ['About', 'Tell me about the work in front of me'],
+    ['Artist', 'Who made it?'],
+    ['Date', 'When was it made?'],
+    ['Material', 'What is it made of?'],
+    ['Size', 'How big is it?'],
+    ['Nearby', 'What else is here?'],
+  ],
+  sayIn: (lang) => `Say it in ${lang}`,
+
+  // the screen beside the work
+  tvWait: 'Waiting…',
+  tvAsk: 'Ask GAID',
+  tvListening: 'Listening…',
+  moreBy: (name) => `More by ${name}`,
+  moreIn: (medium) => `More in ${medium}`,
+  toScale: 'To scale',
+  person: 'Person, 1.7 m',
+  here: 'You are here',
+  noPicture: 'No picture',
+  tvFoot: 'Simulated Fire TV · Not an Amazon product',
+};
+
+/** Text for a speech engine: the name as it is said. */
+export function spoken(text) {
+  return String(text ?? '').replace(/\bGAID\b/gi, W.said);
+}

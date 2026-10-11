@@ -2,7 +2,7 @@
 
 Fields as the Devpost form usually asks them. Check each against the live form.
 
-**Name:** Gaid
+**Name:** GAID
 
 **Tagline:** Ask the work in front of you.
 
@@ -13,11 +13,11 @@ In Lagos, a gallery's catalogue is a PDF sent on WhatsApp, and the wall label
 carries about forty words. The story of the work is known by the artist and
 the curator and almost nobody else in the room. We already build Galleris,
 which gives a gallery its own viewing room opened from a code on the wall.
-Gaid is that viewing room you can talk to.
+GAID is that viewing room you can talk to.
 
 ## What it does
 Stand in front of a work and say "Alexa, tell me about the work in front of
-me". Gaid answers with the gallery's own story, plays the artist's recording
+me". GAID answers with the gallery's own story, plays the artist's recording
 when there is one, and takes follow-ups: who made it, when, what it is made
 of, what else is in the room, "take me to" another work, and "say it in" one
 of the gallery's languages.
@@ -43,7 +43,7 @@ gallery's facts is removed.
 
 ## What's next
 Real recordings from galleries in Lagos; Yoruba, Igbo and Hausa guides; and
-Gaid inside every Galleris viewing room.
+GAID inside every Galleris viewing room.
 
 ## Built with
 Amazon Bedrock, Amazon Nova, AWS SDK for JavaScript, Vercel, JavaScript,

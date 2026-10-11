@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -40 360 140" width="360" height="140" role="img" aria-labelledby="t">
+  <title id="t">GAID</title>
+  <path d="M76.2 23.8A37 37 0 1 0 87 50H52" fill="none" stroke="#F4EFE4" stroke-width="26"/>
+  <path fill="#F4EFE4" fill-rule="evenodd" d="M114 100 150 0h28l36 100Zm42.4-40 7.6-21.1 7.6 21.1Zm-14.4 40 7.9-22h28.2l7.9 22Z"/>
+  <rect x="228" y="0" width="28" height="100" fill="#F4EFE4"/>
+  <path fill="#F4EFE4" fill-rule="evenodd" d="M270 0h40a50 50 0 0 1 0 100h-40Zm26 26h14a24 24 0 0 1 0 48h-14Z"/>
+  <circle cx="242" cy="-23" r="13" fill="none" stroke="#F0A43A" stroke-width="7"/><circle cx="242" cy="-23" r="5.5" fill="#F0A43A"/>
+</svg>

@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gaid screen</title>
-<meta name="description" content="The screen beside the work. It shows what the visitor just asked Gaid about.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap">
+<title>GAID screen</title>
+<meta name="description" content="GAID, said “guide”. The screen beside the work.">
+<meta name="theme-color" content="#14204A">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/screen.css">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 </head>
@@ -14,12 +15,12 @@
 <main class="tv" aria-label="Screen beside the work">
   <figure class="mount">
     <img id="art" alt="">
-    <p id="noart" class="noart" hidden>No picture</p>
+    <p id="noart" class="noart" hidden data-w="noPicture">No picture</p>
   </figure>
 
   <section class="side">
     <p id="where" class="where"></p>
-    <h1 id="title" class="title">Waiting for the guide…</h1>
+    <h1 id="title" class="title" data-w="tvWait">Waiting…</h1>
     <p id="meta" class="meta"></p>
     <div id="panel" class="panel"></div>
   </section>
@@ -30,8 +31,8 @@
   </section>
 
   <footer class="foot">
-    <span><img src="/icon.svg" alt="" width="20" height="20"> Gaid</span>
-    <span>Simulated Fire TV screen · Not an Amazon product</span>
+    <img src="/brand/gaid-wordmark.svg" alt="GAID" width="72" height="28">
+    <span data-w="tvFoot">Simulated Fire TV · Not an Amazon product</span>
   </footer>
 </main>
 <script type="module" src="/screen.js"></script>
