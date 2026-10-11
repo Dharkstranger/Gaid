@@ -2,82 +2,98 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GAID</title>
-<meta name="description" content="GAID, said “guide”. Ask the work in front of you.">
+<meta name="description" content="GAID, said “guide”. Look and listen: the work in front of you, in the gallery's own words.">
 <meta name="theme-color" content="#14204A">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/phone.css">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top wrap">
-  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
-  <p class="tag" data-w="tag">Simulated Alexa+</p>
-</header>
-
-<main class="wrap">
-  <section class="stage" aria-label="The work">
-    <figure class="mount">
-      <img id="art" alt="">
-      <p id="noart" class="noart" hidden data-w="noPicture">No picture</p>
-    </figure>
-    <div class="words">
-      <p id="where" class="where"></p>
-      <h1 id="title" class="title">GAID</h1>
-      <p id="meta" class="meta"></p>
-      <div class="said" aria-live="polite">
-        <p id="you" class="you" hidden></p>
-        <p id="reply" class="reply"></p>
-        <p id="source" class="source" hidden></p>
-      </div>
+<main class="v" aria-label="GAID">
+  <h1 id="h1" class="sr">GAID</h1>
+  <header class="v-top">
+    <a class="v-mark" href="/about" data-aria="about"><img src="/brand/gaid-mark.svg" alt="" width="32" height="32"></a>
+    <div class="v-tools">
+      <button id="cc" class="v-icon" type="button" aria-pressed="false" data-aria="captions">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M10 10.2a2.5 2.5 0 1 0 0 3.6M17 10.2a2.5 2.5 0 1 0 0 3.6"/></svg>
+      </button>
+      <button id="pair" class="v-icon" type="button" aria-expanded="false" aria-controls="pairSheet" data-aria="pairScreen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+        <span id="paired" class="v-dot" hidden></span>
+      </button>
     </div>
+  </header>
+
+  <figure id="mount" class="v-mount">
+    <img id="art" alt="">
+  </figure>
+
+  <p id="cap" class="v-cap" aria-live="polite" hidden></p>
+
+  <nav class="v-dock" aria-label="GAID">
+    <button id="look" class="v-icon v-side" type="button" data-aria="look">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8v6M8 11h6"/></svg>
+    </button>
+    <button id="lang" class="v-icon v-side" type="button" data-aria="language">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+      <span id="langDots" class="v-dots" aria-hidden="true"></span>
+    </button>
+    <button id="talk" class="v-talk" type="button" aria-pressed="false" data-state="idle" data-aria="talk">
+      <svg class="v-mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      <span class="v-voice" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    </button>
+    <button id="next" class="v-icon v-side" type="button" data-aria="next">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button id="home" class="v-icon v-side" type="button" data-aria="home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    </button>
+  </nav>
+
+  <div id="works" class="v-strip" role="group" data-aria="works"></div>
+
+  <!-- Browsers play no sound before a tap: the first thing is one big ▶. -->
+  <button id="start" class="v-start" type="button" data-aria="listen">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+
+  <section id="nextSheet" class="v-sheet" hidden aria-label="Where next">
+    <button id="goNext" class="v-next" type="button">
+      <span class="v-thumb"><img id="nextArt" alt=""></span>
+      <svg class="v-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <button class="v-icon" type="button" data-close="nextSheet" data-aria="close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
   </section>
 
-  <section class="controls" aria-label="Ask">
-    <button id="talk" class="talk" type="button" aria-pressed="false" data-state="idle">
-      <span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span id="talkWord" data-w="talk">Talk</span>
-    </button>
-    <form id="askForm" class="ask">
-      <label for="q" class="sr" data-w="question">Question</label>
-      <input id="q" name="q" type="text" maxlength="300" autocomplete="off" placeholder="Ask this work">
-      <button type="submit" class="go" data-w="ask">Ask</button>
-    </form>
-    <div id="chips" class="chips" role="group" aria-label="Ask about"></div>
-    <div class="row">
-      <label id="langWrap" class="lang" hidden><span data-w="language">Language</span>
-        <select id="lang"></select>
-      </label>
-      <label class="pair"><span data-w="screen">Screen</span>
-        <input id="room" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="Code">
-      </label>
-      <a id="toScreen" class="to-screen" href="/screen.html" target="_blank">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
-        <span data-w="openScreen">Open screen</span>
+  <section id="homeSheet" class="v-sheet v-home" hidden aria-label="Take home">
+    <div id="homeWorks" class="v-three"></div>
+    <div class="v-row">
+      <button id="hearAgain" class="v-icon" type="button" data-aria="hearAgain">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg>
+      </button>
+      <a id="share" class="v-icon" href="/home" target="_blank" rel="noopener" data-aria="share">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.9l7.6-3.8M8.2 13.1l7.6 3.8"/></svg>
       </a>
+      <button class="v-icon" type="button" data-close="homeSheet" data-aria="close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </section>
 
-  <section class="home-panel" aria-labelledby="homeH">
-    <button id="takeHome" class="go take" type="button" aria-expanded="false" aria-controls="homeBox">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
-      <span id="homeH" data-w="takeHome">Take home</span>
+  <section id="pairSheet" class="v-sheet" hidden aria-label="Pair a screen">
+    <svg class="v-scan" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><path d="M2 12h20"/></svg>
+    <label class="sr" for="room" data-w="screen">Screen</label>
+    <input id="room" class="v-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
+    <button class="v-icon" type="button" data-close="pairSheet" data-aria="close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <div id="homeBox" class="home-box" hidden>
-      <p class="label" data-w="visitCode">Visit code</p>
-      <p id="visitCode" class="visit-code"></p>
-      <a id="toHome" class="to-screen" href="/home" data-w="openHome">Open at home</a>
-    </div>
   </section>
 
-  <section class="walk" aria-labelledby="walkH">
-    <h2 id="walkH" data-w="works">Works</h2>
-    <div id="works" class="works"></div>
-  </section>
-
-  <p class="foot" data-w="foot">Not an Amazon product</p>
   <audio id="clip" preload="none"></audio>
 </main>
 <script type="module" src="/app.js"></script>

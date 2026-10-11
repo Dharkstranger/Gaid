@@ -31,15 +31,23 @@ function thumb(work, current = false) {
 
 /* -------------------------------------------------------------- panels */
 const draw = {
-  // The story itself, large, where a panel would otherwise be empty.
-  about(p, say) { return say ? el('p', 'p-story', say) : null; },
+  // No words on the TV (docs/product.md): the work speaks through the phone.
+  about() { return null; },
+
+  // Where next: this work, an arrow, the next one — larger, because it is where they are going.
+  next(p) {
+    const box = el('div', 'p-next');
+    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    arrow.setAttribute('viewBox', '0 0 24 24'); arrow.setAttribute('class', 'p-arrow'); arrow.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); path.setAttribute('d', 'M4 12h14M13 6l6 6-6 6');
+    arrow.append(path);
+    box.append(thumb(state.work), arrow, thumb(p.work, true));
+    return box;
+  },
 
   artist(p) {
     const box = el('div', 'p-artist');
-    box.append(el('h2', 'p-head', p.name));
-    if (p.bio) box.append(el('p', 'p-text', p.bio));
     if (p.works.length) {
-      box.append(el('p', 'p-label', W.moreBy(p.name)));
       const row = el('div', 'row');
       for (const w of p.works.slice(0, 4)) row.append(thumb(w));
       box.append(row);
@@ -62,10 +70,7 @@ const draw = {
 
   medium(p) {
     const box = el('div', 'p-medium');
-    box.append(el('h2', 'p-head', p.name));
-    if (p.note) box.append(el('p', 'p-text', p.note));
     if (p.works.length) {
-      box.append(el('p', 'p-label', W.moreIn(p.name)));
       const row = el('div', 'row');
       for (const w of p.works.slice(0, 4)) row.append(thumb(w));
       box.append(row);
@@ -151,9 +156,10 @@ function showWork(work) {
   }
 }
 
-function showPanel(topic, say = '') {
+function showPanel(topic, say = '', next = null) {
   const panel = $('panel');
-  const p = panelFor(state.gallery, state.work, topic);
+  zoom(null);
+  const p = topic === 'next' && next ? { kind: 'next', work: next } : panelFor(state.gallery, state.work, topic);
   panel.textContent = '';
   panel.dataset.kind = p.kind;
   const node = draw[p.kind]?.(p, say);
@@ -179,8 +185,33 @@ async function opened(token) {
   } catch { return null; }
 }
 
+// Look closer, on the big screen too: the picture moves to the same box.
+function zoom(box) {
+  const s = $('art').style;
+  if (!box || !(box.w < 0.99)) { s.setProperty('--z', 1); s.setProperty('--tx', '0%'); s.setProperty('--ty', '0%'); return; }
+  const n = (v) => Math.min(1, Math.max(0, Number(v) || 0));
+  const b = { x: n(box.x), y: n(box.y), w: Math.max(0.1, n(box.w)), h: Math.max(0.1, n(box.h)) };
+  s.setProperty('--z', Math.min(3, 1 / Math.max(b.w, b.h)).toFixed(3));
+  s.setProperty('--tx', `${((0.5 - (b.x + b.w / 2)) * 100).toFixed(1)}%`);
+  s.setProperty('--ty', `${((0.5 - (b.y + b.h / 2)) * 100).toFixed(1)}%`);
+}
+
 async function receive(m) {
   if (!m || typeof m !== 'object' || !state.gallery) return;
+  if (m.type === 'look') {                     // numbers only: nothing a stranger could write on the screen
+    const work = state.gallery.works.find((w) => w.id === m.workId);
+    if (work && work !== state.work) showWork(work);
+    showPanel('about', ''); zoom(m.box ?? null);
+    return;
+  }
+  if (m.type === 'next') {
+    const work = state.gallery.works.find((w) => w.id === m.workId);
+    const next = state.gallery.works.find((w) => w.id === m.nextId);
+    if (!work || !next) return;
+    if (work !== state.work) showWork(work);
+    showPanel('next', '', next);
+    return;
+  }
   if (m.slug && m.slug !== slug) return;            // a different gallery's phone
   if (m.type === 'listening') { $('reply').hidden = false; state.before = [$('you').dataset.q ?? '', $('reply').textContent]; caption('', W.tvListening); return; }
   if (m.type === 'idle') { if (state.before) caption(...state.before); state.before = null; return; }
@@ -200,6 +231,8 @@ async function receive(m) {
 }
 
 async function start() {
+  // Captions on the big screen only when the venue asks for them: /screen?cc=1
+  if (params.get('cc') === '1') document.body.classList.add('cc');
   for (const n of document.querySelectorAll('[data-w]')) { const v = W[n.dataset.w]; if (typeof v === 'string') n.textContent = v; }
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
@@ -222,7 +255,10 @@ async function start() {
   const room = CODE.test(asked) ? asked : newCode();
   const here = new URLSearchParams(location.search); here.set('room', room);
   history.replaceState(null, '', `?${here}`);
-  $('code').textContent = `${W.pair} · ${room}`;
+  // The code, beside a phone: no word needed. Its name is for a screen reader.
+  $('code').innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>';
+  $('code').append(room);
+  $('code').setAttribute('aria-label', `${W.pair} ${room}`);
   const relay = openRelay({ topic: topicFor(slug, room), onMessage: receive });
   relay.send({ type: 'hello', slug });
 }

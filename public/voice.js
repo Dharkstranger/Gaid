@@ -1,15 +1,35 @@
-/* Listening and speaking, for any GAID page. The browser's own speech: the
-   page says so in its foot. GAID is said "guide" (spoken()). */
+/* Listening and speaking, for any GAID page. The browser's own speech.
+   GAID is said "guide" (spoken()). */
 import { spoken } from './words.js';
 
 const Recognition = globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition;
 export const canListen = Boolean(Recognition);
 
+/* The language tag a speech engine knows each language by. Nigerian Pidgin
+   is written in English spelling, so an English voice reads it well enough;
+   Yoruba, Igbo and Hausa are not, and are never read by an English voice. */
+export const BCP = { English: 'en-GB', Pidgin: 'en-NG', Yoruba: 'yo-NG', Igbo: 'ig-NG', Hausa: 'ha-NG', French: 'fr-FR' };
+const LOOSE = new Set(['English', 'Pidgin']);
+
+const voices = () => globalThis.speechSynthesis?.getVoices?.() ?? [];
+globalThis.speechSynthesis?.addEventListener?.('voiceschanged', () => {});
+
+/** A voice for the language, or null if this phone has none. */
+export function voiceFor(lang) {
+  const tag = (BCP[lang] ?? lang ?? 'en-GB').toLowerCase();
+  const all = voices();
+  return all.find((v) => v.lang?.toLowerCase() === tag)
+    ?? all.find((v) => v.lang?.toLowerCase().startsWith(tag.slice(0, 2)))
+    ?? (LOOSE.has(lang) ? all.find((v) => v.lang?.toLowerCase().startsWith('en')) : null)
+    ?? null;
+}
+export const canSpeak = (lang) => Boolean(globalThis.speechSynthesis) && (LOOSE.has(lang) || Boolean(voiceFor(lang)));
+
 /** Listen once. onState('listening'|'idle'); onText(final words). Returns stop(). */
-export function listen({ lang = 'en-GB', onText, onHeard, onState }) {
+export function listen({ lang = 'English', onText, onHeard, onState }) {
   if (!Recognition) return () => {};
   const rec = new Recognition();
-  rec.lang = lang; rec.interimResults = true; rec.maxAlternatives = 1;
+  rec.lang = BCP[lang] ?? 'en-GB'; rec.interimResults = true; rec.maxAlternatives = 1;
   let said = '';
   rec.onstart = () => onState?.('listening');
   rec.onresult = (e) => {
@@ -23,18 +43,22 @@ export function listen({ lang = 'en-GB', onText, onHeard, onState }) {
   return () => { try { rec.stop(); } catch { /* already */ } };
 }
 
-/** Say it aloud. onState('speaking'|'idle'). */
-export function say(text, { lang = 'en-GB', onState } = {}) {
-  const synth = globalThis.speechSynthesis;
-  if (!synth || !text) { onState?.('idle'); return; }
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(spoken(text));
-  u.lang = lang; u.rate = 0.96;
-  const v = synth.getVoices().find((x) => x.lang?.toLowerCase().startsWith(lang.slice(0, 2)));
-  if (v) u.voice = v;
-  u.onstart = () => onState?.('speaking');
-  u.onend = u.onerror = () => onState?.('idle');
-  synth.speak(u);
+/** Say it aloud; resolves when it has been said (or could not be). */
+export function say(text, { lang = 'English', onState } = {}) {
+  return new Promise((done) => {
+    const synth = globalThis.speechSynthesis;
+    if (!synth || !text) { onState?.('idle'); done(); return; }
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(spoken(text));
+    u.lang = BCP[lang] ?? 'en-GB'; u.rate = 0.96;
+    const v = voiceFor(lang);
+    if (v) u.voice = v;
+    u.onstart = () => onState?.('speaking');
+    u.onend = u.onerror = () => { onState?.('idle'); done(); };
+    synth.speak(u);
+    // Some engines never fire onend for a cancelled line: do not wait forever.
+    setTimeout(done, 1200 + String(text).length * 90);
+  });
 }
 
 export function hush() { globalThis.speechSynthesis?.cancel(); }

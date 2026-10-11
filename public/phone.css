@@ -1,0 +1,105 @@
+/* GAID on a phone, voice-first: the work, one voice, a handful of icons.
+   No words on screen — captions only when asked for. Values from tokens.css. */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;height:100%}
+body{background-color:var(--bg);background-image:var(--adire);background-size:var(--adire-size);color:var(--text);
+  font:var(--w-body) var(--t-2)/var(--lh-body) var(--font-body)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:var(--b-focus) solid var(--focus);outline-offset:var(--b-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.v{position:relative;height:100%;min-height:100dvh;max-width:var(--page-max);margin:0 auto;display:flex;flex-direction:column;gap:var(--s-3);
+  padding-top:calc(env(safe-area-inset-top, 0px) + var(--s-3));padding-bottom:calc(env(safe-area-inset-bottom, 0px) + var(--s-3));
+  padding-left:var(--gut);padding-right:var(--gut)}
+
+/* ---------------------------------------------------------------- top */
+.v-top{display:flex;align-items:center;justify-content:space-between}
+.v-mark{display:flex;align-items:center;justify-content:center;min-width:var(--tap);min-height:var(--tap)}
+.v-tools{display:flex;gap:var(--s-2)}
+
+/* ---------------------------------------------------------------- icons */
+.v-icon{position:relative;display:inline-flex;color:var(--text);text-decoration:none;align-items:center;justify-content:center;min-width:var(--tap);min-height:var(--tap);
+  padding:0;border:var(--b-1) solid var(--edge);border-radius:var(--r-round);background:transparent;cursor:pointer;
+  transition:background-color var(--m-fast) var(--ease),color var(--m-fast) var(--ease)}
+.v-icon svg{width:var(--s-5);height:var(--s-5);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.v-icon:hover{background:var(--raised)}
+.v-icon[aria-pressed="true"]{background:var(--chalk);color:var(--ink);border-color:var(--chalk)}
+.v-dot{position:absolute;top:var(--s-1);right:var(--s-1);width:var(--s-2);height:var(--s-2);border-radius:var(--r-round);background:var(--accent)}
+.v-dot[hidden]{display:none}
+
+/* ---------------------------------------------------------------- the work */
+.v-mount{flex:1;min-height:0;margin:0;background:var(--mount);border-radius:var(--r-0);display:flex;align-items:center;justify-content:center;
+  padding:7%;overflow:hidden}
+/* The image's own box is the picture, so Look closer can move to a part of it. */
+.v-mount img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;
+  transform:scale(var(--z, 1)) translate(var(--tx, 0%), var(--ty, 0%));transform-origin:50% 50%;
+  transition:transform calc(var(--m-slow) * 2) var(--ease)}
+
+/* ---------------------------------------------------------------- captions */
+.v-cap{margin:0;padding:var(--s-3) var(--s-4);background:var(--surface);border-radius:var(--r-1);font-size:var(--t-3);line-height:var(--lh-snug);
+  max-height:calc(var(--t-3) * 5);overflow:auto}
+.v-cap[hidden]{display:none}
+
+/* ---------------------------------------------------------------- the dock */
+.v-dock{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2)}
+.v-side{min-width:calc(var(--tap) + var(--s-2));min-height:calc(var(--tap) + var(--s-2))}
+.v-talk{position:relative;display:inline-flex;align-items:center;justify-content:center;width:calc(var(--tap) * 2 - var(--s-2));height:calc(var(--tap) * 2 - var(--s-2));
+  padding:0;border:0;border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
+  transition:background-color var(--m-fast) var(--ease),box-shadow var(--m-fast) var(--ease)}
+.v-mic{width:var(--s-6);height:var(--s-6);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.v-voice{display:none;align-items:center;gap:var(--s-1);height:var(--s-6)}
+.v-voice i{display:block;width:var(--s-1);height:40%;border-radius:var(--r-round);background:currentColor}
+.v-voice i:nth-child(2),.v-voice i:nth-child(4){height:75%}
+.v-voice i:nth-child(3){height:100%}
+.v-talk:not([data-state="idle"]) .v-mic{display:none}
+.v-talk:not([data-state="idle"]) .v-voice{display:inline-flex}
+.v-talk[data-state="listening"]{background:var(--chalk);color:var(--ink);box-shadow:0 0 0 var(--s-1) var(--accent)}
+.v-talk[data-state="thinking"] .v-voice i{animation:voice var(--m-slow) var(--ease) infinite alternate}
+.v-talk:not([data-state="idle"]) .v-voice i{animation:voice var(--m-slow) var(--ease) infinite alternate}
+.v-voice i:nth-child(2){animation-delay:calc(var(--m-fast) * 1)}
+.v-voice i:nth-child(3){animation-delay:calc(var(--m-fast) * 2)}
+.v-voice i:nth-child(4){animation-delay:calc(var(--m-fast) * 3)}
+.v-voice i:nth-child(5){animation-delay:calc(var(--m-fast) * 4)}
+@keyframes voice{to{transform:scaleY(.35)}}
+.v-dots{position:absolute;bottom:calc(var(--s-1) * -1);left:50%;transform:translateX(-50%);display:flex;gap:var(--s-1)}
+.v-dots i{display:block;width:var(--s-1);height:var(--s-1);border-radius:var(--r-round);background:var(--line)}
+.v-dots i.on{background:var(--accent)}
+
+/* ---------------------------------------------------------------- the works, as pictures */
+.v-strip{display:flex;gap:var(--s-2);overflow-x:auto;padding-bottom:var(--s-1);scrollbar-width:none}
+.v-strip button{flex:none;width:calc(var(--tap) + var(--s-4));height:calc(var(--tap) + var(--s-4));padding:var(--s-1);border:var(--b-1) solid var(--line);
+  border-radius:var(--r-1);background:var(--mount);cursor:pointer}
+.v-strip button[aria-current="true"]{border:var(--b-focus) solid var(--accent);padding:var(--s-1)}
+.v-strip img{display:block;width:100%;height:100%;object-fit:contain}
+
+/* ---------------------------------------------------------------- the first tap */
+.v-start{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);width:calc(var(--s-7) * 2 + var(--s-4));height:calc(var(--s-7) * 2 + var(--s-4));
+  display:flex;align-items:center;justify-content:center;border:0;border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
+  box-shadow:0 0 0 var(--s-3) var(--indigo-3)}
+.v-start svg{width:var(--s-7);height:var(--s-7);fill:currentColor;margin-left:var(--s-1)}
+.v-start[hidden]{display:none}
+.v-start:not([hidden]){animation:breathe calc(var(--m-slow) * 3) var(--ease) infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 var(--s-5) var(--indigo-2)}}
+
+/* ---------------------------------------------------------------- sheets */
+.v-sheet{position:absolute;left:var(--gut);right:var(--gut);bottom:calc(env(safe-area-inset-bottom, 0px) + var(--s-3));
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);padding:var(--s-4);background:var(--raised);border-radius:var(--r-1)}
+.v-sheet[hidden]{display:none}
+.v-next{display:flex;align-items:center;gap:var(--s-4);padding:0;border:0;background:transparent;cursor:pointer;min-height:var(--tap)}
+.v-thumb{display:flex;width:calc(var(--s-7) * 2);height:calc(var(--s-7) * 2);padding:var(--s-2);background:var(--mount)}
+.v-thumb img{width:100%;height:100%;object-fit:contain}
+.v-arrow{width:var(--s-7);height:var(--s-7);fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.v-home{flex-direction:column;align-items:stretch}
+.v-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-2)}
+.v-three span{aspect-ratio:1;max-width:100%;display:flex;padding:var(--s-2);background:var(--mount)}
+.v-three img{width:100%;height:100%;object-fit:contain}
+.v-row{display:flex;justify-content:center;gap:var(--s-4)}
+.v-scan{width:var(--s-6);height:var(--s-6);fill:none;stroke:var(--text-2);stroke-width:1.8;stroke-linecap:round}
+.v-code{flex:1;min-width:0;min-height:var(--tap);padding:0 var(--s-3);border:var(--b-1) solid var(--edge);border-radius:var(--r-1);background:var(--surface);
+  font:var(--w-display) var(--t-4)/1 var(--font-display);letter-spacing:var(--track-label);text-align:center;text-transform:uppercase}
+
+@media (prefers-reduced-motion:reduce){
+  .v-voice i,.v-start:not([hidden]){animation:none}
+  .v-mount img{transition:none}
+}

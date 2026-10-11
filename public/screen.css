@@ -17,7 +17,27 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .mount{grid-area:art;margin:0;background:var(--mount);display:flex;align-items:center;justify-content:center;
   padding:6%;min-height:0;overflow:hidden;aspect-ratio:4/3;max-width:100%;border-radius:var(--r-0)}
 @media (min-width:900px) and (min-aspect-ratio:4/3){.mount{aspect-ratio:auto}}
-.mount img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.mount img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
+  transform:scale(var(--z, 1)) translate(var(--tx, 0%), var(--ty, 0%));transform-origin:50% 50%;
+  transition:transform calc(var(--m-slow) * 2) var(--ease)}
+/* No words on the TV (docs/product.md): names are for screen readers; the
+   picture, the drawings and the phone's voice carry the rest. */
+.where,.title,.meta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* With nothing beside it, the work takes the whole screen. */
+@media (min-width:900px) and (min-aspect-ratio:4/3){
+  .tv:has(.panel:empty){grid-template-columns:minmax(0,1fr);grid-template-areas:"art" "said" "foot"}
+  /* hidden from view, not from a screen reader: the heading lives in here */
+  .tv:has(.panel:empty) .side{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+}
+.p-next{flex:1;display:grid;grid-template-columns:minmax(0,2fr) auto minmax(0,3fr);align-items:center;gap:var(--s-6);max-width:var(--page-max);width:100%;margin:0 auto}
+.p-arrow{width:var(--s-7);height:var(--s-7);fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.p-next .card figcaption{display:none}
+/* Where next fills the screen: this work small, the arrow, the next one large. */
+@media (min-width:900px) and (min-aspect-ratio:4/3){
+  .tv:has(.panel[data-kind="next"]){grid-template-columns:minmax(0,1fr);grid-template-areas:"side" "said" "foot"}
+  .tv:has(.panel[data-kind="next"]) .mount{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+}
+.code svg{width:var(--s-5);height:var(--s-5);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;vertical-align:middle;margin-right:var(--s-2)}
 .noart{margin:0;color:var(--ink-2)}
 
 .side{grid-area:side;display:flex;flex-direction:column;gap:var(--s-2);min-width:0;min-height:0;overflow:hidden}
@@ -29,7 +49,7 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .panel:empty{display:none}
 .panel.in{animation:arrive var(--m-base) var(--ease)}
 @keyframes arrive{from{opacity:0;transform:translateY(var(--s-2))}}
-@media (prefers-reduced-motion:reduce){.panel.in{animation:none}}
+@media (prefers-reduced-motion:reduce){.panel.in{animation:none}.mount img{transition:none}}
 .p-head{margin:0 0 var(--s-2);font:var(--w-display) var(--t-4)/var(--lh-snug) var(--font-display)}
 .p-text{margin:0 0 var(--s-4);max-width:var(--measure);font-size:var(--t-3)}
 .p-story{margin:0;font-size:var(--t-4);line-height:var(--lh-body);max-width:var(--measure);overflow-wrap:anywhere}
@@ -66,6 +86,8 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .row.small{gap:var(--s-1)}
 .row.small figcaption{display:none}
 
+.said{display:none}
+.cc .said{display:block}
 .said{grid-area:said;border-top:var(--b-1) solid var(--line);padding-top:var(--s-3);min-width:0}
 .you{margin:0;color:var(--text-2);font-size:var(--t-2)}
 .you:empty{display:none}

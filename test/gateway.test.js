@@ -52,7 +52,7 @@ test('the TV’s door opens a real seal and refuses a forged one', async () => {
   const good = seal({ slug: 'sample', workId: 'p1', topic: 'date', say: 'From 1974.' });
   const ok = await (await sealPOST(new Request('http://x', { method: 'POST', body: JSON.stringify({ seal: good }) }))).json();
   assert.equal(ok.answer.say, 'From 1974.');
-  const bad = await sealPOST(new Request('http://x', { method: 'POST', body: JSON.stringify({ seal: good.replace(/.$/, (c) => (c === 'A' ? 'B' : 'A')) }) }));
+  const bad = await sealPOST(new Request('http://x', { method: 'POST', body: JSON.stringify({ seal: (([b, m]) => `${b}.${m[0] === 'A' ? 'B' : 'A'}${m.slice(1)}`)(good.split('.')) }) }));
   assert.equal(bad.status, 403);
 });
 

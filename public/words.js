@@ -73,6 +73,28 @@ export const W = {
   listOffline: 'List unavailable',
   keyHint: 'Sample: no key',
 
+  // voice-first: what each icon is called (read by screen readers, never shown)
+  listen: 'Listen',
+  look: 'Look closer',
+  next: 'Where next',
+  home: 'Take home',
+  captions: 'Captions',
+  pairScreen: 'Pair a screen',
+  hearAgain: 'Hear again',
+  share: 'Share',
+  close: 'Close',
+  about: 'About',
+  goTo: (title) => `Go to ${title}`,
+
+  // what GAID says, not shows
+  say: {
+    first: 'I only tell you what the gallery wrote.',
+    home: (words) => `Remember: ${words}. At home, say: Alexa, ask GAID about ${words}.`,
+    offline: 'I cannot reach the gallery right now.',
+    paired: 'The screen is with you.',
+    noVoice: (lang) => `This phone cannot speak ${lang}. Here it is in English.`,
+  },
+
   // the screen beside the work
   tvWait: 'Waiting…',
   tvAsk: 'Ask GAID',

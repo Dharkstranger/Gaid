@@ -23,7 +23,8 @@ test('the tokens file defines every token a page uses', () => {
   const tokens = read('tokens.css');
   const defined = new Set([...tokens.matchAll(/(--[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
   for (const f of [...sheets, ...pages]) {
-    for (const [, name] of cssOf(f).matchAll(/var\((--[a-z0-9-]+)/g)) {
+    // A var with a fallback, var(--z, 1), is set by script while the page runs (Look closer), not a token.
+    for (const [, name] of cssOf(f).matchAll(/var\((--[a-z0-9-]+)\)/g)) {
       assert.ok(defined.has(name), `${f} uses ${name}, which tokens.css does not define`);
     }
   }

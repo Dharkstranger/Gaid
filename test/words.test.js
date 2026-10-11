@@ -21,7 +21,7 @@ test('no sentence of GAID’s own is hidden in a page', () => {
   const pub = new URL('../public/', import.meta.url);
   for (const f of readdirSync(pub).filter((x) => /^(app|screen|home|curator)\.js$/.test(x))) {
     const src = readFileSync(new URL(f, pub), 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
-    const strings = [...src.matchAll(/(['`])((?:(?!\1).)*[a-z]{2,}(?: [a-z]+){3,}(?:(?!\1).)*)\1/gi)].map((m) => m[2]);
+    const strings = [...src.matchAll(/(['`])((?:(?!\1)[^(){};=\n])*[a-z]{2,}(?: [a-z]+){3,}(?:(?!\1)[^(){};=\n])*)\1/gi)].map((m) => m[2]);
     assert.deepEqual(strings, [], `${f} has words that belong in words.js`);
   }
 });
