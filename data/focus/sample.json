@@ -1,0 +1,10 @@
+{
+  "_note": "Where to look, per sentence of each work's story, as fractions of the picture (x, y, w, h). Chosen by a person for GAID's sample gallery, 11 October 2026: the n-th box goes with the n-th sentence. A work with none drifts gently instead.",
+  "p1": [{ "x": 0, "y": 0.52, "w": 1, "h": 0.48 }, { "x": 0.2, "y": 0.08, "w": 0.6, "h": 0.6 }],
+  "p2": [{ "x": 0, "y": 0, "w": 1, "h": 1 }, { "x": 0.3, "y": 0.45, "w": 0.4, "h": 0.4 }],
+  "p4": [{ "x": 0.25, "y": 0.15, "w": 0.5, "h": 0.75 }, { "x": 0.25, "y": 0.25, "w": 0.5, "h": 0.3 }],
+  "p5": [{ "x": 0, "y": 0, "w": 1, "h": 1 }, { "x": 0.55, "y": 0.15, "w": 0.35, "h": 0.35 }],
+  "p6": [{ "x": 0.2, "y": 0.2, "w": 0.6, "h": 0.6 }, { "x": 0, "y": 0, "w": 1, "h": 1 }],
+  "p8": [{ "x": 0, "y": 0, "w": 1, "h": 1 }, { "x": 0.38, "y": 0.15, "w": 0.24, "h": 0.7 }],
+  "p9": [{ "x": 0, "y": 0, "w": 1, "h": 1 }, { "x": 0.35, "y": 0.35, "w": 0.3, "h": 0.3 }]
+}

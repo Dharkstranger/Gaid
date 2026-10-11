@@ -34,9 +34,9 @@ test('it speaks protocol 2025-11-25 and names itself', async () => {
   assert.match(body.result.instructions, /said "guide"/);
 });
 
-test('it offers the six tools, none of which changes anything', async () => {
+test('it offers the eight tools, none of which changes anything', async () => {
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((t) => t.name).sort(), ['ask_work', 'find_work', 'recall_visit', 'send_enquiry', 'visitor_questions', 'whats_nearby']);
+  assert.deepEqual(tools.map((t) => t.name).sort(), ['ask_work', 'find_work', 'look_closer', 'recall_visit', 'send_enquiry', 'visitor_questions', 'whats_nearby', 'where_next']);
   for (const t of tools) assert.equal(t.annotations?.readOnlyHint, true, t.name);
 });
 
@@ -64,6 +64,29 @@ test('recall_visit reads a visit back out of its own code', async () => {
   assert.equal(r.say, 'At Lagoon Gallery you saw Sunrise over the lagoon, Ceremonial mask and Crossing.');
   assert.deepEqual(r.works.map((w) => w.id), ['p1', 'p4', 'p9']);
   assert.equal((await call('recall_visit', { visit: 'not a code' })).found, false);
+});
+
+test('recall_visit takes the three words a visitor was given', async () => {
+  const r = await call('recall_visit', { gallery: 'sample', words: 'Lagoon, mask and Crossing' });
+  assert.deepEqual(r.works.map((w) => w.id), ['p1', 'p4', 'p9']);
+  assert.equal(r.say, 'At Lagoon Gallery you saw Sunrise over the lagoon, Ceremonial mask and Crossing.');
+  assert.equal((await call('recall_visit', { words: 'Lagoon' })).found, false, 'words need a gallery');
+});
+
+test('where_next names one work and a reason the file backs up', async () => {
+  const r = await call('where_next', { gallery: 'sample', work_id: 'p4', seen: [] });
+  assert.equal(r.say, 'Next: Standing figure, also by Chinedu Mbah.');
+  assert.equal(r.why, 'artist');
+  const after = await call('where_next', { gallery: 'sample', work_id: 'p4', seen: ['p8', 'p9'] });
+  assert.notEqual(after.next.id, 'p8', 'skips what was seen');
+});
+
+test('look_closer walks the gallery\'s words with a box for each', async () => {
+  const r = await call('look_closer', { gallery: 'sample', work_id: 'p9' });
+  assert.equal(r.steps[0].say, 'Crossing, by Chinedu Mbah.');
+  assert.equal(r.steps[2].say, 'The centre disc turns in high wind.');
+  assert.deepEqual(r.steps[2].box, { x: 0.35, y: 0.35, w: 0.3, h: 0.3 });
+  for (const s of r.steps) assert.ok(s.box.x + s.box.w <= 1 && s.box.y + s.box.h <= 1);
 });
 
 test('send_enquiry prepares a message and sends nothing', async () => {

@@ -1,6 +1,11 @@
 {
   "cleanUrls": true,
   "outputDirectory": "public",
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "data/**"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",

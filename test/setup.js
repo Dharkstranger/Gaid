@@ -3,6 +3,7 @@
    unanswered question would otherwise write it into the real database.
    test/store.test.js points the store at its own stand-in instead. */
 process.env.GAID_QUESTIONS = 'off';
+process.env.GALLERIS_LOCAL_DIR ??= new URL('../fixtures', import.meta.url).pathname;   // never the network
 process.env.GAID_SUPABASE_URL = 'http://127.0.0.1:9';
 delete process.env.AWS_BEARER_TOKEN_BEDROCK;
 delete process.env.GAID_AWS_ACCESS_KEY_ID;
