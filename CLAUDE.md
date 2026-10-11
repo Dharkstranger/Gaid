@@ -1,5 +1,7 @@
 # GAID — working notes
 
+**First, every session: read `docs/BACKLOG.md`** — the goal, what is due, what is next. Keep it current.
+
 **GAID**, said *guide*. Ask the work in front of you. Built in Lagos by Emeka
 Ugochukwu and Obianuju Nnadi (Hoo Socials Limited) for the Amazon "Build,
 Ship, Shape" hackathon, Alexa+ track. Deadline **23 October 2026, 12:00
