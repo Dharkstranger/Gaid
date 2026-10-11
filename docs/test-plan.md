@@ -13,7 +13,7 @@ Replace `LIVE` with the Vercel address.
 ## 1. Scan and ask — Phone A
 - [ ] Press ▶. GAID speaks the story. The phone fades while it speaks.
 - [ ] Hold talk, say "Who made it?". Answer is spoken.
-- [ ] Say "Who owns it now?". Answer: the gallery has not said. (No invented owner.)
+- [ ] Say "Who owns it now?". Answer: "I only know what Lagoon Gallery wrote…" (with Nova: "the gallery has not said"). Never an invented owner.
 - [ ] Press CC. Words appear. Press again: gone.
 - [ ] Press Look closer (magnifier). The picture moves part by part.
 - [ ] Press Language (globe). Pick Pidgin. Ask again.
@@ -45,4 +45,4 @@ Replace `LIVE` with the Vercel address.
 - [ ] Airplane mode on Phone A, ask something: no error screen, GAID says it cannot reach the gallery.
 
 If Nova is not set up (no Bedrock key), questions outside the gallery's words
-get "the gallery has not said". That is correct, not a fault.
+get "I only know what Lagoon Gallery wrote…". That is correct, not a fault.
