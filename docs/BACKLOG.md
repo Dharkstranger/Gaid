@@ -28,6 +28,13 @@ Last updated: 11 October 2026.
    - [ ] Functions require GAID's own server secret; secret only in Vercel
    - [ ] Phone → TV messages signed by GAID's server; TV shows only signed words
    - [ ] Rate limit per caller on /api/mcp
+1b. **Galleris curators choose GAID** (owner, 11 Oct). Design agreed? → build.
+   - [ ] Galleris studio: "Voice guide" panel, GAID switch → `gaid: { on }` in the published file
+   - [ ] GAID gateway: answers only galleries with GAID on; demos on
+   - [ ] Galleris visitor app: Ask button on each object → GAID at that work
+   - [ ] Galleris dashboard: the curator's "Asked" list (edit key, through GAID)
+   - [ ] Switch off: stops within a minute; offer to delete stored questions
+   - [ ] Switch text says the gallery's words go to Amazon Nova
 2. [ ] Deploy to Vercel — needs owner: reconnect connector
 3. [ ] Amazon Bedrock key in Vercel — needs owner
 4. [ ] Test the live site end to end: four moments, phone + TV on two devices, Nova answer
