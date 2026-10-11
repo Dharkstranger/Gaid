@@ -1,0 +1,16 @@
+{
+  "name": "gaid",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ask the work in front of you: a voice guide for Galleris viewing rooms, on Amazon Bedrock.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node dev.mjs",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.700.0"
+  }
+}
