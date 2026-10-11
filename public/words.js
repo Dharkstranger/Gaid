@@ -9,25 +9,15 @@ export const W = {
   said: 'Guide',               // what a speech engine is given instead of the name
 
   // phone
-  tag: 'Simulated Alexa+',
   talk: 'Talk',
   listening: 'Listening',
   speaking: 'Speaking',
-  question: 'Question',
-  askHint: 'Ask this work',
-  ask: 'Ask',
   thinking: 'Thinking…',
-  offline: 'Offline. Try again.',
   language: 'Language',
-  openScreen: 'Open screen',
   screen: 'Screen',
-  codeHint: 'Code',
   pair: 'Pair',
   works: 'Works',
-  fromGallery: 'Gallery’s words',
-  fromNova: 'Nova · gallery’s words',
   notFound: 'Gallery not found',
-  notFoundHint: 'Try ?gallery=sample',
   notOn: 'GAID off',
   closedSay: (name) => `${name} has not switched GAID on.`,   // spoken
   at: (title) => `At ${title}`,
@@ -42,26 +32,11 @@ export const W = {
     ['Size', 'How big is it?'],
     ['Nearby', 'What else is here?'],
   ],
-  sayIn: (lang) => `Say it in ${lang}`,
 
   // taking the visit home
-  takeHome: 'Take home',
-  visitCode: 'Visit code',
-  openHome: 'Open at home',
 
   // at home: a simulated Alexa+ on an Echo Show
-  homeTag: 'Simulated Alexa+ · Echo Show',
-  homeHint: 'Ask about it',
-  exampleVisit: 'Example visit',
   yourVisit: 'Your visit',
-  homeChips: [
-    ['My visit', 'Alexa, what did I see today?'],
-    ['The sun', 'Alexa, the painting with the sun'],
-    ['Tell me', 'Alexa, tell me about it'],
-    ['Enquire', 'Alexa, ask the gallery about it'],
-  ],
-  send: (how) => `Send on ${how}`,
-  notSent: 'You send it',
 
   // the curator's list
   curatorTag: 'For curators',
@@ -78,6 +53,8 @@ export const W = {
   look: 'Look closer',
   next: 'Where next',
   home: 'Take home',
+  enquire: 'Enquire',
+  sendOn: (how) => `Send on ${how}`,
   captions: 'Captions',
   pairScreen: 'Pair a screen',
   hearAgain: 'Hear again',
@@ -85,6 +62,24 @@ export const W = {
   close: 'Close',
   about: 'About',
   goTo: (title) => `Go to ${title}`,
+
+  // the About page: the one place GAID explains itself in writing
+  aboutTitle: 'About GAID',
+  aboutSaid: 'Said “guide”',
+  aboutIcons: [
+    ['listen', 'Listen'], ['talk', 'Ask'], ['look', 'Look closer'], ['lang', 'Language'],
+    ['next', 'Where next'], ['home', 'Take home'], ['cc', 'Captions'], ['pair', 'Pair a screen'],
+  ],
+  aboutFacts: [
+    'Answers: the gallery’s own words, then Amazon Nova',
+    'Never invents a name, date or price',
+    'Keeps nothing about you',
+    'Speech: your browser',
+    'Simulated Alexa+ · Not an Amazon product',
+  ],
+  source: 'Open source',
+  privacy: 'Privacy',
+  madeWith: 'Galleris',
 
   // what GAID says, not shows
   say: {
@@ -99,14 +94,11 @@ export const W = {
   tvWait: 'Waiting…',
   tvAsk: 'Ask GAID',
   tvListening: 'Listening…',
-  moreBy: (name) => `More by ${name}`,
-  moreIn: (medium) => `More in ${medium}`,
   toScale: 'To scale',
   person: 'Person, 1.7 m',
   scaleSaid: (title, size) => `${title}, ${size}, beside a person 1.7 m tall`,   // read by a screen reader
   here: 'You are here',
   noPicture: 'No picture',
-  tvFoot: 'Simulated Fire TV · Not an Amazon product',
   // what the TV shows instead of the question as typed: anyone can type anything
   topic: { about: 'About', artist: 'Artist', date: 'Date', medium: 'Material', size: 'Size', where: 'Where',
     nearby: 'Nearby', lang: 'Language', nova: 'Question', help: 'Help', hours: 'Hours', welcome: 'Welcome' },

@@ -2,63 +2,56 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GAID at home</title>
 <meta name="description" content="GAID, said “guide”. Your gallery visit, at home, through Alexa+.">
 <meta name="theme-color" content="#14204A">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/phone.css">
 <link rel="stylesheet" href="/home.css">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 </head>
 <body>
-<header class="top wrap">
-  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
-  <p class="tag" data-w="homeTag">Simulated Alexa+ · Echo Show</p>
-</header>
-
-<main class="wrap">
-  <section class="stage" aria-label="The work">
-    <figure class="mount">
-      <img id="art" alt="">
-      <p id="noart" class="noart" hidden data-w="noPicture">No picture</p>
-    </figure>
-    <div class="words">
-      <p id="whose" class="where" data-w="yourVisit">Your visit</p>
-      <h1 id="title" class="title">GAID</h1>
-      <p id="meta" class="meta"></p>
-      <div class="said" aria-live="polite">
-        <p id="you" class="you" hidden></p>
-        <p id="reply" class="reply"></p>
-        <p id="source" class="source" hidden></p>
-        <div id="sendBox" class="send" hidden>
-          <a id="send" class="send-go" href="/" target="_blank" rel="noopener"></a>
-          <span class="source" data-w="notSent">You send it</span>
-        </div>
-      </div>
+<main class="v v-show" aria-label="GAID at home">
+  <h1 id="h1" class="sr">GAID</h1>
+  <header class="v-top">
+    <a class="v-mark" href="/about" data-aria="about"><img src="/brand/gaid-mark.svg" alt="" width="32" height="32"></a>
+    <div class="v-tools">
+      <button id="cc" class="v-icon" type="button" aria-pressed="false" data-aria="captions">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M10 10.2a2.5 2.5 0 1 0 0 3.6M17 10.2a2.5 2.5 0 1 0 0 3.6"/></svg>
+      </button>
     </div>
-  </section>
+  </header>
 
-  <section class="controls" aria-label="Ask">
-    <button id="talk" class="talk" type="button" aria-pressed="false" data-state="idle">
-      <span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span id="talkWord" data-w="talk">Talk</span>
-    </button>
-    <form id="askForm" class="ask">
-      <label for="q" class="sr" data-w="question">Question</label>
-      <input id="q" name="q" type="text" maxlength="300" autocomplete="off" placeholder="Ask about it">
-      <button type="submit" class="go" data-w="ask">Ask</button>
-    </form>
-    <div id="chips" class="chips" role="group" aria-label="Ask about"></div>
-  </section>
+  <div class="v-body">
+    <figure class="v-mount"><img id="art" alt=""></figure>
+    <div class="v-aside">
+      <div id="works" class="v-strip v-visit" role="group" data-aria="yourVisit"></div>
+      <p id="cap" class="v-cap" aria-live="polite" hidden></p>
+      <div id="sendBox" class="v-sendbox" hidden>
+        <a id="send" class="v-send" href="/" target="_blank" rel="noopener">
+          <svg id="sendIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l16-8-6 16-2-6z"/></svg>
+        </a>
+      </div>
+      <nav class="v-dock" aria-label="GAID">
+        <button id="visit" class="v-icon v-side" type="button" data-aria="yourVisit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button id="talk" class="v-talk" type="button" aria-pressed="false" data-state="idle" data-aria="talk">
+          <svg class="v-mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <span class="v-voice" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        </button>
+        <button id="enquire" class="v-icon v-side" type="button" data-aria="enquire">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </div>
 
-  <section class="walk" aria-labelledby="visitH">
-    <h2 id="visitH" data-w="yourVisit">Your visit</h2>
-    <div id="works" class="works"></div>
-  </section>
-
-  <p class="foot" data-w="foot">Not an Amazon product</p>
+  <button id="start" class="v-start" type="button" data-aria="listen">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+  </button>
 </main>
 <script type="module" src="/home.js"></script>
 </body>

@@ -38,15 +38,18 @@ Last updated: 11 October 2026.
    - [ ] Switch off: stops within a minute; offer to delete stored questions
    - [ ] Switch text says the gallery's words go to Amazon Nova
 1c. **GAID, voice-first, end to end** (owner, 11 Oct; `docs/product.md`)
-   - [ ] Phone: work full screen, one ▶/talk, voice as movement, icons not words, captions behind one icon
-   - [ ] Three words: the visit as one word per work; `recall_visit` takes words
-   - [ ] Where next?: next work and why; phone + TV point the way; MCP tool
-   - [ ] Look closer: the story sentence by sentence; the picture moves to each spot
-   - [ ] Pidgin + Yoruba: Nova translates (labelled); Pidgin by phone voice; Yoruba recorded in Galleris studio
-   - [ ] TV: pictures only (pairing code the one exception)
-   - [ ] Echo Show at home: voice-first, three words
-   - [ ] Said once, first time: "I only tell you what the gallery wrote"
-   - [ ] Footer text off the visitor's screens; "Not an Amazon product" on About
+   - [x] Phone: work full screen, one ▶/talk, voice as movement, icons not words, captions behind one icon
+   - [x] Three words: the visit as one word per work; `recall_visit` takes words
+   - [x] Where next?: next work and why; phone + TV point the way; MCP tool
+   - [x] Look closer: the story sentence by sentence; the picture moves to each spot (phone + TV)
+   - [x] Pidgin + Yoruba: Nova translates; Pidgin by phone voice; no voice → said so, then English
+   - [ ] Yoruba recording on one work (owner, in Galleris studio) — needs a person
+   - [x] TV: pictures only (pairing code the one exception)
+   - [x] Echo Show at home: voice-first, three words
+   - [x] Said once, first time: "I only tell you what the gallery wrote"
+   - [x] Footer text off the visitor's screens; "Not an Amazon product" on /about
+   - [ ] /design: show the new parts (talk circle, icons, sheets, zoom); curator page voice-first?
+   - [ ] TV shows a code to scan (QR) as well as type
 2. [ ] Deploy to Vercel — needs owner: reconnect connector
 3. [ ] Amazon Bedrock key in Vercel — needs owner
 4. [ ] Test the live site end to end: four moments, phone + TV on two devices, Nova answer

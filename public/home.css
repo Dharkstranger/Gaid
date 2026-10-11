@@ -1,6 +1,15 @@
-/* At home, on an Echo Show: the visit page. Values from tokens.css only. */
-.send{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3);margin-top:var(--s-2)}
-.send[hidden]{display:none}
-.send-go{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 var(--s-5);border-radius:var(--r-1);background:var(--accent);
-  color:var(--on-accent);font-weight:var(--w-strong);text-decoration:none}
-.send-go:hover{background:var(--chalk)}
+/* At home, on an Echo Show: landscape, read from across a kitchen.
+   The phone's parts (phone.css), laid out side by side. Tokens only. */
+.v-show{max-width:none}
+.v-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
+@media (min-aspect-ratio:4/3){.v-body{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}}
+.v-aside{display:flex;flex-direction:column;justify-content:center;gap:var(--s-5);min-width:0;min-height:0}
+.v-visit{flex-wrap:wrap;justify-content:center;overflow:visible}
+.v-visit button{width:calc(var(--s-7) * 3);height:calc(var(--s-7) * 3)}
+@media (max-width:600px){.v-visit button{width:calc(var(--s-7) * 2);height:calc(var(--s-7) * 2)}}
+.v-sendbox{display:flex;justify-content:center}
+.v-sendbox[hidden]{display:none}
+.v-send{display:inline-flex;align-items:center;justify-content:center;width:calc(var(--s-7) * 2);height:calc(var(--s-7) * 2);border-radius:var(--r-round);
+  background:var(--ok);color:var(--indigo)}
+.v-send svg{width:var(--s-6);height:var(--s-6);fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.v-show .v-dock{justify-content:center;gap:var(--s-6)}

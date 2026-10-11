@@ -1,0 +1,8 @@
+/* About: the one page GAID explains itself in words. Tokens only. */
+.ab{display:flex;flex-direction:column;gap:var(--s-4);padding-bottom:var(--s-7)}
+.ab-icons{list-style:none;margin:var(--s-4) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--room-min),1fr));gap:var(--s-3)}
+.ab-icons li{display:flex;align-items:center;gap:var(--s-3)}
+.ab-icons svg{flex:none;width:var(--s-6);height:var(--s-6);fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ab-facts{margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-2);color:var(--text-2);max-width:var(--measure)}
+.ab-links{display:flex;flex-wrap:wrap;gap:var(--s-5);margin:0}
+.ab-links a{display:inline-flex;align-items:center;min-height:var(--tap);font-weight:var(--w-strong)}

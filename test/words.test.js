@@ -6,7 +6,7 @@ import { wakeless } from '../lib/answer.js';
 
 const count = (s) => s.replace(/·/g, ' ').trim().split(/\s+/).length;
 // Two lines are allowed to be a line rather than a label: the legal foot of each screen.
-const LINES = new Set(['foot', 'tvFoot', 'homeTag']);
+const LINES = new Set(['foot']);
 
 test('every label is one or two words, a phrase at most', () => {
   for (const [k, v] of Object.entries(W)) {
@@ -14,7 +14,9 @@ test('every label is one or two words, a phrase at most', () => {
     assert.ok(count(v) <= 3, `${k}: "${v}" is ${count(v)} words`);
   }
   for (const [label] of W.chips) assert.equal(count(label), 1, `chip "${label}"`);
-  for (const k of ['moreBy', 'moreIn', 'at']) assert.ok(count(W[k]('X')) <= 3, k);
+  for (const [, label] of W.aboutIcons) assert.ok(count(label) <= 3, label);
+  for (const f of W.aboutFacts) assert.ok(count(f) <= 9, f);
+  for (const k of ['at', 'goTo', 'sendOn']) assert.ok(count(W[k]('X')) <= 3, k);
 });
 
 test('no sentence of GAID’s own is hidden in a page', () => {
@@ -52,4 +54,18 @@ test('Amazon Nova is told how its name is said, and not to say it', async () => 
   const src = readFileSync(new URL('../lib/bedrock.js', import.meta.url), 'utf8');
   assert.match(src, /GAID \(said \\?"guide\\?"\)/);
   assert.match(src, /Never say your own name/);
+});
+
+test('every word in words.js is used somewhere, and nothing is left behind', () => {
+  const pub = new URL('../public/', import.meta.url);
+  const lib = new URL('../lib/', import.meta.url);
+  const src = [
+    ...readdirSync(pub).filter((f) => /\.(js|html)$/.test(f) && f !== 'words.js').map((f) => readFileSync(new URL(f, pub), 'utf8')),
+    ...readdirSync(lib).map((f) => readFileSync(new URL(f, lib), 'utf8')),
+  ].join('\n');
+  const DYNAMIC = new Set(['name', 'said', 'listening', 'speaking', 'thinking']);   // looked up by state, or the name rule itself
+  const unused = Object.keys(W).filter((k) => !DYNAMIC.has(k) && !new RegExp(`W\\.${k}\\b|data-(w|aria)="${k}"`).test(src));
+  assert.deepEqual(unused, []);
+  const say = Object.keys(W.say).filter((k) => !new RegExp(`W\\.say\\.${k}\\b`).test(src));
+  assert.deepEqual(say, []);
 });
