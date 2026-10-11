@@ -1,4 +1,4 @@
-/* POST /api/ask — { slug, workId, question, lang, history } -> { ok, say, action, source }
+/* POST /api/ask — { slug, workId, question, lang, history } -> { ok, say, action, topic, source }
    The gallery's own words answer first (answer.js). Only a question they do
    not cover goes to Amazon Nova (bedrock.js), and if that fails too the
    visitor hears what the guide can do instead — never an error. */
@@ -32,11 +32,11 @@ export async function POST(request) {
   const lang = gallery.languages.includes(body?.lang) ? body.lang : gallery.languages[0];
 
   const ruled = answer({ gallery, work, question, lang });
-  if (ruled.matched) return json({ ok: true, say: ruled.say, action: ruled.action, source: 'gallery' });
+  if (ruled.matched) return json({ ok: true, say: ruled.say, action: ruled.action, topic: ruled.topic, source: 'gallery' });
 
   if (enabled() && work && allow(caller(request))) {
     const said = await askModel({ gallery, work, question, lang, history: body?.history });
-    if (said) return json({ ok: true, say: said, action: null, source: 'nova' });
+    if (said) return json({ ok: true, say: said, action: null, topic: 'nova', source: 'nova' });
   }
-  return json({ ok: true, say: noModelReply(gallery), action: null, source: 'gallery' });
+  return json({ ok: true, say: noModelReply(gallery), action: null, topic: 'help', source: 'gallery' });
 }

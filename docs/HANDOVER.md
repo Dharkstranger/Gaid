@@ -39,7 +39,7 @@ https://github.com/Dharkstranger/gaid, branch `main`. Already contains:
   falls back to the gallery's words.
 - `lib/limit.js` — at most 20 model questions per caller per minute (`GAID_PER_MINUTE`).
 - `dev.mjs` — local server. `GALLERIS_LOCAL_DIR=fixtures npm run dev` → http://localhost:5173/?gallery=sample
-- `test/` — 18 tests, `npm test`, no network needed. Four were proved by putting the bug
+- `test/` — 27 tests, `npm test`, no network needed. Six were proved by putting the bug
   back (wake word kept, missing artist invented, brake removed, grounding instruction
   removed); each made a test fail.
 - `vercel.json` — serves `public/`, sets a strict Content-Security-Policy, allows the microphone.
@@ -58,7 +58,7 @@ Galleris wall-label code carries.
 Never paste a key into a chat, the code or the repo.
 
 ## Done
-- The page, both functions, the rule answers, the Amazon Nova path, the brake, 18 tests.
+- The page, both functions, the rule answers, the Amazon Nova path, the brake, 27 tests, and the screen beside the work (`/screen.html`).
 - Checked in a browser at 390px and 1280px: no accessibility faults (axe-core), nothing
   wider than the screen, answers appear and are read aloud.
 

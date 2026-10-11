@@ -3,6 +3,8 @@
    /api/ask. If the browser cannot listen, the question box does the job; if
    the server cannot answer, it says so plainly and the work stays on screen. */
 
+import { CHANNEL, strong } from '/scene.js';
+
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const slug = (params.get('gallery') || 'sample').toLowerCase();
@@ -12,21 +14,20 @@ const SPEECH = { English: 'en-GB', Yoruba: 'yo-NG', Igbo: 'ig-NG', Hausa: 'ha-NG
 
 const state = { gallery: null, work: null, lang: 'English', history: [], listening: false };
 
-/* ---------------------------------------------------------------- colour */
-// The gallery's accent, darkened until white text on it clears 4.5:1.
-function lum(hex) {
-  const c = hex.match(/\w\w/g).map((x) => parseInt(x, 16) / 255)
-    .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
-  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+/* ---------------------------------------------------------------- the screen beside the work */
+// The big screen (screen.html) shows what the phone says. It is told through
+// a BroadcastChannel, so for now it has to be a window of this same browser.
+const channel = 'BroadcastChannel' in window ? new BroadcastChannel(CHANNEL) : null;
+let lastSent = null;
+function tellScreen(msg) {
+  const m = { ...msg, slug };
+  if (m.type === 'answer') lastSent = m;
+  channel?.postMessage(m);
 }
-function strong(hex) {
-  let [r, g, b] = hex.slice(1).match(/\w\w/g).map((x) => parseInt(x, 16));
-  for (let i = 0; i < 40; i += 1) {
-    const h = '#' + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
-    if (1.05 / (lum(h) + 0.05) >= 4.5) return h;
-    r *= 0.92; g *= 0.92; b *= 0.92;
-  }
-  return '#14120E';
+if (channel) {
+  channel.onmessage = (e) => {
+    if (e.data?.type === 'hello' && e.data.slug === slug && lastSent) channel.postMessage(lastSent);
+  };
 }
 
 /* ---------------------------------------------------------------- screen */
@@ -46,7 +47,11 @@ function show(work) {
   for (const b of document.querySelectorAll('.works button')) {
     b.setAttribute('aria-current', String(b.dataset.id === work?.id));
   }
-  if (work) history.replaceState(null, '', `?gallery=${encodeURIComponent(slug)}&at=${encodeURIComponent(work.id)}`);
+  if (work) {
+    const at = `?gallery=${encodeURIComponent(slug)}&at=${encodeURIComponent(work.id)}`;
+    history.replaceState(null, '', at);
+    $('toScreen').href = `/screen.html${at}`;
+  }
 }
 
 function setBar(s) { $('bar').dataset.state = s; }
@@ -123,6 +128,7 @@ async function ask(question) {
   state.history = [...state.history, { role: 'user', text: q }, { role: 'assistant', text: out.say }].slice(-8);
   caption(q, out.say, out.source);
   if (a?.type === 'stop') return;
+  tellScreen({ type: 'answer', workId: state.work?.id, topic: out.topic ?? 'about', question: q, say: out.say });
   if (a?.type === 'play' || a?.type === 'goto' || a?.type === 'lang') playOrSpeak(out.say);
   else speak(out.say);
 }
@@ -141,7 +147,7 @@ function setupMic() {
     rec.interimResults = true;
     rec.maxAlternatives = 1;
     let finalText = '';
-    rec.onstart = () => { state.listening = true; btn.setAttribute('aria-pressed', 'true'); $('talkWord').textContent = 'Listening'; setBar('listening'); };
+    rec.onstart = () => { state.listening = true; btn.setAttribute('aria-pressed', 'true'); $('talkWord').textContent = 'Listening'; setBar('listening'); tellScreen({ type: 'listening' }); };
     rec.onresult = (e) => {
       const said = [...e.results].map((r) => r[0].transcript).join(' ');
       $('q').value = said;
@@ -150,7 +156,7 @@ function setupMic() {
     rec.onerror = () => {};
     rec.onend = () => {
       state.listening = false; btn.setAttribute('aria-pressed', 'false'); $('talkWord').textContent = 'Talk'; setBar('idle');
-      if (finalText) { ask(finalText); $('q').value = ''; }
+      if (finalText) { ask(finalText); $('q').value = ''; } else tellScreen({ type: 'idle' });
     };
     rec.start();
   });
@@ -181,7 +187,12 @@ function worksRow() {
     if (w.image) { const i = document.createElement('img'); i.src = w.image; i.alt = ''; i.loading = 'lazy'; t.append(i); }
     const s = document.createElement('span'); s.textContent = w.title;
     b.append(t, s);
-    b.addEventListener('click', () => { stopTalking(); show(w); caption('', `You are in front of ${w.title}. Ask me about it.`, ''); });
+    b.addEventListener('click', () => {
+      stopTalking(); show(w);
+      const say = `You are in front of ${w.title}. Ask me about it.`;
+      caption('', say, '');
+      tellScreen({ type: 'answer', workId: w.id, topic: 'about', question: '', say });
+    });
     box.append(b);
   }
 }

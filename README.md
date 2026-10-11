@@ -46,6 +46,30 @@ on the wall label. Gaid is that viewing room you can talk to.
 3. **Nothing in the plumbing turns a visitor away.** No key, a timeout, a
    refusal: Gaid falls back to the gallery's own words.
 
+## The screen beside the work
+
+`/screen.html?gallery=sample` is the big screen on the wall next to the work,
+standing in for a Fire TV. It never listens and never speaks; it shows what
+the visitor just asked about. Each kind of question has its own picture:
+
+| Asked | The screen shows |
+|---|---|
+| Who made it? | the artist, and their other works in the gallery |
+| When was it made? | the gallery's works in order of date, this one marked |
+| What is it made of? | the material, and other works in it |
+| How big is it? | the work drawn to scale beside a person 1.7 m tall |
+| Where am I? / What else is here? | the rooms, with "You are here" |
+| Anything else | the work and the story, large |
+
+Where the gallery has not written what a panel needs, the screen shows the
+work and the words instead of an empty panel. `public/scene.js` decides
+which, with no browser needed, so it is tested.
+
+For now the phone and the screen talk through the browser itself
+(`BroadcastChannel`), so both must be windows of one browser on one machine.
+That is enough to record the demo; a phone and a television in a real room
+need a small relay, which comes next.
+
 A gallery is chosen by its Galleris link name: `/?gallery=sample`. The work in
 front of you is `&at=<work id>`, the same id a Galleris wall-label code
 carries.
@@ -61,7 +85,7 @@ Needs Node 20 or later.
 
 ```bash
 npm install
-npm test                       # 18 tests, no network needed
+npm test                       # 27 tests, no network needed
 GALLERIS_LOCAL_DIR=fixtures npm run dev   # http://localhost:5173/?gallery=sample
 ```
 

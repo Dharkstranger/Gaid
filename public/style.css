@@ -52,6 +52,7 @@ a{color:#A8420B}
 .lang{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
 .lang select{height:36px;font:inherit;color:var(--ink);background:var(--surface);border:1px solid #8A8678}
 
+.to-screen{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600}
 .walk{margin-top:32px}
 .walk h2{margin:0 0 12px;font:600 20px Fraunces,Georgia,serif}
 .works{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}

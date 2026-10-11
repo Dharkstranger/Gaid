@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaid screen</title>
+<meta name="description" content="The screen beside the work. It shows what the visitor just asked Gaid about.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/screen.css">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<main class="tv" aria-label="Screen beside the work">
+  <figure class="mount">
+    <img id="art" alt="">
+    <p id="noart" class="noart" hidden>No picture</p>
+  </figure>
+
+  <section class="side">
+    <p id="where" class="where"></p>
+    <h1 id="title" class="title">Waiting for the guide…</h1>
+    <p id="meta" class="meta"></p>
+    <div id="panel" class="panel"></div>
+  </section>
+
+  <section class="said" aria-live="polite">
+    <p id="you" class="you"></p>
+    <p id="reply" class="reply"></p>
+  </section>
+
+  <footer class="foot">
+    <span><img src="/icon.svg" alt="" width="20" height="20"> Gaid</span>
+    <span>Simulated Fire TV screen · Not an Amazon product</span>
+  </footer>
+</main>
+<script type="module" src="/screen.js"></script>
+</body>
+</html>
