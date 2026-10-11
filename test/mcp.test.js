@@ -7,6 +7,7 @@ import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/
 
 process.env.GALLERIS_LOCAL_DIR = new URL('../fixtures', import.meta.url).pathname;
 delete process.env.AWS_BEARER_TOKEN_BEDROCK;
+process.env.GAID_QUESTIONS = 'off';   // test/store.test.js covers the store, against Supabase's own replies
 const { start } = await import('../dev.mjs');
 
 let server; let base; let client;
@@ -33,9 +34,9 @@ test('it speaks protocol 2025-11-25 and names itself', async () => {
   assert.match(body.result.instructions, /said "guide"/);
 });
 
-test('it offers the five tools, none of which changes anything', async () => {
+test('it offers the six tools, none of which changes anything', async () => {
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((t) => t.name).sort(), ['ask_work', 'find_work', 'recall_visit', 'send_enquiry', 'whats_nearby']);
+  assert.deepEqual(tools.map((t) => t.name).sort(), ['ask_work', 'find_work', 'recall_visit', 'send_enquiry', 'visitor_questions', 'whats_nearby']);
   for (const t of tools) assert.equal(t.annotations?.readOnlyHint, true, t.name);
 });
 
