@@ -75,4 +75,5 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .reply[hidden]{display:none}
 
 .foot{grid-area:foot;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-2) var(--s-4);font-size:var(--t-1);color:var(--text-2)}
+.code{color:var(--accent);font-weight:var(--w-strong);font-size:var(--t-3);letter-spacing:var(--track-label)}
 .foot img{display:block;height:var(--s-5);width:auto}

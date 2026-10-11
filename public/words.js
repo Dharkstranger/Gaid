@@ -20,6 +20,9 @@ export const W = {
   offline: 'Offline. Try again.',
   language: 'Language',
   openScreen: 'Open screen',
+  screen: 'Screen',
+  codeHint: 'Code',
+  pair: 'Pair',
   works: 'Works',
   fromGallery: 'Gallery’s words',
   fromNova: 'Nova · gallery’s words',
@@ -47,6 +50,7 @@ export const W = {
   moreIn: (medium) => `More in ${medium}`,
   toScale: 'To scale',
   person: 'Person, 1.7 m',
+  scaleSaid: (title, size) => `${title}, ${size}, beside a person 1.7 m tall`,   // read by a screen reader
   here: 'You are here',
   noPicture: 'No picture',
   tvFoot: 'Simulated Fire TV · Not an Amazon product',

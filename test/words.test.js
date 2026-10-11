@@ -26,6 +26,13 @@ test('no sentence of GAID’s own is hidden in a page', () => {
   }
 });
 
+test('nothing in a page hides the words under another W', () => {
+  for (const f of ['app.js', 'screen.js']) {
+    const src = readFileSync(new URL(`../public/${f}`, import.meta.url), 'utf8');
+    assert.doesNotMatch(src, /\b(const|let|var)\s+W\b|\(\s*W\s*[,)=]/, `${f} declares its own W`);
+  }
+});
+
 test('the name is spelled GAID and said "guide"', () => {
   assert.equal(W.name, 'GAID');
   assert.equal(spoken('Ask GAID about it'), 'Ask Guide about it');

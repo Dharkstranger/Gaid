@@ -7,6 +7,7 @@
    else's writing, and none of it is ever parsed as markup. */
 import { CHANNEL, panelFor } from '/scene.js';
 import { W } from '/words.js';
+import { openRelay, newCode, topicFor, CODE } from '/relay.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -83,12 +84,12 @@ const draw = {
     const w = p.size.w ?? h * ratio;
     const gap = 30;
     const H = Math.max(PERSON, h) * 1.08;
-    const W = 60 + gap + w;
+    const width = 60 + gap + w;
     const svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('viewBox', `-10 ${-H} ${W + 20} ${H + 26}`);
+    svg.setAttribute('viewBox', `-10 ${-H} ${width + 20} ${H + 26}`);
     svg.setAttribute('class', 'p-scale');
     svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', `${state.work.title}, ${p.label}, beside a person 170 centimetres tall`);
+    svg.setAttribute('aria-label', W.scaleSaid(state.work.title, p.label));
     const add = (tag, attrs) => {
       const n = document.createElementNS(NS, tag);
       for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
@@ -106,7 +107,7 @@ const draw = {
       const img = add('image', { x, y: -h, width: w, height: h, preserveAspectRatio: 'xMidYMax meet' });
       img.setAttribute('href', state.work.image);
     }
-    add('line', { x1: -10, y1: 0, x2: W + 10, y2: 0, class: 'floor' });
+    add('line', { x1: -10, y1: 0, x2: width + 10, y2: 0, class: 'floor' });
     const t1 = add('text', { x: 30, y: 18, 'text-anchor': 'middle', class: 'lbl' }); t1.textContent = '1.7 m';
     const t2 = add('text', { x: x + w / 2, y: 18, 'text-anchor': 'middle', class: 'lbl' }); t2.textContent = p.label;
 
@@ -200,6 +201,14 @@ async function start() {
     ch.onmessage = (e) => receive(e.data);
     ch.postMessage({ type: 'hello', slug });       // a phone already open answers with where it is
   }
+  // A phone on another device: this screen shows a code, the phone types it.
+  const asked = (params.get('room') || '').toUpperCase();
+  const room = CODE.test(asked) ? asked : newCode();
+  const here = new URLSearchParams(location.search); here.set('room', room);
+  history.replaceState(null, '', `?${here}`);
+  $('code').textContent = `${W.pair} · ${room}`;
+  const relay = openRelay({ topic: topicFor(slug, room), onMessage: receive });
+  relay.send({ type: 'hello', slug });
 }
 
 start();

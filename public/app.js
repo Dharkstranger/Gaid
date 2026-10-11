@@ -6,6 +6,7 @@
 import { CHANNEL } from '/scene.js';
 import { W, spoken } from '/words.js';
 import { callTool } from '/mcp-client.js';
+import { openRelay, newCode, topicFor, CODE } from '/relay.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -21,10 +22,23 @@ const state = { gallery: null, work: null, lang: 'English', history: [], listeni
 // a BroadcastChannel, so for now it has to be a window of this same browser.
 const channel = 'BroadcastChannel' in window ? new BroadcastChannel(CHANNEL) : null;
 let lastSent = null;
+// A TV on another device: paired by the four-character code it shows.
+let room = CODE.test((params.get('room') || '').toUpperCase()) ? params.get('room').toUpperCase() : null;
+let relay = null;
 function tellScreen(msg) {
   const m = { ...msg, slug };
   if (m.type === 'answer') lastSent = m;
   channel?.postMessage(m);
+  relay?.send(m);
+}
+function pairWith(code) {
+  if (!CODE.test(code) || code === room) return;
+  relay?.close();
+  room = code;
+  relay = openRelay({ topic: topicFor(slug, room), onMessage: (m) => { if (m?.type === 'hello' && lastSent) relay.send(lastSent); } });
+  $('room').value = room;
+  if (state.work) show(state.work);                 // carries the code into the address and the screen link
+  if (lastSent) relay.send(lastSent);
 }
 if (channel) {
   channel.onmessage = (e) => {
@@ -51,8 +65,9 @@ function show(work) {
   }
   if (work) {
     const at = `?gallery=${encodeURIComponent(slug)}&at=${encodeURIComponent(work.id)}`;
-    history.replaceState(null, '', at);
-    $('toScreen').href = `/screen.html${at}`;
+    const code = room ?? (state.spareCode ??= newCode());
+    history.replaceState(null, '', room ? `${at}&room=${room}` : at);
+    $('toScreen').href = `/screen${at}&room=${code}`;
   }
 }
 
@@ -236,6 +251,14 @@ async function start() {
   show(g.works.find((w) => w.id === params.get('at')) ?? g.works[0] ?? null);
   caption('', g.welcome || g.name, '');
   setupMic();
+  if (room) { const r = room; room = null; pairWith(r); }
+  $('room').addEventListener('input', (e) => {
+    const v = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    e.target.value = v;
+    if (v.length === 4) pairWith(v);
+  });
+  // Opening the screen from here pairs it: the link carries a code this phone joins too.
+  $('toScreen').addEventListener('click', () => { if (!room && state.spareCode) pairWith(state.spareCode); });
   $('askForm').addEventListener('submit', (e) => { e.preventDefault(); const v = $('q').value; $('q').value = ''; ask(v); });
 }
 
