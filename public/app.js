@@ -5,6 +5,7 @@
 
 import { CHANNEL } from '/scene.js';
 import { W, spoken } from '/words.js';
+import { callTool } from '/mcp-client.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -109,15 +110,20 @@ async function ask(question) {
   if (!q || !state.gallery) return;
   stopTalking();
   caption(q, W.thinking, '');
-  let out = null;
-  try {
-    const res = await fetch('/api/ask', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ slug, workId: state.work?.id, question: q, lang: state.lang, history: state.history }),
-    });
-    out = await res.json();
-  } catch { out = null; }
+  // Alexa+'s way in: GAID's MCP server. The plain route is the fallback,
+  // so a refused tool call still gets the visitor an answer.
+  let out = await callTool('ask_work', { gallery: slug, work_id: state.work?.id, question: q, language: state.lang });
+  if (out && out.found !== false) out = { ok: true, ...out, via: 'mcp' };
+  else {
+    try {
+      const res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ slug, workId: state.work?.id, question: q, lang: state.lang, history: state.history }),
+      });
+      out = await res.json();
+    } catch { out = null; }
+  }
   if (!out || out.ok !== true || typeof out.say !== 'string') {
     caption(q, W.offline, '');
     return;

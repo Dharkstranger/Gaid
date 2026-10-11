@@ -48,6 +48,32 @@ on the wall label. GAID is that viewing room you can talk to.
 3. **Nothing in the plumbing turns a visitor away.** No key, a timeout, a
    refusal: GAID falls back to the gallery's own words.
 
+## GAID for Alexa+: the MCP server
+
+`POST /api/mcp`. Model Context Protocol **2025-11-25**, Streamable HTTP, stateless,
+built on the official SDK (`@modelcontextprotocol/sdk` 1.30.1). The phone page's
+simulated Alexa+ calls it for every question; `test/mcp.test.js` drives it with a
+real MCP client over HTTP.
+
+| Tool | Does |
+|---|---|
+| `ask_work` | answers a question about a work from the gallery's words; says which screen panel fits |
+| `find_work` | finds a work from a memory: "the painting with the sun" |
+| `whats_nearby` | the other works in the same room |
+| `recall_visit` | the works on a visit, from its code (`sample~p1.p4.p9`); nothing about the person is stored |
+| `send_enquiry` | a message to the gallery for the person to send themselves; GAID sends nothing |
+
+Every tool is read-only. Every fact is the gallery's own; where it has said
+nothing, the tool says so.
+
+Try it with any MCP client, or by hand:
+
+```bash
+curl -s -X POST https://<your-gaid>/api/mcp \
+  -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"find_work","arguments":{"gallery":"sample","description":"the one with the sun"}}}'
+```
+
 ## The screen beside the work
 
 `/screen.html?gallery=sample` is the big screen on the wall next to the work,
@@ -80,6 +106,8 @@ carries.
 
 - **Amazon Bedrock**, Converse API, `@aws-sdk/client-bedrock-runtime`.
 - **Amazon Nova Lite** (`us.amazon.nova-lite-v1:0`), set by `GAID_MODEL_ID`.
+- **Alexa+**: an MCP server (2025-11-25, Streamable HTTP), the track's own technology.
+- **Amazon Devices Builder Tools**: `.adbt-config.json`, `docs/amazon/devices-context.md`.
 
 ## Run it
 
@@ -87,7 +115,7 @@ Needs Node 20 or later.
 
 ```bash
 npm install
-npm test                       # 27 tests, no network needed
+npm test                       # 48 tests, no network needed
 GALLERIS_LOCAL_DIR=fixtures npm run dev   # http://localhost:5173/?gallery=sample
 ```
 
