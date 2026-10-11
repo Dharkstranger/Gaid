@@ -94,7 +94,7 @@ test('the voice stops moving when motion is reduced', () => {
   assert.match(cssOf('screen.css'), /prefers-reduced-motion:reduce\)\{\.panel\.in\{animation:none\}/);
 });
 
-test('a work is never set on indigo: every mount is the mount colour', () => {
+test('a work is never set on black: every mount is the mount colour', () => {
   for (const f of sheets) {
     for (const r of rulesOf(cssOf(f)).filter((x) => /(^|\s)\.(mount|thumb)$/.test(x.sel) && /background/.test(x.body))) {
       assert.match(r.body, /background:var\(--mount\)/, `${f} ${r.sel}`);
@@ -105,7 +105,7 @@ test('a work is never set on indigo: every mount is the mount colour', () => {
 test('fonts come from GAID itself, with the letters Nigerian languages need', () => {
   for (const f of pages) assert.doesNotMatch(read(f), /fonts\.(googleapis|gstatic)\.com/, `${f} asks a font host`);
   const faces = read('fonts/fonts.css');
-  for (const fam of ['Unbounded', 'Work Sans']) {
+  for (const fam of ['Big Shoulders Display', 'Work Sans']) {
     for (const sub of ['latin', 'latin-ext', 'vietnamese']) {
       assert.match(faces, new RegExp(`font-family:'${fam}'[^}]*-${sub}-`), `${fam} has no ${sub} file`);
     }
@@ -115,4 +115,21 @@ test('fonts come from GAID itself, with the letters Nigerian languages need', ()
   // Work Sans has no ɓ ɗ ƙ ǹ; Noto Sans draws them, and must sit next in the body stack.
   assert.match(faces, /font-family:'Noto Sans'[^}]*U\+0100-02AF/);
   assert.match(read('tokens.css'), /--font-body:\s*"Work Sans", "Noto Sans"/);
+});
+
+test('eyes up: the phone fades while GAID speaks, but not during Look closer', () => {
+  assert.match(cssOf('phone.css'), /\.v\[data-voice="speaking"\]:not\(\[data-look\]\) :is\(\.v-top,\.v-mount,\.v-strip\)\{opacity:var\(--eyes-up\)\}/);
+  const app = read('app.js');
+  assert.match(app, /querySelector\('\.v'\)\.dataset\.voice = s/);
+  assert.match(app, /dataset\.look = 'on'/);
+});
+
+test('danfo yellow is never text or an edge on the wall: 1.5:1', () => {
+  for (const f of sheets) {
+    for (const r of rulesOf(cssOf(f))) {
+      // Yellow text only where its own ground is ink.
+      if (/(^|;)\s*color:var\(--accent\)/.test(r.body)) assert.match(r.body, /background:var\(--ink\)/, `${f} ${r.sel}: yellow text`);
+      assert.doesNotMatch(r.body, /(border|outline|stroke)[a-z-]*:[^;]*var\(--accent\)/, `${f} ${r.sel}: yellow edge`);
+    }
+  }
 });

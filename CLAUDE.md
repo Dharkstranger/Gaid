@@ -16,7 +16,9 @@ Pacific = 20:00 Lagos**. Public, MIT.
 - **Written GAID, said "guide".** Capitals on screen. A speech engine is given
   "Guide" (`spoken()`); "Guide, …" is a wake word like "Alexa, …"; Amazon
   Nova is told how it is said and never to say it.
-- **GAID's own look only.** Lagos made: adire indigo, palm amber, chalk.
+- **GAID's own look only.** The talking drum (gángan) and the danfo: yellow and
+  black on gallery-wall white, signage type (Big Shoulders Display). Eyes up: the
+  phone fades while GAID speaks.
   Every value from `public/tokens.css`; `test/design.test.js` fails on a
   hand-written colour, size or space. A gallery's colour never appears.
 - **Nothing missing.** Logo, colour, type, space, motion, parts, words,

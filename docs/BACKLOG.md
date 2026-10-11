@@ -48,7 +48,7 @@ Last updated: 11 October 2026.
    - [x] Echo Show at home: voice-first, three words
    - [x] Said once, first time: "I only tell you what the gallery wrote"
    - [x] Footer text off the visitor's screens; "Not an Amazon product" on /about
-   - [ ] /design: show the new parts (talk circle, icons, sheets, zoom); curator page voice-first?
+   - [x] /design rebuilt on the new identity (motion: eyes up, look closer)
    - [ ] TV shows a code to scan (QR) as well as type
 2. [ ] Deploy to Vercel — needs owner: reconnect connector
 3. [ ] Amazon Bedrock key in Vercel — needs owner
@@ -59,11 +59,9 @@ Last updated: 11 October 2026.
 
 ## Next — after the project works (owner, 11 Oct)
 
-- [ ] **Design must not look AI-made.** Study competing products and take what works:
-      Smartify, Bloomberg Connects, STQRY, Cuseum, Musa, Gesso, Acoustiguide/Antenna,
-      the Met / MoMA / Rijksmuseum apps, Alexa+ and Echo Show's own screens.
-      Then redo the design system, logo, everything. Check against the AI look list in
-      the artifact design guidance (cream + serif + terracotta; indigo + one accent; etc).
+- [x] **Design must not look AI-made** (done 11 Oct). Talking drum mark, danfo yellow/black on
+      gallery-wall white, Big Shoulders Display, "Eyes up". Tokens, logo, fonts, /design,
+      docs. axe zero on every page; yellow never text or edge (test).
 - [ ] Recorded audio guide on one work (owner's voice) — the video's best moment
 - [ ] Yoruba translation on one work — "say it in Yoruba" for real
 

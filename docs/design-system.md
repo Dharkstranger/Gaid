@@ -1,6 +1,6 @@
 # GAID design system
 
-**GAID**, said *guide*. Lagos made.
+**GAID**, said *guide*. The talking drum and the danfo, on a gallery wall.
 
 Live: `/design` · Tokens: `public/tokens.css` · Words: `public/words.js` · Logo: `public/brand/`
 Held by `test/design.test.js` and `test/words.test.js`: a page that goes round the system fails the build.
@@ -18,50 +18,54 @@ Held by `test/design.test.js` and `test/words.test.js`: a page that goes round t
 
 ## 2. Logo
 
+The mark is a **gángan**, the Yoruba talking drum: the drum built to speak words.
+Two danfo-yellow heads, black cords pinched at the waist, the curved beater.
+
 | File | Use |
 |---|---|
-| `gaid-wordmark.svg` | chalk letters, amber dot. On indigo. Default |
-| `gaid-wordmark-ink.svg` | indigo letters, deep amber dot. On chalk, paper |
-| `gaid-wordmark-mono.svg` | one colour. Fax, stamp, engraving |
-| `gaid-mark.svg` | the dot alone. Under 120 px wide |
-| `gaid-icon.svg` (= `/icon.svg`) | app icon, favicon. 512 square, rounded |
+| `gaid-wordmark.svg` | black letters. On wall white, paper. Default |
+| `gaid-wordmark-night.svg` | white letters. On ink (video, slides) |
+| `gaid-wordmark-ink.svg` | on white paper, print |
+| `gaid-wordmark-mono.svg` | one colour. Stamp, engraving |
+| `gaid-mark.svg` | the drum alone. Under 120 px wide |
+| `gaid-icon.svg` (= `/icon.svg`) | app icon, favicon: danfo tile, drum, two black stripes |
 
-- Letters drawn as shapes, not set in a font: they look the same everywhere.
-- **The dot**: adire resist-dye circle above the I. The voice. Always amber.
-- Clear space: one dot all round. Minimum: 120 px wide; below, the mark.
-- Never: stretch, recolour, outline, shadow, set in type, put on a photo.
+- Letters: Big Shoulders Display 800, turned into shapes. They look the same everywhere.
+- Clear space: one drum head all round. Minimum: 120 px wide; below, the mark.
+- Never: stretch, recolour, outline, shadow, retype, put on a photo.
 
 ## 3. Colour
 
-GAID's own colours only. A gallery's colour never appears.
+GAID's own colours only. A gallery's colour never appears. Why these: a screen beside a
+painting should disappear into the wall (gallery white, a neutral mount, ISO 3664's neutral
+surround); the one loud thing is the voice, in the yellow and black of Lagos's danfo buses.
 
-| Token | Hex | Role | Contrast |
+| Token | Hex | Role | Contrast on wall |
 |---|---|---|---|
-| `--indigo` | #14204A | ground | — |
-| `--indigo-2` | #1D2C5E | surface | — |
-| `--indigo-3` | #26376E | raised, hover | — |
-| `--indigo-line` | #3A4C8A | dividers only | 1.9:1, never a control edge |
-| `--chalk` | #F4EFE4 | text on indigo | 13.7:1 |
-| `--chalk-2` | #B9BFD6 | quiet text, control edges | 8.6:1 |
-| `--amber` | #F0A43A | the voice: talk, dot, focus | 7.6:1 on indigo |
-| `--amber-deep` | #9A5205 | amber as text on chalk | 5.1:1 |
-| `--mount` | #E6E1D6 | under every work | indigo on it 12.1:1 |
-| `--ink` / `--ink-2` | #14204A / #3E4A72 | text on chalk or mount | 13.7:1 / 7.5:1 on chalk, 6.6:1 on mount |
-| `--ok` | #8FD9AE | done | 9.5:1 |
-| `--alert` | #FFA494 | failed | 8.2:1 |
+| `--wall` | #F4F4F1 | ground | — |
+| `--paper` | #FFFFFF | surface, cards | — |
+| `--shelf` | #E9E9E4 | raised, hover | — |
+| `--ink` | #141412 | text, rings, the stripes | 16.7:1 |
+| `--ink-2` | #4D4D48 | quiet text | 7.7:1 |
+| `--cord` | #6E6E68 | control edges | 4.7:1 |
+| `--hairline` | #D5D5CE | dividers only | 1.3:1, never a control edge |
+| `--danfo` | #F7C600 | the voice: talk, ▶, "you are here" | 1.5:1 alone; ink on it 11.5:1 |
+| `--mount` | #D9D8D3 | under every work | — |
+| `--ok` | #17703D | done | 5.6:1 |
+| `--alert` | #B3261E | failed | 5.9:1 |
 
-Rules:
-- **A work is never on indigo.** Always on `--mount`, always `contain`, never cropped.
-- **Bright amber never on chalk** (1.8:1). Use `--amber-deep`.
-- Roles (`--bg`, `--text`, `--accent`…) flip under `.on-chalk` for print and light panels.
-- One theme, on purpose: a dark screen glares less in a gallery and keeps the eye on the lit work.
-- Texture: `--adire`, dots at 5–6% chalk. Indigo grounds only. Felt, not seen.
+Rules (held by `test/design.test.js`):
+- **A work is never on black.** Always on `--mount`, always `contain`, never cropped.
+- **Yellow is a ground, never text or an edge on the wall.** Every yellow control is ringed in
+  ink and carries ink. Links are ink, underlined in yellow.
+- One light theme, on purpose: the screen sits on a lit gallery wall.
+- Texture: `--stripes`, the danfo's two black bands, under a heading or plate. Used sparingly.
 
 ## 4. Type
 
 | | Family | Weights | Use |
 |---|---|---|---|
-| Display | Unbounded | 600, 800 | titles, panel heads, logo lockups |
+| Display | Big Shoulders Display | 800 | titles, codes, logo: tall, narrow, like bus and market signs |
 | Body | Work Sans | 400, 600 | everything else |
 | Backup | Noto Sans | 400, 600 | only ɓ ɗ ƙ ǹ, which Work Sans lacks |
 
@@ -79,7 +83,7 @@ The TV sets its root size from the screen width, so the same steps grow with it.
 - Space, 4-based: **4 · 8 · 12 · 16 · 24 · 32 · 48** (`--s-1`…`--s-7`). Gutter 16, 28 from 700 px.
 - Tap: every control at least **44 × 44** (`--tap`).
 - Radius: **0** mounts and works (a mat is square) · **6** buttons, fields, cards · **round** dot, chips.
-- Borders 1 and 2. Focus: 3 px amber outline, 2 px offset, on every control.
+- Borders 1 and 2. Focus: 3 px ink outline, 2 px offset, on every control.
 - Layout widths: `--page-max` 68rem, `--thumb-min` 8.5rem, `--room-min` 11rem, `--measure` 60ch.
 
 ## 6. Motion
@@ -89,17 +93,22 @@ The TV sets its root size from the screen width, so the same steps grow with it.
 Motion means something: the voice bars move only while listening or speaking; a TV panel
 rises once when an answer arrives.
 
+- **Eyes up.** While GAID speaks, the phone fades to `--eyes-up` (18%) so the visitor looks up
+  at the work, not the screen. The talk button stays. Not during Look closer: then the phone
+  is the picture.
+- **Look closer.** The picture moves to each part at the pace of the words.
+
 ## 7. Parts
 
 | Part | States | Notes |
 |---|---|---|
-| Talk | idle (amber) · listening (chalk, amber ring) · speaking (amber, bars moving) | the one big control |
-| Ask field + Ask | rest · focus | 44 high, chalk-2 edge |
+| Talk | idle (danfo, ink ring) · listening (ink, danfo ring) · speaking (danfo, bars moving) | the one big control |
+| Ask field + Ask | rest · focus | 44 high, cord edge |
 | Chips | rest · hover | one word each; the question they ask is in `words.js` |
 | Answer | question · answer · source | surface card; source says whose words |
-| Work card | rest · hover · current (amber edge) | thumbnail on mount |
+| Work card | rest · hover · current (ink edge) | thumbnail on mount |
 | TV panels | about · artist · timeline · medium · scale · rooms | `public/scene.js` picks one |
-| Notices | done · failed · offline | `--ok`, `--alert`, `--chalk-2`; offline is never "failed" |
+| Notices | done · failed · offline | `--ok`, `--alert`, `--ink-2`; offline is never "failed" |
 
 ## 8. Screens
 

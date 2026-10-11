@@ -10,6 +10,11 @@
 .v-sendbox{display:flex;justify-content:center}
 .v-sendbox[hidden]{display:none}
 .v-send{display:inline-flex;align-items:center;justify-content:center;width:calc(var(--s-7) * 2);height:calc(var(--s-7) * 2);border-radius:var(--r-round);
-  background:var(--ok);color:var(--indigo)}
+  background:var(--ok);color:var(--paper)}
+.v-send:hover{background:var(--ink)}
 .v-send svg{width:var(--s-6);height:var(--s-6);fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
 .v-show .v-dock{justify-content:center;gap:var(--s-6)}
+
+/* The first tap sits on the work, not between the work and the visit. */
+.v-show .v-mount{position:relative}
+.v-show .v-start{top:50%}

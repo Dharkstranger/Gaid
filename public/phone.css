@@ -24,8 +24,8 @@ button,input{font:inherit;color:inherit}
   transition:background-color var(--m-fast) var(--ease),color var(--m-fast) var(--ease)}
 .v-icon svg{width:var(--s-5);height:var(--s-5);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .v-icon:hover{background:var(--raised)}
-.v-icon[aria-pressed="true"]{background:var(--chalk);color:var(--ink);border-color:var(--chalk)}
-.v-dot{position:absolute;top:var(--s-1);right:var(--s-1);width:var(--s-2);height:var(--s-2);border-radius:var(--r-round);background:var(--accent)}
+.v-icon[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.v-dot{position:absolute;top:var(--s-1);right:var(--s-1);width:var(--s-2);height:var(--s-2);border-radius:var(--r-round);background:var(--accent);box-shadow:0 0 0 var(--b-1) var(--ring)}
 .v-dot[hidden]{display:none}
 
 /* ---------------------------------------------------------------- the work */
@@ -45,7 +45,7 @@ button,input{font:inherit;color:inherit}
 .v-dock{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2)}
 .v-side{min-width:calc(var(--tap) + var(--s-2));min-height:calc(var(--tap) + var(--s-2))}
 .v-talk{position:relative;display:inline-flex;align-items:center;justify-content:center;width:calc(var(--tap) * 2 - var(--s-2));height:calc(var(--tap) * 2 - var(--s-2));
-  padding:0;border:0;border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
+  padding:0;border:var(--b-2) solid var(--ring);border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
   transition:background-color var(--m-fast) var(--ease),box-shadow var(--m-fast) var(--ease)}
 .v-mic{width:var(--s-6);height:var(--s-6);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .v-voice{display:none;align-items:center;gap:var(--s-1);height:var(--s-6)}
@@ -54,7 +54,7 @@ button,input{font:inherit;color:inherit}
 .v-voice i:nth-child(3){height:100%}
 .v-talk:not([data-state="idle"]) .v-mic{display:none}
 .v-talk:not([data-state="idle"]) .v-voice{display:inline-flex}
-.v-talk[data-state="listening"]{background:var(--chalk);color:var(--ink);box-shadow:0 0 0 var(--s-1) var(--accent)}
+.v-talk[data-state="listening"]{background:var(--ink);color:var(--accent);box-shadow:0 0 0 var(--s-1) var(--accent),0 0 0 calc(var(--s-1) + var(--b-2)) var(--ink)}
 .v-talk[data-state="thinking"] .v-voice i{animation:voice var(--m-slow) var(--ease) infinite alternate}
 .v-talk:not([data-state="idle"]) .v-voice i{animation:voice var(--m-slow) var(--ease) infinite alternate}
 .v-voice i:nth-child(2){animation-delay:calc(var(--m-fast) * 1)}
@@ -64,23 +64,23 @@ button,input{font:inherit;color:inherit}
 @keyframes voice{to{transform:scaleY(.35)}}
 .v-dots{position:absolute;bottom:calc(var(--s-1) * -1);left:50%;transform:translateX(-50%);display:flex;gap:var(--s-1)}
 .v-dots i{display:block;width:var(--s-1);height:var(--s-1);border-radius:var(--r-round);background:var(--line)}
-.v-dots i.on{background:var(--accent)}
+.v-dots i.on{background:var(--ink)}
 
 /* ---------------------------------------------------------------- the works, as pictures */
 .v-strip{display:flex;gap:var(--s-2);overflow-x:auto;padding-bottom:var(--s-1);scrollbar-width:none}
 .v-strip button{flex:none;width:calc(var(--tap) + var(--s-4));height:calc(var(--tap) + var(--s-4));padding:var(--s-1);border:var(--b-1) solid var(--line);
   border-radius:var(--r-1);background:var(--mount);cursor:pointer}
-.v-strip button[aria-current="true"]{border:var(--b-focus) solid var(--accent);padding:var(--s-1)}
+.v-strip button[aria-current="true"]{border:var(--b-focus) solid var(--ring);padding:var(--s-1)}
 .v-strip img{display:block;width:100%;height:100%;object-fit:contain}
 
 /* ---------------------------------------------------------------- the first tap */
 .v-start{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);width:calc(var(--s-7) * 2 + var(--s-4));height:calc(var(--s-7) * 2 + var(--s-4));
-  display:flex;align-items:center;justify-content:center;border:0;border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
-  box-shadow:0 0 0 var(--s-3) var(--indigo-3)}
+  display:flex;align-items:center;justify-content:center;border:var(--b-focus) solid var(--ring);border-radius:var(--r-round);background:var(--accent);color:var(--on-accent);cursor:pointer;
+  box-shadow:0 0 0 var(--s-3) var(--raised)}
 .v-start svg{width:var(--s-7);height:var(--s-7);fill:currentColor;margin-left:var(--s-1)}
 .v-start[hidden]{display:none}
 .v-start:not([hidden]){animation:breathe calc(var(--m-slow) * 3) var(--ease) infinite}
-@keyframes breathe{50%{box-shadow:0 0 0 var(--s-5) var(--indigo-2)}}
+@keyframes breathe{50%{box-shadow:0 0 0 var(--s-5) var(--line)}}
 
 /* ---------------------------------------------------------------- sheets */
 .v-sheet{position:absolute;left:var(--gut);right:var(--gut);bottom:calc(env(safe-area-inset-bottom, 0px) + var(--s-3));
@@ -89,7 +89,7 @@ button,input{font:inherit;color:inherit}
 .v-next{display:flex;align-items:center;gap:var(--s-4);padding:0;border:0;background:transparent;cursor:pointer;min-height:var(--tap)}
 .v-thumb{display:flex;width:calc(var(--s-7) * 2);height:calc(var(--s-7) * 2);padding:var(--s-2);background:var(--mount)}
 .v-thumb img{width:100%;height:100%;object-fit:contain}
-.v-arrow{width:var(--s-7);height:var(--s-7);fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.v-arrow{width:var(--s-7);height:var(--s-7);fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .v-home{flex-direction:column;align-items:stretch}
 .v-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-2)}
 .v-three span{aspect-ratio:1;max-width:100%;display:flex;padding:var(--s-2);background:var(--mount)}
@@ -98,6 +98,12 @@ button,input{font:inherit;color:inherit}
 .v-scan{width:var(--s-6);height:var(--s-6);fill:none;stroke:var(--text-2);stroke-width:1.8;stroke-linecap:round}
 .v-code{flex:1;min-width:0;min-height:var(--tap);padding:0 var(--s-3);border:var(--b-1) solid var(--edge);border-radius:var(--r-1);background:var(--surface);
   font:var(--w-display) var(--t-4)/1 var(--font-display);letter-spacing:var(--track-label);text-align:center;text-transform:uppercase}
+
+/* ---------------------------------------------------------------- eyes up */
+/* While GAID speaks the phone fades, so the visitor looks up at the work. Not
+   during Look closer: then the phone is the picture. The talk button stays. */
+.v-top,.v-mount,.v-strip{transition:opacity calc(var(--m-slow) * 2) var(--ease)}
+.v[data-voice="speaking"]:not([data-look]) :is(.v-top,.v-mount,.v-strip){opacity:var(--eyes-up)}
 
 @media (prefers-reduced-motion:reduce){
   .v-voice i,.v-start:not([hidden]){animation:none}

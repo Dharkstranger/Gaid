@@ -89,6 +89,8 @@ function setVoice(s) {
   t.dataset.state = s;
   t.setAttribute('aria-pressed', String(s === 'listening'));
   t.setAttribute('aria-label', s === 'idle' ? W.talk : W[s] ?? W.talk);
+  // Eyes up: while GAID speaks, the phone fades so the visitor looks at the work itself.
+  document.querySelector('.v').dataset.voice = s;
 }
 
 /* ---------------------------------------------------------------- speaking */
@@ -113,6 +115,7 @@ function stopAll() {
   hush();
   const clip = $('clip'); clip.pause();
   setVoice('idle');
+  delete document.querySelector('.v').dataset.look;
   // Whatever was zoomed into, a new action starts from the whole work — here and on the TV.
   if ($('art').style.getPropertyValue('--z') > 1) { zoom(null); if (state.work) tellScreen({ type: 'look', workId: state.work.id, box: null }); }
 }
@@ -154,9 +157,10 @@ async function lookCloser() {
   if (!state.work) return;
   stopAll();
   const run = state.busy;
+  document.querySelector('.v').dataset.look = 'on';   // the phone is the picture here: no fading
   setVoice('thinking');
   const out = await callTool('look_closer', { gallery: slug, work_id: state.work.id, language: state.lang });
-  if (!out?.steps?.length) { setVoice('idle'); return; }
+  if (!out?.steps?.length) { delete document.querySelector('.v').dataset.look; setVoice('idle'); return; }
   for (const step of out.steps) {
     if (state.busy !== run) return;              // the visitor did something else
     zoom(step.box);
@@ -168,6 +172,7 @@ async function lookCloser() {
   }
   if (state.busy !== run) return;
   zoom(null);
+  delete document.querySelector('.v').dataset.look;
   tellScreen({ type: 'look', workId: state.work.id, box: null });
 }
 

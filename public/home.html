@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GAID at home</title>
 <meta name="description" content="GAID, said “guide”. Your gallery visit, at home, through Alexa+.">
-<meta name="theme-color" content="#14204A">
+<meta name="theme-color" content="#F4F4F1">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/phone.css">
@@ -25,7 +25,11 @@
   </header>
 
   <div class="v-body">
-    <figure class="v-mount"><img id="art" alt=""></figure>
+    <figure class="v-mount"><img id="art" alt="">
+      <button id="start" class="v-start" type="button" data-aria="listen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </figure>
     <div class="v-aside">
       <div id="works" class="v-strip v-visit" role="group" data-aria="yourVisit"></div>
       <p id="cap" class="v-cap" aria-live="polite" hidden></p>
@@ -49,9 +53,6 @@
     </div>
   </div>
 
-  <button id="start" class="v-start" type="button" data-aria="listen">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-  </button>
 </main>
 <script type="module" src="/home.js"></script>
 </body>

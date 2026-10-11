@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GAID design</title>
 <meta name="description" content="GAID, said “guide”. The design system: logo, colour, type, space, parts, words.">
-<meta name="theme-color" content="#14204A">
+<meta name="theme-color" content="#F4F4F1">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/style.css">
@@ -14,47 +14,57 @@
 </head>
 <body>
 <header class="top wrap">
-  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
+  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="120" height="40"></a>
   <p class="tag">Design system</p>
 </header>
 <main class="wrap ds">
   <h1>GAID</h1>
-  <p class="lede">Said “guide”. Lagos made.</p>
+  <p class="lede">Said “guide”. Talking drum. Danfo yellow.</p>
 
   <section aria-labelledby="h-logo">
     <h2 id="h-logo">Logo</h2>
     <div class="logos">
-      <div class="plate"><img src="/brand/gaid-wordmark.svg" alt="GAID logo, chalk on indigo" width="240" height="93"></div>
-      <div class="plate light"><img src="/brand/gaid-wordmark-ink.svg" alt="GAID logo, indigo on chalk" width="240" height="93"></div>
-      <div class="plate"><img src="/brand/gaid-icon.svg" alt="GAID app icon" width="96" height="96"></div>
-      <div class="plate"><img src="/brand/gaid-mark.svg" alt="GAID mark, the dot" width="64" height="64"></div>
+      <div class="plate"><img src="/brand/gaid-wordmark.svg" alt="GAID logo, black on wall white" width="240" height="80"></div>
+      <div class="plate dark"><img src="/brand/gaid-wordmark-night.svg" alt="GAID logo, white on black" width="240" height="80"></div>
+      <div class="plate"><img src="/brand/gaid-icon.svg" alt="GAID app icon, yellow tile" width="96" height="96"></div>
+      <div class="plate"><img src="/brand/gaid-mark.svg" alt="GAID mark, the talking drum" width="64" height="64"></div>
     </div>
     <ul class="rules">
-      <li>The dot: adire, the voice. Always above the I.</li>
-      <li>Under 120 px wide: the mark, not the logo.</li>
-      <li>Clear space: one dot all round.</li>
-      <li>Never stretched, recoloured, outlined, or set in type.</li>
+      <li>The mark: gángan, the talking drum. It speaks words.</li>
+      <li>Yellow heads, black cords. Danfo colours.</li>
+      <li>Under 120 px wide: the mark alone.</li>
+      <li>Clear space: one drum head all round.</li>
+      <li>Never stretched, recoloured, or retyped.</li>
     </ul>
   </section>
 
   <section aria-labelledby="h-colour">
     <h2 id="h-colour">Colour</h2>
     <div class="grid">
-      <div class="sw"><i class="c-indigo"></i><b>Indigo</b>Ground</div>
-      <div class="sw"><i class="c-indigo-2"></i><b>Indigo 2</b>Surface</div>
-      <div class="sw"><i class="c-indigo-3"></i><b>Indigo 3</b>Raised</div>
-      <div class="sw"><i class="c-chalk"></i><b>Chalk</b>Text · 13.7:1</div>
-      <div class="sw"><i class="c-chalk-2"></i><b>Chalk 2</b>Quiet · 8.6:1</div>
-      <div class="sw"><i class="c-amber"></i><b>Amber</b>Voice · 7.6:1</div>
-      <div class="sw"><i class="c-amber-deep"></i><b>Amber deep</b>On chalk · 5.1:1</div>
+      <div class="sw"><i class="c-wall"></i><b>Wall</b>Ground</div>
+      <div class="sw"><i class="c-paper"></i><b>Paper</b>Surface</div>
+      <div class="sw"><i class="c-shelf"></i><b>Shelf</b>Raised</div>
+      <div class="sw"><i class="c-ink"></i><b>Ink</b>Text · 16.7:1</div>
+      <div class="sw"><i class="c-ink-2"></i><b>Ink 2</b>Quiet · 7.7:1</div>
+      <div class="sw"><i class="c-cord"></i><b>Cord</b>Edges · 4.7:1</div>
+      <div class="sw"><i class="c-danfo"></i><b>Danfo</b>Voice · ink on it 11.5:1</div>
       <div class="sw"><i class="c-mount"></i><b>Mount</b>Under works</div>
-      <div class="sw"><i class="c-ok"></i><b>Done</b>9.5:1</div>
-      <div class="sw"><i class="c-alert"></i><b>Failed</b>8.2:1</div>
+      <div class="sw"><i class="c-ok"></i><b>Done</b>5.6:1</div>
+      <div class="sw"><i class="c-alert"></i><b>Failed</b>5.9:1</div>
     </div>
     <div class="pair">
-      <div class="do"><b>Do</b>Works on the mount. Amber for the voice.</div>
-      <div class="dont"><b>Don’t</b>A work on indigo. Bright amber on chalk. A gallery’s colour.</div>
+      <div class="do"><b>Do</b>Works on the mount. Yellow ringed in ink.</div>
+      <div class="dont"><b>Don’t</b>A work on black. Yellow text. A gallery’s colour.</div>
     </div>
+  </section>
+
+  <section aria-labelledby="h-motion">
+    <h2 id="h-motion">Motion</h2>
+    <ul class="rules">
+      <li>Eyes up: the phone fades while GAID speaks.</li>
+      <li>Look closer: the picture moves at the pace of the words.</li>
+      <li>Reduced motion: nothing moves.</li>
+    </ul>
   </section>
 
   <section aria-labelledby="h-type">
@@ -67,7 +77,7 @@
       <div class="step"><code>t-2 · 16</code><span class="ts-2">Body, buttons, fields.</span></div>
       <div class="step"><code>t-1 · 13</code><span class="ts-1">Labels, captions, legal.</span></div>
     </div>
-    <p class="lede">Unbounded · titles. Work Sans · everything else.</p>
+    <p class="lede">Big Shoulders Display · titles, like bus signs. Work Sans · everything else.</p>
   </section>
 
   <section aria-labelledby="h-space">
@@ -81,7 +91,7 @@
       <div class="step"><code>s-6 · 32</code><span class="bar bw-6"></span></div>
       <div class="step"><code>s-7 · 48</code><span class="bar bw-7"></span></div>
     </div>
-    <p class="lede">Tap: 44 · Radius: 0 mount, 6 parts, round dot</p>
+    <p class="lede">Tap: 44 · Radius: 0 mount, 6 parts, round voice</p>
   </section>
 
   <section aria-labelledby="h-parts">
@@ -111,7 +121,9 @@
     <h2 id="h-screens">Screens</h2>
     <ul class="rules">
       <li><a href="/?gallery=sample">Phone</a> · ask</li>
-      <li><a href="/screen.html?gallery=sample">Screen</a> · beside the work</li>
+      <li><a href="/screen?gallery=sample">Screen</a> · beside the work</li>
+      <li><a href="/home?gallery=sample">Home</a> · Echo Show</li>
+      <li><a href="/curator?gallery=sample">Curator</a> · asked</li>
     </ul>
   </section>
 

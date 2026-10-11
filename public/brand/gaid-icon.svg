@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="t">
   <title id="t">GAID</title>
-  <rect width="512" height="512" rx="112" fill="#14204A"/>
-  <circle cx="256" cy="256" r="132" fill="none" stroke="#F0A43A" stroke-width="56"/>
-  <circle cx="256" cy="256" r="52" fill="#F0A43A"/>
+  <rect width="512" height="512" rx="112" fill="#F7C600"/>
+  <g transform="translate(80 70) scale(5.4)"><path d="M16 11C16 24 26 27 26 32C26 37 16 40 16 53H48C48 40 38 37 38 32C38 27 48 24 48 11Z" fill="#F7C600"/>
+  <path d="M16.0 11Q26.0 32 16.0 53 M20.0 11Q27.5 32 20.0 53 M24.0 11Q29.0 32 24.0 53 M28.0 11Q30.5 32 28.0 53 M32.0 11Q32.0 32 32.0 53 M36.0 11Q33.5 32 36.0 53 M40.0 11Q35.0 32 40.0 53 M44.0 11Q36.5 32 44.0 53 M48.0 11Q38.0 32 48.0 53" fill="none" stroke="#141412" stroke-width="1.6" stroke-linecap="round"/>
+  <ellipse cx="32" cy="11" rx="17" ry="5" fill="#F4F4F1" stroke="#141412" stroke-width="2.6"/>
+  <ellipse cx="32" cy="53" rx="17" ry="5" fill="#F4F4F1" stroke="#141412" stroke-width="2.6"/>
+  <path d="M52 50C56 40 57 28 54 18C53 15 56 13 58 15" fill="none" stroke="#141412" stroke-width="3.2" stroke-linecap="round"/></g>
+  <rect x="96" y="428" width="320" height="14" fill="#141412"/><rect x="96" y="452" width="320" height="14" fill="#141412"/>
 </svg>
