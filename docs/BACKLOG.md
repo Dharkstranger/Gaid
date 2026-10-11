@@ -56,6 +56,10 @@ Last updated: 11 October 2026.
 
 ## Watch for
 
+- Commit e4a0acd carries a wrong message (a tangled shell command); its files are right:
+  the backlog, `docs/architecture.md`, the lock migration. Not rewritten: it is on `main`.
+  Lesson: one heredoc per shell command, never two.
+
 - Shared database with Galleris: GAID's load and mistakes are Galleris's too. Move GAID
   to its own project when a slot frees (pause `vibes-arena` or upgrade).
 - This container cannot reach Supabase, Vercel or Devpost: anything there is checked
