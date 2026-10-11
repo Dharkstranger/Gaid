@@ -1,0 +1,6 @@
+/* At home, on an Echo Show: the visit page. Values from tokens.css only. */
+.send{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3);margin-top:var(--s-2)}
+.send[hidden]{display:none}
+.send-go{display:inline-flex;align-items:center;min-height:var(--tap);padding:0 var(--s-5);border-radius:var(--r-1);background:var(--accent);
+  color:var(--on-accent);font-weight:var(--w-strong);text-decoration:none}
+.send-go:hover{background:var(--chalk)}

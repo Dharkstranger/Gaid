@@ -69,6 +69,12 @@ button,input,select{font:inherit;color:inherit}
 .to-screen{display:inline-flex;align-items:center;gap:var(--s-2);min-height:var(--tap);font-weight:var(--w-strong)}
 
 /* ---------------------------------------------------------------- walking */
+.home-panel{margin-top:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3);align-items:flex-start}
+.take{display:inline-flex;align-items:center;gap:var(--s-2)}
+.home-box{display:flex;flex-direction:column;gap:var(--s-1);padding:var(--s-4);background:var(--surface);border-radius:var(--r-1);max-width:100%}
+.home-box[hidden]{display:none}
+.label{margin:0;color:var(--text-2);font-size:var(--t-1);font-weight:var(--w-strong);letter-spacing:var(--track-label);text-transform:uppercase}
+.visit-code{margin:0;font:var(--w-strong) var(--t-3)/var(--lh-snug) var(--font-body);overflow-wrap:anywhere;user-select:all}
 .walk{margin-top:var(--s-7)}
 .walk h2{margin:0 0 var(--s-3);font:var(--w-display) var(--t-3)/var(--lh-snug) var(--font-display)}
 .works{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--thumb-min),1fr));gap:var(--s-3)}

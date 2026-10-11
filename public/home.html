@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAID at home</title>
+<meta name="description" content="GAID, said “guide”. Your gallery visit, at home, through Alexa+.">
+<meta name="theme-color" content="#14204A">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/home.css">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
+  <p class="tag" data-w="homeTag">Simulated Alexa+ · Echo Show</p>
+</header>
+
+<main class="wrap">
+  <section class="stage" aria-label="The work">
+    <figure class="mount">
+      <img id="art" alt="">
+      <p id="noart" class="noart" hidden data-w="noPicture">No picture</p>
+    </figure>
+    <div class="words">
+      <p id="whose" class="where" data-w="yourVisit">Your visit</p>
+      <h1 id="title" class="title">GAID</h1>
+      <p id="meta" class="meta"></p>
+      <div class="said" aria-live="polite">
+        <p id="you" class="you" hidden></p>
+        <p id="reply" class="reply"></p>
+        <p id="source" class="source" hidden></p>
+        <div id="sendBox" class="send" hidden>
+          <a id="send" class="send-go" href="/" target="_blank" rel="noopener"></a>
+          <span class="source" data-w="notSent">You send it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Ask">
+    <button id="talk" class="talk" type="button" aria-pressed="false" data-state="idle">
+      <span class="voice" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span id="talkWord" data-w="talk">Talk</span>
+    </button>
+    <form id="askForm" class="ask">
+      <label for="q" class="sr" data-w="question">Question</label>
+      <input id="q" name="q" type="text" maxlength="300" autocomplete="off" placeholder="Ask about it">
+      <button type="submit" class="go" data-w="ask">Ask</button>
+    </form>
+    <div id="chips" class="chips" role="group" aria-label="Ask about"></div>
+  </section>
+
+  <section class="walk" aria-labelledby="visitH">
+    <h2 id="visitH" data-w="yourVisit">Your visit</h2>
+    <div id="works" class="works"></div>
+  </section>
+
+  <p class="foot" data-w="foot">Not an Amazon product</p>
+</main>
+<script type="module" src="/home.js"></script>
+</body>
+</html>

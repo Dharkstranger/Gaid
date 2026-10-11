@@ -107,6 +107,8 @@ rises once when an answer arrives.
 |---|---|---|
 | Phone | `/` | the visitor, in front of the work |
 | Screen beside the work | `/screen` | everyone standing there (Fire TV) |
+| At home | `/home?visit=<code>` | the visitor, that evening, on an Echo Show (Alexa+) |
+| Asked | `/curator?gallery=<slug>` | the curator: what the gallery has not answered |
 | Design | `/design` | whoever builds GAID next |
 
 ## 9. Words

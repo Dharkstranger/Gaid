@@ -60,6 +60,18 @@
     </div>
   </section>
 
+  <section class="home-panel" aria-labelledby="homeH">
+    <button id="takeHome" class="go take" type="button" aria-expanded="false" aria-controls="homeBox">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      <span id="homeH" data-w="takeHome">Take home</span>
+    </button>
+    <div id="homeBox" class="home-box" hidden>
+      <p class="label" data-w="visitCode">Visit code</p>
+      <p id="visitCode" class="visit-code"></p>
+      <a id="toHome" class="to-screen" href="/home" data-w="openHome">Open at home</a>
+    </div>
+  </section>
+
   <section class="walk" aria-labelledby="walkH">
     <h2 id="walkH" data-w="works">Works</h2>
     <div id="works" class="works"></div>

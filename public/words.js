@@ -42,6 +42,35 @@ export const W = {
   ],
   sayIn: (lang) => `Say it in ${lang}`,
 
+  // taking the visit home
+  takeHome: 'Take home',
+  visitCode: 'Visit code',
+  openHome: 'Open at home',
+
+  // at home: a simulated Alexa+ on an Echo Show
+  homeTag: 'Simulated Alexa+ · Echo Show',
+  homeHint: 'Ask about it',
+  exampleVisit: 'Example visit',
+  yourVisit: 'Your visit',
+  homeChips: [
+    ['My visit', 'Alexa, what did I see today?'],
+    ['The sun', 'Alexa, the painting with the sun'],
+    ['Tell me', 'Alexa, tell me about it'],
+    ['Enquire', 'Alexa, ask the gallery about it'],
+  ],
+  send: (how) => `Send on ${how}`,
+  notSent: 'You send it',
+
+  // the curator's list
+  curatorTag: 'For curators',
+  asked: 'Asked',
+  times: (n) => (n === 1 ? 'Once' : `${n} times`),
+  key: 'Edit key',
+  show: 'Show',
+  noQuestions: 'No questions yet',
+  listOffline: 'List unavailable',
+  keyHint: 'Sample: no key',
+
   // the screen beside the work
   tvWait: 'Waiting…',
   tvAsk: 'Ask GAID',

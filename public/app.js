@@ -7,6 +7,7 @@ import { CHANNEL } from '/scene.js';
 import { W, spoken } from '/words.js';
 import { callTool } from '/mcp-client.js';
 import { openRelay, newCode, topicFor, CODE } from '/relay.js';
+import { visitCode } from '/visit.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -15,7 +16,7 @@ const slug = (params.get('gallery') || 'sample').toLowerCase();
 const SPEECH = { English: 'en-GB', Yoruba: 'yo-NG', Igbo: 'ig-NG', Hausa: 'ha-NG', French: 'fr-FR',
   Pidgin: 'en-NG', Portuguese: 'pt-PT', Spanish: 'es-ES', Arabic: 'ar', Swahili: 'sw-KE' };
 
-const state = { gallery: null, work: null, lang: 'English', history: [], listening: false };
+const state = { gallery: null, work: null, lang: 'English', history: [], listening: false, seen: [] };
 
 /* ---------------------------------------------------------------- the screen beside the work */
 // The big screen (screen.html) shows what the phone says. It is told through
@@ -49,6 +50,8 @@ if (channel) {
 /* ---------------------------------------------------------------- screen */
 function show(work) {
   state.work = work;
+  // The visit: every work stood in front of, in order. It lives in this page and in the code, nowhere else.
+  if (work && state.seen.at(-1) !== work.id) { state.seen = [...state.seen.filter((id) => id !== work.id), work.id]; showVisit(); }
   const g = state.gallery;
   $('title').textContent = work ? work.title : g.name;
   $('meta').textContent = work ? [work.artist, work.year, work.medium].filter(Boolean).join(' · ') : '';
@@ -222,6 +225,12 @@ function worksRow() {
   }
 }
 
+function showVisit() {
+  const code = visitCode(slug, state.seen);
+  $('visitCode').textContent = code;
+  $('toHome').href = `/home?visit=${encodeURIComponent(code)}`;
+}
+
 // Every word on the page comes from words.js; the HTML only holds a fallback.
 function fillWords() {
   for (const el of document.querySelectorAll('[data-w]')) {
@@ -259,6 +268,10 @@ async function start() {
   });
   // Opening the screen from here pairs it: the link carries a code this phone joins too.
   $('toScreen').addEventListener('click', () => { if (!room && state.spareCode) pairWith(state.spareCode); });
+  $('takeHome').addEventListener('click', () => {
+    const box = $('homeBox'); box.hidden = !box.hidden;
+    $('takeHome').setAttribute('aria-expanded', String(!box.hidden));
+  });
   $('askForm').addEventListener('submit', (e) => { e.preventDefault(); const v = $('q').value; $('q').value = ''; ask(v); });
 }
 

@@ -6,7 +6,7 @@ import { wakeless } from '../lib/answer.js';
 
 const count = (s) => s.replace(/·/g, ' ').trim().split(/\s+/).length;
 // Two lines are allowed to be a line rather than a label: the legal foot of each screen.
-const LINES = new Set(['foot', 'tvFoot']);
+const LINES = new Set(['foot', 'tvFoot', 'homeTag']);
 
 test('every label is one or two words, a phrase at most', () => {
   for (const [k, v] of Object.entries(W)) {
@@ -19,7 +19,7 @@ test('every label is one or two words, a phrase at most', () => {
 
 test('no sentence of GAID’s own is hidden in a page', () => {
   const pub = new URL('../public/', import.meta.url);
-  for (const f of readdirSync(pub).filter((x) => /^(app|screen)\.js$/.test(x))) {
+  for (const f of readdirSync(pub).filter((x) => /^(app|screen|home|curator)\.js$/.test(x))) {
     const src = readFileSync(new URL(f, pub), 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
     const strings = [...src.matchAll(/(['`])((?:(?!\1).)*[a-z]{2,}(?: [a-z]+){3,}(?:(?!\1).)*)\1/gi)].map((m) => m[2]);
     assert.deepEqual(strings, [], `${f} has words that belong in words.js`);
@@ -27,7 +27,7 @@ test('no sentence of GAID’s own is hidden in a page', () => {
 });
 
 test('nothing in a page hides the words under another W', () => {
-  for (const f of ['app.js', 'screen.js']) {
+  for (const f of ['app.js', 'screen.js', 'home.js', 'curator.js']) {
     const src = readFileSync(new URL(`../public/${f}`, import.meta.url), 'utf8');
     assert.doesNotMatch(src, /\b(const|let|var)\s+W\b|\(\s*W\s*[,)=]/, `${f} declares its own W`);
   }

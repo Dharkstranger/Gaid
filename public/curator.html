@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAID questions</title>
+<meta name="description" content="GAID, said “guide”. What visitors asked that the gallery has not answered yet.">
+<meta name="theme-color" content="#14204A">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/curator.css">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="103" height="40"></a>
+  <p class="tag" data-w="curatorTag">For curators</p>
+</header>
+<main class="wrap">
+  <p id="gallery" class="where"></p>
+  <h1 class="title" data-w="asked">Asked</h1>
+  <form id="keyForm" class="ask keyform">
+    <label for="key" class="sr" data-w="key">Edit key</label>
+    <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Edit key">
+    <button type="submit" class="go" data-w="show">Show</button>
+  </form>
+  <p id="state" class="source" aria-live="polite"></p>
+  <ol id="list" class="qs"></ol>
+  <p class="foot" data-w="foot">Not an Amazon product</p>
+</main>
+<script type="module" src="/curator.js"></script>
+</body>
+</html>

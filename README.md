@@ -74,6 +74,15 @@ curl -s -X POST https://<your-gaid>/api/mcp \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"find_work","arguments":{"gallery":"sample","description":"the one with the sun"}}}'
 ```
 
+## Four moments
+
+| | Where | What happens |
+|---|---|---|
+| 1. Scan and ask | `/?gallery=sample&at=p1` | ask out loud, in English or Yoruba; the gallery's words answer |
+| 2. The room answers | `/screen` | the TV beside the work shows the answer; pair a phone with the 4-character code |
+| 3. It follows you home | `/home?visit=sample~p1.p4.p9` | Alexa+ on an Echo Show: your visit, "the one with the sun", enquire |
+| 4. The gallery learns | `/curator?gallery=sample` | every question GAID could not answer, most asked first |
+
 ## The screen beside the work
 
 `/screen.html?gallery=sample` is the big screen on the wall next to the work,
