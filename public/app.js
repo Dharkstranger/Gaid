@@ -28,7 +28,7 @@ let room = CODE.test((params.get('room') || '').toUpperCase()) ? params.get('roo
 let relay = null;
 function tellScreen(msg) {
   const m = { ...msg, slug };
-  if (m.type === 'answer') lastSent = m;
+  if (m.type === 'answer' || m.type === 'at') lastSent = m;
   channel?.postMessage(m);
   relay?.send(m);
 }
@@ -157,7 +157,7 @@ async function ask(question) {
   state.history = [...state.history, { role: 'user', text: q }, { role: 'assistant', text: out.say }].slice(-8);
   caption(q, out.say, out.source);
   if (a?.type === 'stop') return;
-  tellScreen({ type: 'answer', workId: state.work?.id, topic: out.topic ?? 'about', question: q, say: out.say });
+  if (out.seal) tellScreen({ type: 'answer', seal: out.seal });
   if (a?.type === 'play' || a?.type === 'goto' || a?.type === 'lang') playOrSpeak(out.say);
   else speak(out.say);
 }
@@ -219,7 +219,7 @@ function worksRow() {
       stopTalking(); show(w);
       const say = W.at(w.title);
       caption('', say, '');
-      tellScreen({ type: 'answer', workId: w.id, topic: 'about', question: '', say });
+      tellScreen({ type: 'at', workId: w.id });
     });
     box.append(b);
   }
@@ -245,8 +245,8 @@ async function start() {
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
   if (!data?.ok || !data.gallery) {
-    $('title').textContent = W.notFound;
-    $('reply').textContent = W.notFoundHint;
+    $('title').textContent = data?.why === 'not-on' ? W.notOn : W.notFound;
+    $('reply').textContent = data?.why === 'not-on' ? W.closedSay(data.name) : W.notFoundHint;
     return;
   }
   const g = state.gallery = data.gallery;

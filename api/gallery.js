@@ -13,5 +13,7 @@ export async function GET(request) {
   if (!SLUG.test(slug)) return json({ ok: false, why: 'bad-slug' }, 400);
   const gallery = await loadGallery(slug);
   if (!gallery) return json({ ok: false, why: 'not-found' }, 404);
+  // Switched off, or not on a paid plan: the name and nothing else.
+  if (!gallery.open) return json({ ok: false, why: 'not-on', name: gallery.name });
   return json({ ok: true, gallery });
 }

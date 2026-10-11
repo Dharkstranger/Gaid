@@ -137,6 +137,10 @@ Nova on, set one of these:
 | `GAID_AWS_ACCESS_KEY_ID`, `GAID_AWS_SECRET_ACCESS_KEY` | an access key pair allowed only `bedrock:InvokeModel` |
 | `GAID_AWS_REGION` | default `us-east-1` |
 | `GAID_PER_MINUTE` | questions to the model per caller per minute, default 20 |
+| `GAID_DB_SECRET` | GAID's own database secret; without it nothing is recorded or read |
+| `GAID_SIGNING_SECRET` | signs what a TV may show; set it, or several Vercel copies disagree |
+| `GAID_MCP_PER_MINUTE` | calls to `/api/mcp` per caller per minute, default 120 |
+| `GAID_DEMOS` | galleries always on, default `sample,openaccess`; every other needs `plan: paid` and `gaid.on` |
 
 ## Deploy
 

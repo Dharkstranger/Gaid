@@ -25,12 +25,14 @@ Last updated: 11 October 2026.
 
 1. **Architecture: GAID's server is the only door** (`docs/architecture.md`). Approved? → build.
    - [x] Public access to the two database functions revoked (11 Oct)
-   - [ ] Functions require GAID's own server secret; secret only in Vercel
-   - [ ] Phone → TV messages signed by GAID's server; TV shows only signed words
-   - [ ] Rate limit per caller on /api/mcp
-1b. **Galleris curators choose GAID** (owner, 11 Oct). Design agreed? → build.
+   - [x] Functions require GAID's own server secret (applied 11 Oct; refuse all until the hash is set)
+   - [ ] Set `GAID_DB_SECRET` + `GAID_SIGNING_SECRET` in Vercel, hash in `gaid.settings` — when Vercel is connected
+   - [x] Phone → TV messages signed by GAID's server; TV shows only signed words (forged: dropped, checked)
+   - [x] Rate limit per caller: /api/mcp 120/min, /api/ask 120/min, /api/seal 240/min, Nova 20/min
+1b. **Galleris curators choose GAID** (owner, 11 Oct). Decided: **off by default; paid plans only;
+   an Ask button on each object; after the gateway.**
    - [ ] Galleris studio: "Voice guide" panel, GAID switch → `gaid: { on }` in the published file
-   - [ ] GAID gateway: answers only galleries with GAID on; demos on
+   - [x] GAID gateway: answers only galleries with `plan: paid` AND `gaid.on`; GAID's demos always on (judged by address, not by the file's own name)
    - [ ] Galleris visitor app: Ask button on each object → GAID at that work
    - [ ] Galleris dashboard: the curator's "Asked" list (edit key, through GAID)
    - [ ] Switch off: stops within a minute; offer to delete stored questions

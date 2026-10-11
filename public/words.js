@@ -28,6 +28,8 @@ export const W = {
   fromNova: 'Nova · gallery’s words',
   notFound: 'Gallery not found',
   notFoundHint: 'Try ?gallery=sample',
+  notOn: 'GAID off',
+  closedSay: (name) => `${name} has not switched GAID on.`,   // spoken
   at: (title) => `At ${title}`,
   foot: 'Not an Amazon product · Answers: gallery’s words, then Amazon Nova · Speech: your browser',
 
@@ -83,6 +85,9 @@ export const W = {
   here: 'You are here',
   noPicture: 'No picture',
   tvFoot: 'Simulated Fire TV · Not an Amazon product',
+  // what the TV shows instead of the question as typed: anyone can type anything
+  topic: { about: 'About', artist: 'Artist', date: 'Date', medium: 'Material', size: 'Size', where: 'Where',
+    nearby: 'Nearby', lang: 'Language', nova: 'Question', help: 'Help', hours: 'Hours', welcome: 'Welcome' },
 };
 
 /** Text for a speech engine: the name as it is said. */

@@ -6,9 +6,18 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { createServer } from '../lib/mcp.js';
 import { caller } from './ask.js';
+import { allow } from '../lib/limit.js';
+
+export const PER_MINUTE = Number(process.env.GAID_MCP_PER_MINUTE || 120);
 
 export async function POST(request) {
-  const server = createServer({ caller: caller(request) });
+  const who = caller(request);
+  if (!allow(who, Date.now(), PER_MINUTE, 'mcp')) {
+    return new Response(JSON.stringify({ jsonrpc: '2.0', error: { code: -32000, message: 'Too many requests. Wait a minute.' }, id: null }), {
+      status: 429, headers: { 'content-type': 'application/json', 'retry-after': '60' },
+    });
+  }
+  const server = createServer({ caller: who });
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,   // stateless
     enableJsonResponse: true,        // one JSON reply, no event stream to keep open

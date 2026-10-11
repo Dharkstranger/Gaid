@@ -164,23 +164,39 @@ function showPanel(topic, say = '') {
   panel.classList.remove('in'); void panel.offsetWidth; panel.classList.add('in');
 }
 
-function caption(you, reply) {
-  $('you').dataset.q = you ?? '';
-  $('you').textContent = you ? `“${you.replace(/^\s*(hey\s+|ok\s+)?alexa[\s,.!:-]*/i, '')}”` : '';
+function caption(label, reply) {
+  $('you').dataset.q = label ?? '';
+  $('you').textContent = label ?? '';
   $('reply').textContent = reply ?? '';
 }
 
-function receive(m) {
+// Only words GAID's server signed reach this screen (lib/seal.js).
+async function opened(token) {
+  try {
+    const res = await fetch('/api/seal', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ seal: token }) });
+    const body = await res.json();
+    return body?.ok === true && body.answer?.slug === slug && typeof body.answer.say === 'string' ? body.answer : null;
+  } catch { return null; }
+}
+
+async function receive(m) {
   if (!m || typeof m !== 'object' || !state.gallery) return;
   if (m.slug && m.slug !== slug) return;            // a different gallery's phone
   if (m.type === 'listening') { $('reply').hidden = false; state.before = [$('you').dataset.q ?? '', $('reply').textContent]; caption('', W.tvListening); return; }
   if (m.type === 'idle') { if (state.before) caption(...state.before); state.before = null; return; }
-  if (m.type !== 'answer') return;
-  const work = state.gallery.works.find((w) => w.id === m.workId);
+  if (m.type === 'at') {                       // a work chosen on the phone: this screen's own words only
+    const work = state.gallery.works.find((w) => w.id === m.workId);
+    if (!work) return;
+    showWork(work); caption('', W.at(work.title)); showPanel('about', '');
+    return;
+  }
+  if (m.type !== 'answer' || typeof m.seal !== 'string') return;
+  const a = await opened(m.seal);
+  if (!a) return;                              // not GAID's, altered, or stale: dropped
+  const work = state.gallery.works.find((w) => w.id === a.workId);
   if (work && work !== state.work) showWork(work);
-  const say = typeof m.say === 'string' ? m.say : '';
-  caption(typeof m.question === 'string' ? m.question : '', say);
-  showPanel(typeof m.topic === 'string' ? m.topic : 'about', say);
+  caption(W.topic[a.topic] ?? '', a.say);
+  showPanel(a.topic, a.say);
 }
 
 async function start() {
@@ -188,7 +204,7 @@ async function start() {
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
   if (!data?.ok || !data.gallery) {
-    $('title').textContent = W.notFound;
+    $('title').textContent = data?.why === 'not-on' ? W.notOn : W.notFound;
     return;
   }
   state.gallery = data.gallery;
