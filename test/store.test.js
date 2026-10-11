@@ -9,6 +9,9 @@ import { readFileSync } from 'node:fs';
 
 process.env.GALLERIS_LOCAL_DIR = new URL('../fixtures', import.meta.url).pathname;
 delete process.env.AWS_BEARER_TOKEN_BEDROCK;
+// setup.js switches the store off for every other file; this one turns it on against its stand-in.
+delete process.env.GAID_QUESTIONS;
+process.env.GAID_SUPABASE_URL = 'https://stand-in.supabase.co';
 const REAL_ROW = { work_id: 'p1', question: 'why those colours', times: 2, last_asked: '2026-10-11T09:31:24.828952+00:00' };
 
 let calls = []; let reply = () => new Response('true', { status: 200 });
