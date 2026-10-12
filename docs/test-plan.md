@@ -4,9 +4,9 @@ About 20 minutes. Two phones, one laptop. Use the live link, not localhost.
 Write down anything odd; send it to Claude as it is.
 
 `LIVE` is https://gaid-taupe.vercel.app. The gallery is `openaccess`: 24 real
-paintings from the National Gallery of Art (open access). Its pictures appear
-once the Galleris branch `claude/nga-photos` is merged. Until then, use
-`gallery=sample` (drawn works) and every step below still works.
+paintings from the National Gallery of Art (open access). If the pictures are
+grey, wait a few minutes for Galleris to rebuild, or use `gallery=sample`
+(drawn works): every step below still works.
 
 ## Set up
 - Laptop (the TV): open `LIVE/screen?gallery=openaccess`, full screen (F11). A code shows bottom right.
@@ -38,7 +38,9 @@ once the Galleris branch `claude/nga-photos` is merged. Until then, use
 - [ ] On another device open `LIVE/home?gallery=openaccess&words=<the three words>`
       (e.g. `words=Major,+Red,+Intruder`).
 - [ ] Press ▶. The visit comes back. Ask "Who made it?".
-- [ ] Press Enquire. A WhatsApp or email button appears. Do not send.
+- [ ] Press Enquire. GAID says the gallery has not published a way to reach
+      them (true for this gallery). To see the button: open
+      `LIVE/home?gallery=sample`, press Enquire. An email button appears. Do not send.
 
 ## 5. The gallery learns
 - [ ] Open `LIVE/curator?gallery=openaccess`. The question nobody answered ("Who owns it now?") is on the list.
