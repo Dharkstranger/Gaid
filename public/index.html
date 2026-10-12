@@ -72,13 +72,16 @@
 
   <section id="homeSheet" class="v-sheet v-home" hidden aria-label="Take home">
     <div id="homeWorks" class="v-three"></div>
+    <p id="sayHome" class="v-say"></p>
     <div class="v-row">
-      <button id="hearAgain" class="v-icon" type="button" data-aria="hearAgain">
+      <button id="hearAgain" class="v-icon v-labelled" type="button" data-aria="hearAgain">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg>
+        <span data-w="hearAgain">Hear again</span>
       </button>
-      <a id="share" class="v-icon" href="/home" target="_blank" rel="noopener" data-aria="share">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.9l7.6-3.8M8.2 13.1l7.6 3.8"/></svg>
-      </a>
+      <button id="share" class="v-icon v-labelled" type="button" data-aria="save">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span data-w="save">Save</span>
+      </button>
       <button class="v-icon" type="button" data-close="homeSheet" data-aria="close">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>

@@ -57,8 +57,10 @@ export const W = {
   sendOn: (how) => `Send on ${how}`,
   captions: 'Captions',
   pairScreen: 'Pair a screen',
+  scanToPair: 'Scan to pair',
   hearAgain: 'Hear again',
-  share: 'Share',
+  save: 'Save',
+  sayAtHome: (words) => `“Alexa, ask GAID about ${words}”`,
   close: 'Close',
   about: 'About',
   goTo: (title) => `Go to ${title}`,
@@ -86,9 +88,11 @@ export const W = {
   // what GAID says, not shows
   say: {
     first: 'I only tell you what the gallery wrote.',
-    home: (words) => `Remember: ${words}. At home, say: Alexa, ask GAID about ${words}.`,
+    home: (words) => `Your three words: ${words}. At home, say: Alexa, ask GAID about ${words}. Or press Save.`,
     offline: 'I cannot reach the gallery right now.',
     paired: 'The screen is with you.',
+    pairHow: 'Point your camera at the square on the screen. Or type its four letters here.',
+    saved: 'Link copied. Open it at home, or say the three words to Alexa.',
     noVoice: (lang) => `This phone cannot speak ${lang}. Here it is in English.`,
   },
 

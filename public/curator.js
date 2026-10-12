@@ -2,11 +2,12 @@
    first — each one a wall label waiting to be written. Read through GAID's
    MCP server (visitor_questions), the same tool Alexa+ calls. The key is
    typed, sent in the request body, and never put in the address. */
+import { galleryOf } from './config.js';
 import { W } from './words.js';
 import { callTool } from './mcp-client.js';
 
 const $ = (id) => document.getElementById(id);
-const slug = (new URLSearchParams(location.search).get('gallery') || 'sample').toLowerCase();
+const slug = galleryOf(new URLSearchParams(location.search));
 let images = new Map();
 
 function row(q) {

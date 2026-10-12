@@ -5,13 +5,15 @@
 
    Every word on it is built with textContent: a gallery's file is somebody
    else's writing, and none of it is ever parsed as markup. */
+import { galleryOf } from './config.js';
+import { qrSvg } from './qr.js';
 import { CHANNEL, panelFor } from '/scene.js';
 import { W } from '/words.js';
 import { openRelay, newCode, topicFor, CODE } from '/relay.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
-const slug = (params.get('gallery') || 'sample').toLowerCase();
+const slug = galleryOf(params);
 const state = { gallery: null, work: null };
 
 const el = (tag, cls, text) => {
@@ -259,6 +261,8 @@ async function start() {
   $('code').innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>';
   $('code').append(room);
   $('code').setAttribute('aria-label', `${W.pair} ${room}`);
+  // The same pairing as a square: the phone's camera opens GAID already joined.
+  $('qr').innerHTML = qrSvg(`${location.origin}/?${new URLSearchParams({ gallery: slug, room })}`, W.scanToPair);
   const relay = openRelay({ topic: topicFor(slug, room), onMessage: receive });
   relay.send({ type: 'hello', slug });
 }

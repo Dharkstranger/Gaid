@@ -19,22 +19,23 @@ grey, wait a few minutes for Galleris to rebuild, or use `gallery=sample`
 - [ ] Say "Who owns it now?". Answer: "I only know what Open Access Gallery wrote…" (with Nova: "the gallery has not said"). Never an invented owner.
 - [ ] Say "How big is it?". One size, in centimetres.
 - [ ] Press CC. Words appear. Press again: gone.
-- [ ] Press Look closer (magnifier). The picture moves part by part.
-- [ ] Press Language (globe). Pick Pidgin. Ask again.
+- [ ] Press Look closer (magnifier). The picture zooms at once, then moves part by part.
+- [ ] No globe button: languages appear only when they can really play (needs Amazon Nova).
 
 ## 2. The room answers — Phone A + laptop
-- [ ] Press the screen icon, type the laptop's code. A dot shows: paired.
+- [ ] Point Phone A's camera at the square code on the laptop. Tap the link. GAID opens, already paired (a yellow dot on the screen icon).
+      No camera reader? Press the screen icon and type the four letters.
 - [ ] Ask "When was it made?". The laptop changes to a timeline.
 - [ ] Ask "How big is it?". The laptop shows the work beside a person.
 - [ ] Look closer: the laptop moves with the phone.
 
 ## 3. Two people — Phone B
-- [ ] Phone B pairs with the same code. Asks a question. The laptop answers Phone B.
+- [ ] Phone B scans the same square. Asks a question. The laptop answers Phone B.
 - [ ] Phone B never sees Phone A's questions on its own screen.
 
 ## 4. It follows you home — Phone A
 - [ ] Press Where next (arrow). Go to the next work.
-- [ ] Press Take home (house). Three pictures, three words. Note the words.
+- [ ] Press Take home (house). Pictures with a word under each, and the sentence to say at home. Press Save.
 - [ ] On another device open `LIVE/home?gallery=openaccess&words=<the three words>`
       (e.g. `words=Major,+Red,+Intruder`).
 - [ ] Press ▶. The visit comes back. Ask "Who made it?".

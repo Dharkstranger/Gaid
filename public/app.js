@@ -7,6 +7,7 @@
    server (/api/mcp), the way Alexa+ would ask; /api/ask is the fallback.
 
    docs/product.md says why each of these exists. */
+import { galleryOf } from './config.js';
 import { CHANNEL } from './scene.js';
 import { W } from './words.js';
 import { callTool } from './mcp-client.js';
@@ -16,10 +17,11 @@ import { listen, say, hush, canListen, canSpeak } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
-const slug = (params.get('gallery') || 'sample').toLowerCase();
+const slug = galleryOf(params);
 const LANGS = ['English', 'Pidgin', 'Yoruba', 'Igbo', 'Hausa', 'French'];
 
 const state = {
+  langs: ['English'], translate: false,
   gallery: null, work: null, lang: 'English', seen: [], cc: false, busy: 0,
   stop: null, started: false, lastSay: '',
 };
@@ -140,7 +142,7 @@ async function ask(question, { quiet = false } = {}) {
   if (!out || typeof out.say !== 'string') { setVoice('idle'); await speak(W.say.offline, { lang: 'English' }); return null; }
   const a = out.action;
   if (a?.type === 'goto') { const w = state.gallery.works.find((x) => x.id === a.id); if (w) show(w); }
-  if (a?.type === 'lang' && LANGS.includes(a.lang)) setLang(a.lang, { quiet: true });
+  if (a?.type === 'lang' && state.langs.includes(a.lang)) setLang(a.lang, { quiet: true });
   if (out.seal) tellScreen({ type: 'answer', seal: out.seal });
   if (a?.type === 'stop') { setVoice('idle'); return out; }
   if (!quiet) {
@@ -158,9 +160,12 @@ async function lookCloser() {
   stopAll();
   const run = state.busy;
   document.querySelector('.v').dataset.look = 'on';   // the phone is the picture here: no fading
+  // Move on the tap, before the server answers: a button that does nothing
+  // for a second reads as a button that does nothing.
+  zoom({ x: 0.15, y: 0.15, w: 0.7, h: 0.7 });
   setVoice('thinking');
   const out = await callTool('look_closer', { gallery: slug, work_id: state.work.id, language: state.lang });
-  if (!out?.steps?.length) { delete document.querySelector('.v').dataset.look; setVoice('idle'); return; }
+  if (!out?.steps?.length) { zoom(null); delete document.querySelector('.v').dataset.look; setVoice('idle'); return; }
   for (const step of out.steps) {
     if (state.busy !== run) return;              // the visitor did something else
     zoom(step.box);
@@ -198,21 +203,40 @@ async function takeHome() {
   stopAll();
   const words = homeWords();
   const box = $('homeWorks'); box.textContent = '';
-  for (const w of words.map((word, i) => state.gallery.works.find((x) => x.id === state.seen.slice(-3)[i]))) {
-    const s = document.createElement('span');
+  // Each picture with its word under it: the word is the thing to remember.
+  const ids = state.seen.slice(-3);
+  words.forEach((word, i) => {
+    const w = state.gallery.works.find((x) => x.id === ids[i]);
+    const s = document.createElement('figure');
     const img = document.createElement('img'); img.src = w?.image || '/brand/gaid-mark.svg'; img.alt = w?.title ?? '';
-    s.append(img); box.append(s);
-  }
-  $('share').href = `/home?${new URLSearchParams({ gallery: slug, words: words.join(', ') })}`;
+    const b = document.createElement('figcaption'); b.textContent = word;
+    s.append(img, b); box.append(s);
+  });
+  $('sayHome').textContent = W.sayAtHome(words.join(', '));
+  state.homeLink = `${location.origin}/home?${new URLSearchParams({ gallery: slug, words: words.join(', ') })}`;
   openSheet('homeSheet');
   await speak(W.say.home(words.join(', ')), { lang: 'English' });
 }
 
 /* ---------------------------------------------------------------- language */
+/* Only languages that will really play: the ones the gallery wrote itself,
+   and, when Amazon Nova can translate, the others this phone has a voice
+   for. One language is not a choice, so then the button is not there. */
+function offered() {
+  const own = state.gallery?.languages ?? ['English'];
+  const more = state.translate ? LANGS.filter((l) => !own.includes(l) && canSpeak(l)) : [];
+  return [...own, ...more];
+}
+function refreshLangs() {
+  state.langs = offered();
+  $('lang').hidden = state.langs.length < 2;
+  if (!state.langs.includes(state.lang)) state.lang = state.langs[0];
+  setLang(state.lang, { quiet: true });
+}
 function setLang(lang, { quiet = false } = {}) {
   state.lang = lang;
   const dots = $('langDots'); dots.textContent = '';
-  for (const l of LANGS) { const i = document.createElement('i'); if (l === lang) i.className = 'on'; dots.append(i); }
+  for (const l of state.langs) { const i = document.createElement('i'); if (l === lang) i.className = 'on'; dots.append(i); }
   $('lang').setAttribute('aria-label', `${W.language}: ${lang}`);
   if (!quiet) speak(lang, { lang: 'English' });
 }
@@ -220,7 +244,7 @@ function setLang(lang, { quiet = false } = {}) {
 /* ---------------------------------------------------------------- sheets */
 function openSheet(id) {
   for (const s of document.querySelectorAll('.v-sheet')) s.hidden = s.id !== id;
-  if (id === 'pairSheet') { $('pair').setAttribute('aria-expanded', 'true'); $('room').focus(); }
+  if (id === 'pairSheet') { $('pair').setAttribute('aria-expanded', 'true'); $('room').focus(); speak(W.say.pairHow, { lang: 'English' }); }
 }
 function closeSheet(id) { $(id).hidden = true; if (id === 'pairSheet') $('pair').setAttribute('aria-expanded', 'false'); }
 
@@ -254,18 +278,22 @@ async function begin() {
   let first = true;
   try { first = !localStorage.getItem('gaid.first'); localStorage.setItem('gaid.first', '1'); } catch { /* private window */ }
   if (first) await speak(W.say.first, { lang: 'English' });
+  if (room) await speak(W.say.paired, { lang: 'English' });
   await tellMe();
 }
 
 async function start() {
   labels();
-  setLang('English', { quiet: true });
+  refreshLangs();
   setVoice('idle');
   let data = null;
   try { data = await (await fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`)).json(); } catch { data = null; }
   if (data?.ok && data.gallery) {
     state.gallery = data.gallery;
-    if (data.gallery.languages.length) setLang(LANGS.includes(data.gallery.languages[0]) ? data.gallery.languages[0] : 'English', { quiet: true });
+    state.translate = data.translate === true;
+    state.lang = data.gallery.languages[0] ?? 'English';
+    refreshLangs();
+    globalThis.speechSynthesis?.addEventListener?.('voiceschanged', refreshLangs);
     strip();
     show(data.gallery.works.find((w) => w.id === params.get('at')) ?? data.gallery.works[0]);
     if (state.work) tellScreen({ type: 'at', workId: state.work.id });
@@ -286,7 +314,14 @@ async function start() {
   $('next').addEventListener('click', () => { state.started = true; $('start').hidden = true; whereNext(); });
   $('home').addEventListener('click', () => { state.started = true; $('start').hidden = true; takeHome(); });
   $('hearAgain').addEventListener('click', () => speak(W.say.home(homeWords().join(', ')), { lang: 'English' }));
-  $('lang').addEventListener('click', () => setLang(LANGS[(LANGS.indexOf(state.lang) + 1) % LANGS.length]));
+  // Save: the phone's own share sheet (messages, notes, email), else the link copied.
+  $('share').addEventListener('click', async () => {
+    const url = state.homeLink;
+    if (!url) return;
+    try { if (navigator.share) { await navigator.share({ title: W.name, text: homeWords().join(', '), url }); return; } } catch { return; }
+    try { await navigator.clipboard.writeText(url); speak(W.say.saved, { lang: 'English' }); } catch { location.href = url; }
+  });
+  $('lang').addEventListener('click', () => setLang(state.langs[(state.langs.indexOf(state.lang) + 1) % state.langs.length]));
   $('goNext').addEventListener('click', () => { closeSheet('nextSheet'); if (nextUp) { show(nextUp); tellScreen({ type: 'at', workId: nextUp.id }); tellMe(); } });
   $('cc').addEventListener('click', () => { state.cc = !state.cc; $('cc').setAttribute('aria-pressed', String(state.cc)); caption(state.lastSay); });
   $('pair').addEventListener('click', () => ($('pairSheet').hidden ? openSheet('pairSheet') : closeSheet('pairSheet')));

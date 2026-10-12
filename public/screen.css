@@ -99,3 +99,10 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .foot{grid-area:foot;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s-2) var(--s-4);font-size:var(--t-1);color:var(--text-2)}
 .code{padding:var(--s-1) var(--s-3);border:var(--b-2) solid var(--ring);border-radius:var(--r-1);background:var(--accent);color:var(--on-accent);font:var(--w-display) var(--t-4)/var(--lh-snug) var(--font-display);letter-spacing:var(--track-label)}
 .foot img{display:block;height:var(--s-5);width:auto}
+/* Pairing without typing: point the phone's camera at the square. The four
+   letters stay beside it for a phone whose camera does not read codes. */
+.join{display:flex;align-items:center;gap:var(--s-4)}
+.qr{display:block;width:calc(var(--s-7) * 3);flex:none}
+.qr svg{display:block;width:100%;height:auto}
+.qr-ground{fill:var(--paper)}
+.qr-ink{fill:var(--ink)}

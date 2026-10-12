@@ -1,11 +1,12 @@
 /* GAID at home: the visit, through Alexa+, on an Echo Show.
 
    Opened from the three words GAID gave the visitor as they left
-   (/home?gallery=sample&words=Lagoon,+Mask,+Crossing) — or a visit code.
+   (/home?gallery=openaccess&words=Major,+Red,+Intruder) — or a visit code.
    Look and listen, like the phone: the work, the visit as pictures, one
    talk button. Every answer is a call to GAID's MCP server, the tools
    Alexa+ would call: recall_visit, find_work, ask_work, send_enquiry.
    The enquiry is a button the visitor presses; GAID sends nothing. */
+import { galleryOf } from './config.js';
 import { W } from './words.js';
 import { callTool } from './mcp-client.js';
 import { listen, say, hush, canListen } from './voice.js';
@@ -13,8 +14,8 @@ import { intentOf } from './intent.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
-const slug = (params.get('gallery') || 'sample').toLowerCase();
-const EXAMPLE = 'Lagoon, Mask, Crossing';
+const slug = galleryOf(params);
+const EXAMPLE = 'Major, Red, Intruder';
 const words = params.get('words') || (params.get('visit') ? '' : EXAMPLE);
 const visit = params.get('visit') || '';
 const state = { works: [], work: null, cc: false, stop: null, started: false, said: '' };

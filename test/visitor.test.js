@@ -43,6 +43,7 @@ test('look closer is the gallery’s words, sentence by sentence, never more', a
   assert.deepEqual(steps.slice(1).map((s) => s.say), sentences(w.guide.English));
   const drift = await lookCloser(g, g.works.find((x) => x.id === 'p3'), 'English');
   assert.equal(drift.length, 2, 'a work with no spots still moves');
+  for (const x of [steps, drift]) assert.ok(x[0].box.w < 1 || x[0].box.h < 1, 'the first step already zooms in');
 });
 
 test('translation keeps names, dates and numbers, adds nothing, and is offered for Nigerian languages', () => {
