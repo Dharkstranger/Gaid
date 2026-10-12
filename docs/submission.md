@@ -3,7 +3,7 @@
 Paste each part into the Devpost field of the same name. **[YOURS]** marks
 the four answers judges expect in your own words.
 
-**Name:** GAID (said "guide")
+**Name:** GAID (pronounced "guide")
 
 **Tagline:** Ask the work in front of you.
 

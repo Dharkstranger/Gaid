@@ -2,7 +2,7 @@
 
 **Status, 11 Oct:** built and tested; the two secrets go into Vercel when it is connected.
 
-GAID, said *guide*. One rule: **GAID's server is the only door.** Browsers,
+GAID, pronounced *guide*. One rule: **GAID's server is the only door.** Browsers,
 TVs and Alexa+ talk to GAID's server. Only GAID's server talks to the
 database, to Amazon Nova, and signs what a TV may show.
 

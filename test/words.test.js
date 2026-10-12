@@ -35,7 +35,7 @@ test('nothing in a page hides the words under another W', () => {
   }
 });
 
-test('the name is spelled GAID and said "guide"', () => {
+test('the name is spelled GAID and pronounced "guide"', () => {
   assert.equal(W.name, 'GAID');
   assert.equal(spoken('Ask GAID about it'), 'Ask Guide about it');
   assert.equal(spoken('gaid'), 'Guide');
@@ -52,7 +52,7 @@ test('"Guide," is a wake word, as "Alexa," is; "guide me" is a question', () => 
 
 test('Amazon Nova is told how its name is said, and not to say it', async () => {
   const src = readFileSync(new URL('../lib/bedrock.js', import.meta.url), 'utf8');
-  assert.match(src, /GAID \(said \\?"guide\\?"\)/);
+  assert.match(src, /GAID \(pronounced \\?"guide\\?"\)/);
   assert.match(src, /Never say your own name/);
 });
 

@@ -16,7 +16,7 @@ Captions (CC) on, so viewers can read what GAID says.
 | 1:55–2:20 | Take home: three pictures, three words, the sentence. Cut to evening, Echo Show: "Alexa, ask GAID about Major, Red, Intruder" | "Three words to take home. That evening, the visit comes back." |
 | 2:20–2:30 | Enquire → Send on WhatsApp | "One press to ask the gallery about a work." |
 | 2:30–2:45 | Curator page: the questions nobody could answer | "And the gallery learns what its visitors wanted to know." |
-| 2:45–2:58 | The talking drum mark. "Simulated Alexa+ · Not an Amazon product" | "GAID. Said 'guide'. Built in Lagos on Amazon Nova and an MCP server." |
+| 2:45–2:58 | The talking drum mark. "Simulated Alexa+ · Not an Amazon product" | "GAID, pronounced 'guide'. Built in Lagos on Amazon Nova and an MCP server." |
 
 Before recording: phone on Do Not Disturb; laptop at 1920×1080; open
 `/screen` on the laptop first so its code is ready.

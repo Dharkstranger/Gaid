@@ -2,7 +2,7 @@
 
 **First, every session: read `docs/BACKLOG.md`** — the goal, what is due, what is next. Keep it current.
 
-**GAID**, said *guide*. Ask the work in front of you. Built in Lagos by Emeka
+**GAID**, pronounced *guide*. Ask the work in front of you. Built in Lagos by Emeka
 Ugochukwu and Obianuju Nnadi (Hoo Socials Limited) for the Amazon "Build,
 Ship, Shape" hackathon, Alexa+ track. Deadline **23 October 2026, 12:00
 Pacific = 20:00 Lagos**. Public, MIT.
@@ -13,7 +13,11 @@ Pacific = 20:00 Lagos**. Public, MIT.
   sentence. Every on-screen word lives in `public/words.js`; a page holds
   none. `test/words.test.js` holds labels to three words and fails on a
   sentence hidden in a page. Talk to the owner the same way: short.
-- **Written GAID, said "guide".** Capitals on screen. A speech engine is given
+  **Short is never broken English.** Use the correct word, in proper
+  grammar: "pronounced", not "said"; full sentences in anything a judge,
+  buyer or the owner reads (submission, docs, chat). The owner corrected
+  this on 12 October.
+- **Written GAID, pronounced "guide".** Capitals on screen. A speech engine is given
   "Guide" (`spoken()`); "Guide, …" is a wake word like "Alexa, …"; Amazon
   Nova is told how it is said and never to say it.
 - **GAID's own look only.** The talking drum (gángan) and the danfo: yellow and

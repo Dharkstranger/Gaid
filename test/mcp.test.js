@@ -31,7 +31,7 @@ test('it speaks protocol 2025-11-25 and names itself', async () => {
   const body = await res.json();
   assert.equal(body.result.protocolVersion, '2025-11-25');
   assert.equal(body.result.serverInfo.name, 'gaid');
-  assert.match(body.result.instructions, /said "guide"/);
+  assert.match(body.result.instructions, /pronounced "guide"/);
 });
 
 test('it offers the eight tools, none of which changes anything', async () => {

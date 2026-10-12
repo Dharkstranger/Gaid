@@ -1,6 +1,6 @@
 # GAID — the product
 
-GAID, said *guide*. **Look and listen.** A visitor in front of a work should
+GAID, pronounced *guide*. **Look and listen.** A visitor in front of a work should
 not read: GAID speaks, and pictures show. Owner's decisions, 11 October 2026.
 
 ## What visitors and museums actually do

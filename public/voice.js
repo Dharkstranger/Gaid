@@ -1,5 +1,5 @@
 /* Listening and speaking, for any GAID page. The browser's own speech.
-   GAID is said "guide" (spoken()). */
+   GAID is pronounced "guide" (spoken()). */
 import { spoken } from './words.js';
 
 const Recognition = globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition;

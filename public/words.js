@@ -1,4 +1,4 @@
-/* Every word GAID puts on a screen. Said "guide".
+/* Every word GAID puts on a screen. Pronounced "guide".
 
    The rule (the owner's): one word if you can, two words, a phrase. A noun or
    a verb before a sentence. test/words.test.js holds every label to it.
@@ -67,7 +67,7 @@ export const W = {
 
   // the About page: the one place GAID explains itself in writing
   aboutTitle: 'About GAID',
-  aboutSaid: 'Said “guide”',
+  aboutSaid: 'Pronounced “guide”',
   aboutIcons: [
     ['listen', 'Listen'], ['talk', 'Ask'], ['look', 'Look closer'], ['lang', 'Language'],
     ['next', 'Where next'], ['home', 'Take home'], ['cc', 'Captions'], ['pair', 'Pair a screen'],

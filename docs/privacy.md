@@ -1,6 +1,6 @@
 # What GAID keeps
 
-GAID, said *guide*. Plain answers, for a gallery, a visitor, or a regulator
+GAID, pronounced *guide*. Plain answers, for a gallery, a visitor, or a regulator
 (Nigeria's NDPA; the GDPR).
 
 | | Kept? | Where | How long |

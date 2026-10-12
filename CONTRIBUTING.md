@@ -1,6 +1,6 @@
 # Contributing to GAID
 
-GAID, said *guide*. Read `CLAUDE.md` first: it holds the rules and why.
+GAID, pronounced *guide*. Read `CLAUDE.md` first: it holds the rules and why.
 
 ```bash
 npm install

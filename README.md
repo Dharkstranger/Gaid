@@ -1,6 +1,6 @@
 # GAID
 
-Said *guide*. [Design system](docs/design-system.md).
+Pronounced *guide*. [Design system](docs/design-system.md).
 
 **Ask the work in front of you.**
 

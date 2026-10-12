@@ -1,6 +1,6 @@
 # GAID design system
 
-**GAID**, said *guide*. The talking drum and the danfo, on a gallery wall.
+**GAID**, pronounced *guide*. The talking drum and the danfo, on a gallery wall.
 
 Live: `/design` · Tokens: `public/tokens.css` · Words: `public/words.js` · Logo: `public/brand/`
 Held by `test/design.test.js` and `test/words.test.js`: a page that goes round the system fails the build.
