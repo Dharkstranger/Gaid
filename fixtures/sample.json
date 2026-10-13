@@ -1,1 +1,306 @@
-{"version":1,"slug":"sample","publishedAt":"2026-09-26T00:00:00.000Z","brand":{"name":"Lagoon Gallery","tagline":"","logo":null,"accent":"#E2551F","ink":"#14120E","background":"#FBF9F0","surface":"#FFFFFF","display":"'Fraunces', Georgia, serif","body":"'Inter', system-ui, sans-serif"},"info":{"welcome":"Nine works from the permanent collection, with the story behind each one. Tap a piece, or find what is nearest to you.","hours":"Tuesday to Sunday, 10am – 6pm. Closed Mondays.","email":"hello@example.org","phone":"+234 000 000 0000","address":"1 Marina Road, Lagos Island, Lagos","about":"A sample collection, made to show how the Galleris app works. The artworks and the people are invented; the app is real."},"languages":["English","Yoruba","Igbo"],"fieldDefs":[{"id":"fd_support","label":"Support","hint":"e.g. Oil on canvas"}],"artists":[{"id":"ar1","name":"Adaeze Obi","bio":"Painter working in oil and found pigment, whose landscapes trace the lagoon edge her family has fished for four generations.","imageId":"a1"},{"id":"ar2","name":"Chinedu Mbah","bio":"Sculptor and carver. Trained under his grandfather and now teaches at the university, where he runs the bronze foundry.","imageId":"a4"},{"id":"ar3","name":"Halima Yusuf","bio":"Textile and print artist. Her geometric work draws on the wall paintings of her mother’s compound in Zaria.","imageId":"a3"}],"mediums":[{"id":"m1","name":"Oil on canvas","description":"Pigment bound in oil, worked in layers so colour sits over colour rather than mixing."},{"id":"m2","name":"Carved wood","description":"Cut from a single block, usually iroko, then smoked and oiled to darken and protect it."},{"id":"m3","name":"Screen print","description":"Ink pushed through a stencilled mesh, one colour at a time."},{"id":"m4","name":"Bronze","description":"Cast by the lost-wax method, a technique used in this region for over five hundred years."}],"locations":[{"id":"l1","name":"Main hall","floor":"Ground floor","imageId":"a1"},{"id":"l2","name":"East gallery","floor":"First floor","imageId":"a3"},{"id":"l3","name":"The courtyard","floor":"Ground floor","imageId":"a8"}],"pieces":[{"id":"p1","title":"Sunrise over the lagoon","artistId":"ar1","mediumId":"m1","locationId":"l1","year":"1974","description":"Painted from the jetty at Makoko over three mornings. The artist said she was chasing the ten minutes before the water turns from grey to gold.","classification":"Painting","department":"Painting & Sculpture","dimensions":"92 x 122 cm","fields":{"fd_support":"Oil on canvas, unlined"},"imageIds":["a1"],"audioBy":"the curator"},{"id":"p2","title":"Three peaks","artistId":"ar3","mediumId":"m3","locationId":"l2","year":"1981","description":"One of an edition of twelve. The orange was mixed to match the laterite of the road outside the studio.","classification":"Print","department":"Drawings & Prints","dimensions":"48 x 64 cm (sheet)","fields":{"fd_support":"Screenprint, 8 of 12"},"imageIds":["a2"],"audioBy":"the curator"},{"id":"p3","title":"Compound wall","artistId":"ar3","mediumId":"m3","locationId":"l2","year":"1979","description":"A direct quotation of the wall paintings in the artist’s mother’s compound, rebuilt as four flat squares.","classification":"Print","department":"Drawings & Prints","dimensions":"56 x 56 cm (sheet)","fields":{"fd_support":"Screenprint, 3 of 12"},"imageIds":["a3"],"audioBy":"the curator"},{"id":"p4","title":"Ceremonial mask","artistId":"ar2","mediumId":"m2","locationId":"l3","year":"1904","description":"Carved for the harvest festival and worn by the eldest son of the compound. Acquired in 1961 and unworn since.","classification":"Sculpture","department":"Painting & Sculpture","dimensions":"38 cm high","fields":{"fd_support":"Carved wood, pigment"},"imageIds":["a4"],"audioBy":"the curator"},{"id":"p5","title":"Two towers","artistId":"ar1","mediumId":"m1","locationId":"l1","year":"1988","description":"The last painting before the artist left for Dakar. The sun was added a year later, on her return.","classification":"Painting","department":"Painting & Sculpture","dimensions":"110 x 140 cm","fields":{"fd_support":"Oil on board"},"imageIds":["a5"],"audioBy":"the curator"},{"id":"p6","title":"Eclipse","artistId":"ar1","mediumId":"m1","locationId":"l2","year":"1992","description":"Two discs, one passing behind the other. The artist painted it the week of the eclipse and never exhibited it in her lifetime.","classification":"Painting","department":"Painting & Sculpture","dimensions":"80 x 80 cm","fields":{"fd_support":"Oil on canvas"},"imageIds":["a6"],"audioBy":"the curator"},{"id":"p7","title":"The new wing","artistId":"ar3","mediumId":"m3","locationId":"l1","year":"2003","description":"A print made to mark the opening of the east wing, showing the building as the architect first drew it.","classification":"Print","department":"Drawings & Prints","dimensions":"42 x 60 cm (sheet)","fields":{"fd_support":"Lithograph, 22 of 60"},"imageIds":["a7"],"audioBy":"the curator"},{"id":"p8","title":"Standing figure","artistId":"ar2","mediumId":"m4","locationId":"l3","year":"1966","description":"Cast in a single pour. The vertical line down the front is the seam of the mould, left deliberately unpolished.","classification":"Sculpture","department":"Painting & Sculpture","dimensions":"164 cm high","fields":{"fd_support":"Cast bronze, unpatinated"},"imageIds":["a8"],"audioBy":"the curator"},{"id":"p9","title":"Crossing","artistId":"ar2","mediumId":"m4","locationId":"l1","year":"1971","description":"Made for the roundabout at the old bridge, where it stood until 1998. The centre disc turns in high wind.","classification":"Sculpture","department":"Painting & Sculpture","dimensions":"210 cm high","fields":{"fd_support":"Welded steel, painted"},"imageIds":["a9"],"audioBy":"the curator"}],"images":{"a1":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0YzRUVERCIvPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI3MCIgcj0iMTUwIiBmaWxsPSIjRTI1NTFGIi8+PHBhdGggZD0iTTAgNDMwaDYwMHYxNzBIMHoiIGZpbGw9IiMxRTMyNDMiLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0wIDQzMGMxMTAtNzAgMTkwLTIwIDMwMCAyMHMxOTAgNDAgMzAwLTQwdjIwSDB6IiBmaWxsPSIjMkY1QjcyIi8+PC9zdmc+","a2":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0RDRDZDMiIvPjxwYXRoIGQ9Ik0zMDAgOTAgNDcwIDQ4MEgxMzB6IiBmaWxsPSIjMUIxQTE3Ii8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzYwIiByPSI3OCIgZmlsbD0iI0UyNTUxRiIvPjwvc3ZnPg==","a3":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0YzRUVERCIvPjxnIGZpbGw9IiMyQjQ3MzkiPjxyZWN0IHg9IjcwIiB5PSI3MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiLz48cmVjdCB4PSIzNTAiIHk9IjM1MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiLz48L2c+CiAgICAgICAgICA8ZyBmaWxsPSIjRTI1NTFGIj48cmVjdCB4PSIzNTAiIHk9IjcwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIvPjxyZWN0IHg9IjcwIiB5PSIzNTAiIHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIi8+PC9nPjwvc3ZnPg==","a4":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzJBMjYyMiIvPjxlbGxpcHNlIGN4PSIzMDAiIGN5PSIzMDAiIHJ4PSIxMjAiIHJ5PSIyMDAiIGZpbGw9IiM4QTZBNDUiLz4KICAgICAgICAgIDxlbGxpcHNlIGN4PSIyNTUiIGN5PSIyNTAiIHJ4PSIzNCIgcnk9IjE5IiBmaWxsPSIjMUIxQTE3Ii8+PGVsbGlwc2UgY3g9IjM0NSIgY3k9IjI1MCIgcng9IjM0IiByeT0iMTkiIGZpbGw9IiMxQjFBMTciLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0zMDAgMjgwdjkwIiBzdHJva2U9IiMxQjFBMTciIHN0cm9rZS13aWR0aD0iMTMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgICAgICAgPHBhdGggZD0iTTI1NSA0MTBxNDUgMzAgOTAgMCIgc3Ryb2tlPSIjMUIxQTE3IiBzdHJva2Utd2lkdGg9IjEzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=","a5":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0VGRTlEOCIvPjxnIHN0cm9rZT0iIzFCMUExNyIgc3Ryb2tlLXdpZHRoPSIxMSIgZmlsbD0ibm9uZSI+CiAgICAgICAgICA8cGF0aCBkPSJNODAgNDgwIDIwMCAxNTBsMTIwIDMzME0xNDAgMzYwaDEyMCIvPjxwYXRoIGQ9Ik0zNjAgNDgwVjE1MGwxNTAgMzMwIi8+PC9nPgogICAgICAgICAgPGNpcmNsZSBjeD0iNDMwIiBjeT0iMjEwIiByPSI0MiIgZmlsbD0iI0UyNTUxRiIvPjwvc3ZnPg==","a6":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0Y3RjNFNCIvPjxnIGZpbGw9IiNFMjU1MUYiIG9wYWNpdHk9Ii45Ij48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjExMCIvPjxjaXJjbGUgY3g9IjM4MCIgY3k9IjMzMCIgcj0iMTEwIi8+PC9nPgogICAgICAgICAgPGNpcmNsZSBjeD0iMjkwIiBjeT0iMjY1IiByPSI2MCIgZmlsbD0iIzFCMUExNyIvPjwvc3ZnPg==","a7":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0I5QzZDRSIvPjxyZWN0IHg9IjYwIiB5PSIxMjAiIHdpZHRoPSI0ODAiIGhlaWdodD0iMzYwIiBmaWxsPSIjMjMzMjQ2Ii8+CiAgICAgICAgICA8ZyBmaWxsPSIjRThDMjZBIj48cmVjdCB4PSIxMTAiIHk9IjE3MCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjkwIi8+PHJlY3QgeD0iMjIwIiB5PSIxNzAiIHdpZHRoPSI3MCIgaGVpZ2h0PSI5MCIvPgogICAgICAgICAgPHJlY3QgeD0iMzMwIiB5PSIxNzAiIHdpZHRoPSI3MCIgaGVpZ2h0PSI5MCIvPjxyZWN0IHg9IjQ0MCIgeT0iMTcwIiB3aWR0aD0iNTAiIGhlaWdodD0iOTAiLz4KICAgICAgICAgIDxyZWN0IHg9IjExMCIgeT0iMzEwIiB3aWR0aD0iNzAiIGhlaWdodD0iOTAiLz48cmVjdCB4PSIyMjAiIHk9IjMxMCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjkwIi8+PC9nPjwvc3ZnPg==","a8":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0U3RTBDRCIvPjxwYXRoIGQ9Ik0zMDAgMTIwYzkwIDAgMTQwIDcwIDE0MCAxNzAgMCAxMzAtNjAgMjAwLTE0MCAyMDBzLTE0MC03MC0xNDAtMjAwYzAtMTAwIDUwLTE3MCAxNDAtMTcweiIgZmlsbD0iIzRFNkE1QiIvPgogICAgICAgICAgPHBhdGggZD0iTTMwMCAxODB2MzAwIiBzdHJva2U9IiNGM0VFREQiIHN0cm9rZS13aWR0aD0iOSIvPgogICAgICAgICAgPHBhdGggZD0iTTMwMCAyNTBxNjAgMzAgNjAgOTBNMzAwIDI1MHEtNjAgMzAtNjAgOTAiIHN0cm9rZT0iI0YzRUVERCIgc3Ryb2tlLXdpZHRoPSI3IiBmaWxsPSJub25lIi8+PC9zdmc+","a9":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0RERDdDNCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFCMUExNyIgc3Ryb2tlLXdpZHRoPSIxNCI+PHBhdGggZD0iTTkwIDMwMGg0MjAiLz48cGF0aCBkPSJNMzAwIDkwdjQyMCIvPjwvZz4KICAgICAgICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjMwMCIgcj0iOTUiIGZpbGw9IiNFMjU1MUYiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIzMDAiIHI9IjM4IiBmaWxsPSIjRjNFRUREIi8+PC9zdmc+"}}
+{
+ "version": 1,
+ "slug": "sample",
+ "publishedAt": "2026-09-26T00:00:00.000Z",
+ "brand": {
+  "name": "Lagoon Gallery",
+  "tagline": "",
+  "logo": null,
+  "accent": "#E2551F",
+  "ink": "#14120E",
+  "background": "#FBF9F0",
+  "surface": "#FFFFFF",
+  "display": "'Fraunces', Georgia, serif",
+  "body": "'Inter', system-ui, sans-serif"
+ },
+ "info": {
+  "welcome": "Nine works from the permanent collection, with the story behind each one. Tap a piece, or find what is nearest to you.",
+  "hours": "Tuesday to Sunday, 10am – 6pm. Closed Mondays.",
+  "email": "hello@example.org",
+  "phone": "+234 000 000 0000",
+  "address": "1 Marina Road, Lagos Island, Lagos",
+  "about": "A sample collection, made to show how the Galleris app works. The artworks and the people are invented; the app is real.",
+  "faq": [
+   {
+    "q": "Can I take photographs?",
+    "a": "Yes, without flash."
+   }
+  ],
+  "background": "Lagoon Gallery opened in 2019 in a former boatyard."
+ },
+ "languages": [
+  "English",
+  "Yoruba",
+  "Igbo"
+ ],
+ "fieldDefs": [
+  {
+   "id": "fd_support",
+   "label": "Support",
+   "hint": "e.g. Oil on canvas"
+  }
+ ],
+ "artists": [
+  {
+   "id": "ar1",
+   "name": "Adaeze Obi",
+   "bio": "Painter working in oil and found pigment, whose landscapes trace the lagoon edge her family has fished for four generations.",
+   "imageId": "a1"
+  },
+  {
+   "id": "ar2",
+   "name": "Chinedu Mbah",
+   "bio": "Sculptor and carver. Trained under his grandfather and now teaches at the university, where he runs the bronze foundry.",
+   "imageId": "a4"
+  },
+  {
+   "id": "ar3",
+   "name": "Halima Yusuf",
+   "bio": "Textile and print artist. Her geometric work draws on the wall paintings of her mother’s compound in Zaria.",
+   "imageId": "a3"
+  }
+ ],
+ "mediums": [
+  {
+   "id": "m1",
+   "name": "Oil on canvas",
+   "description": "Pigment bound in oil, worked in layers so colour sits over colour rather than mixing."
+  },
+  {
+   "id": "m2",
+   "name": "Carved wood",
+   "description": "Cut from a single block, usually iroko, then smoked and oiled to darken and protect it."
+  },
+  {
+   "id": "m3",
+   "name": "Screen print",
+   "description": "Ink pushed through a stencilled mesh, one colour at a time."
+  },
+  {
+   "id": "m4",
+   "name": "Bronze",
+   "description": "Cast by the lost-wax method, a technique used in this region for over five hundred years."
+  }
+ ],
+ "locations": [
+  {
+   "id": "l1",
+   "name": "Main hall",
+   "floor": "Ground floor",
+   "imageId": "a1"
+  },
+  {
+   "id": "l2",
+   "name": "East gallery",
+   "floor": "First floor",
+   "imageId": "a3"
+  },
+  {
+   "id": "l3",
+   "name": "The courtyard",
+   "floor": "Ground floor",
+   "imageId": "a8"
+  }
+ ],
+ "pieces": [
+  {
+   "id": "p1",
+   "title": "Sunrise over the lagoon",
+   "artistId": "ar1",
+   "mediumId": "m1",
+   "locationId": "l1",
+   "year": "1974",
+   "description": "Painted from the jetty at Makoko over three mornings. The artist said she was chasing the ten minutes before the water turns from grey to gold.",
+   "classification": "Painting",
+   "department": "Painting & Sculpture",
+   "dimensions": "92 x 122 cm",
+   "fields": {
+    "fd_support": "Oil on canvas, unlined"
+   },
+   "imageIds": [
+    "a1"
+   ],
+   "audioBy": "the curator",
+   "faq": [
+    {
+     "q": "Why is the sun so large?",
+     "a": "The artist painted it from the Third Mainland Bridge at dawn, when it sits low and wide."
+    },
+    {
+     "q": "",
+     "a": "dropped: no question"
+    },
+    {
+     "q": "bad row"
+    },
+    "not even an object"
+   ],
+   "background": "Adaeze Obi painted this after a year of morning walks on the lagoon shore. It began as a sketch on the back of a bus ticket.",
+   "acquired": "Gift of the artist, 2020",
+   "accession": "LG.2020.1"
+  },
+  {
+   "id": "p2",
+   "title": "Three peaks",
+   "artistId": "ar3",
+   "mediumId": "m3",
+   "locationId": "l2",
+   "year": "1981",
+   "description": "One of an edition of twelve. The orange was mixed to match the laterite of the road outside the studio.",
+   "classification": "Print",
+   "department": "Drawings & Prints",
+   "dimensions": "48 x 64 cm (sheet)",
+   "fields": {
+    "fd_support": "Screenprint, 8 of 12"
+   },
+   "imageIds": [
+    "a2"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p3",
+   "title": "Compound wall",
+   "artistId": "ar3",
+   "mediumId": "m3",
+   "locationId": "l2",
+   "year": "1979",
+   "description": "A direct quotation of the wall paintings in the artist’s mother’s compound, rebuilt as four flat squares.",
+   "classification": "Print",
+   "department": "Drawings & Prints",
+   "dimensions": "56 x 56 cm (sheet)",
+   "fields": {
+    "fd_support": "Screenprint, 3 of 12"
+   },
+   "imageIds": [
+    "a3"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p4",
+   "title": "Ceremonial mask",
+   "artistId": "ar2",
+   "mediumId": "m2",
+   "locationId": "l3",
+   "year": "1904",
+   "description": "Carved for the harvest festival and worn by the eldest son of the compound. Acquired in 1961 and unworn since.",
+   "classification": "Sculpture",
+   "department": "Painting & Sculpture",
+   "dimensions": "38 cm high",
+   "fields": {
+    "fd_support": "Carved wood, pigment"
+   },
+   "imageIds": [
+    "a4"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p5",
+   "title": "Two towers",
+   "artistId": "ar1",
+   "mediumId": "m1",
+   "locationId": "l1",
+   "year": "1988",
+   "description": "The last painting before the artist left for Dakar. The sun was added a year later, on her return.",
+   "classification": "Painting",
+   "department": "Painting & Sculpture",
+   "dimensions": "110 x 140 cm",
+   "fields": {
+    "fd_support": "Oil on board"
+   },
+   "imageIds": [
+    "a5"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p6",
+   "title": "Eclipse",
+   "artistId": "ar1",
+   "mediumId": "m1",
+   "locationId": "l2",
+   "year": "1992",
+   "description": "Two discs, one passing behind the other. The artist painted it the week of the eclipse and never exhibited it in her lifetime.",
+   "classification": "Painting",
+   "department": "Painting & Sculpture",
+   "dimensions": "80 x 80 cm",
+   "fields": {
+    "fd_support": "Oil on canvas"
+   },
+   "imageIds": [
+    "a6"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p7",
+   "title": "The new wing",
+   "artistId": "ar3",
+   "mediumId": "m3",
+   "locationId": "l1",
+   "year": "2003",
+   "description": "A print made to mark the opening of the east wing, showing the building as the architect first drew it.",
+   "classification": "Print",
+   "department": "Drawings & Prints",
+   "dimensions": "42 x 60 cm (sheet)",
+   "fields": {
+    "fd_support": "Lithograph, 22 of 60"
+   },
+   "imageIds": [
+    "a7"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p8",
+   "title": "Standing figure",
+   "artistId": "ar2",
+   "mediumId": "m4",
+   "locationId": "l3",
+   "year": "1966",
+   "description": "Cast in a single pour. The vertical line down the front is the seam of the mould, left deliberately unpolished.",
+   "classification": "Sculpture",
+   "department": "Painting & Sculpture",
+   "dimensions": "164 cm high",
+   "fields": {
+    "fd_support": "Cast bronze, unpatinated"
+   },
+   "imageIds": [
+    "a8"
+   ],
+   "audioBy": "the curator"
+  },
+  {
+   "id": "p9",
+   "title": "Crossing",
+   "artistId": "ar2",
+   "mediumId": "m4",
+   "locationId": "l1",
+   "year": "1971",
+   "description": "Made for the roundabout at the old bridge, where it stood until 1998. The centre disc turns in high wind.",
+   "classification": "Sculpture",
+   "department": "Painting & Sculpture",
+   "dimensions": "210 cm high",
+   "fields": {
+    "fd_support": "Welded steel, painted"
+   },
+   "imageIds": [
+    "a9"
+   ],
+   "audioBy": "the curator"
+  }
+ ],
+ "images": {
+  "a1": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0YzRUVERCIvPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI3MCIgcj0iMTUwIiBmaWxsPSIjRTI1NTFGIi8+PHBhdGggZD0iTTAgNDMwaDYwMHYxNzBIMHoiIGZpbGw9IiMxRTMyNDMiLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0wIDQzMGMxMTAtNzAgMTkwLTIwIDMwMCAyMHMxOTAgNDAgMzAwLTQwdjIwSDB6IiBmaWxsPSIjMkY1QjcyIi8+PC9zdmc+",
+  "a2": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0RDRDZDMiIvPjxwYXRoIGQ9Ik0zMDAgOTAgNDcwIDQ4MEgxMzB6IiBmaWxsPSIjMUIxQTE3Ii8+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzYwIiByPSI3OCIgZmlsbD0iI0UyNTUxRiIvPjwvc3ZnPg==",
+  "a3": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0YzRUVERCIvPjxnIGZpbGw9IiMyQjQ3MzkiPjxyZWN0IHg9IjcwIiB5PSI3MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiLz48cmVjdCB4PSIzNTAiIHk9IjM1MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiLz48L2c+CiAgICAgICAgICA8ZyBmaWxsPSIjRTI1NTFGIj48cmVjdCB4PSIzNTAiIHk9IjcwIiB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIvPjxyZWN0IHg9IjcwIiB5PSIzNTAiIHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIi8+PC9nPjwvc3ZnPg==",
+  "a4": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzJBMjYyMiIvPjxlbGxpcHNlIGN4PSIzMDAiIGN5PSIzMDAiIHJ4PSIxMjAiIHJ5PSIyMDAiIGZpbGw9IiM4QTZBNDUiLz4KICAgICAgICAgIDxlbGxpcHNlIGN4PSIyNTUiIGN5PSIyNTAiIHJ4PSIzNCIgcnk9IjE5IiBmaWxsPSIjMUIxQTE3Ii8+PGVsbGlwc2UgY3g9IjM0NSIgY3k9IjI1MCIgcng9IjM0IiByeT0iMTkiIGZpbGw9IiMxQjFBMTciLz4KICAgICAgICAgIDxwYXRoIGQ9Ik0zMDAgMjgwdjkwIiBzdHJva2U9IiMxQjFBMTciIHN0cm9rZS13aWR0aD0iMTMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgICAgICAgPHBhdGggZD0iTTI1NSA0MTBxNDUgMzAgOTAgMCIgc3Ryb2tlPSIjMUIxQTE3IiBzdHJva2Utd2lkdGg9IjEzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=",
+  "a5": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0VGRTlEOCIvPjxnIHN0cm9rZT0iIzFCMUExNyIgc3Ryb2tlLXdpZHRoPSIxMSIgZmlsbD0ibm9uZSI+CiAgICAgICAgICA8cGF0aCBkPSJNODAgNDgwIDIwMCAxNTBsMTIwIDMzME0xNDAgMzYwaDEyMCIvPjxwYXRoIGQ9Ik0zNjAgNDgwVjE1MGwxNTAgMzMwIi8+PC9nPgogICAgICAgICAgPGNpcmNsZSBjeD0iNDMwIiBjeT0iMjEwIiByPSI0MiIgZmlsbD0iI0UyNTUxRiIvPjwvc3ZnPg==",
+  "a6": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0Y3RjNFNCIvPjxnIGZpbGw9IiNFMjU1MUYiIG9wYWNpdHk9Ii45Ij48Y2lyY2xlIGN4PSIyMDAiIGN5PSIyMDAiIHI9IjExMCIvPjxjaXJjbGUgY3g9IjM4MCIgY3k9IjMzMCIgcj0iMTEwIi8+PC9nPgogICAgICAgICAgPGNpcmNsZSBjeD0iMjkwIiBjeT0iMjY1IiByPSI2MCIgZmlsbD0iIzFCMUExNyIvPjwvc3ZnPg==",
+  "a7": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0I5QzZDRSIvPjxyZWN0IHg9IjYwIiB5PSIxMjAiIHdpZHRoPSI0ODAiIGhlaWdodD0iMzYwIiBmaWxsPSIjMjMzMjQ2Ii8+CiAgICAgICAgICA8ZyBmaWxsPSIjRThDMjZBIj48cmVjdCB4PSIxMTAiIHk9IjE3MCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjkwIi8+PHJlY3QgeD0iMjIwIiB5PSIxNzAiIHdpZHRoPSI3MCIgaGVpZ2h0PSI5MCIvPgogICAgICAgICAgPHJlY3QgeD0iMzMwIiB5PSIxNzAiIHdpZHRoPSI3MCIgaGVpZ2h0PSI5MCIvPjxyZWN0IHg9IjQ0MCIgeT0iMTcwIiB3aWR0aD0iNTAiIGhlaWdodD0iOTAiLz4KICAgICAgICAgIDxyZWN0IHg9IjExMCIgeT0iMzEwIiB3aWR0aD0iNzAiIGhlaWdodD0iOTAiLz48cmVjdCB4PSIyMjAiIHk9IjMxMCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjkwIi8+PC9nPjwvc3ZnPg==",
+  "a8": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0U3RTBDRCIvPjxwYXRoIGQ9Ik0zMDAgMTIwYzkwIDAgMTQwIDcwIDE0MCAxNzAgMCAxMzAtNjAgMjAwLTE0MCAyMDBzLTE0MC03MC0xNDAtMjAwYzAtMTAwIDUwLTE3MCAxNDAtMTcweiIgZmlsbD0iIzRFNkE1QiIvPgogICAgICAgICAgPHBhdGggZD0iTTMwMCAxODB2MzAwIiBzdHJva2U9IiNGM0VFREQiIHN0cm9rZS13aWR0aD0iOSIvPgogICAgICAgICAgPHBhdGggZD0iTTMwMCAyNTBxNjAgMzAgNjAgOTBNMzAwIDI1MHEtNjAgMzAtNjAgOTAiIHN0cm9rZT0iI0YzRUVERCIgc3Ryb2tlLXdpZHRoPSI3IiBmaWxsPSJub25lIi8+PC9zdmc+",
+  "a9": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNjAwIj48cmVjdCB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iI0RERDdDNCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFCMUExNyIgc3Ryb2tlLXdpZHRoPSIxNCI+PHBhdGggZD0iTTkwIDMwMGg0MjAiLz48cGF0aCBkPSJNMzAwIDkwdjQyMCIvPjwvZz4KICAgICAgICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjMwMCIgcj0iOTUiIGZpbGw9IiNFMjU1MUYiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIzMDAiIHI9IjM4IiBmaWxsPSIjRjNFRUREIi8+PC9zdmc+"
+ }
+}
