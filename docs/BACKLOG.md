@@ -57,6 +57,13 @@ Last updated: 11 October 2026.
 6. [ ] Description + feedback (owner's words, Claude types)
 7. [ ] Submit
 
+## Proposed, not yet approved (12 Oct)
+
+- [ ] TV fixed to the painting beside it (two visitors, one TV)
+- [ ] TV-only mode: narrates, driven by the Fire TV remote, no phone needed
+- [ ] GAID reads all Galleris publishes: exhibitions, collections, credits, extra fields
+- [ ] Questions and answers + Background per work, written in the Galleris studio
+
 ## Next — after the project works (owner, 11 Oct)
 
 - [x] **Design must not look AI-made** (done 11 Oct). Talking drum mark, danfo yellow/black on
@@ -68,7 +75,7 @@ Last updated: 11 October 2026.
 ## Owner to do
 
 - [ ] Merge Galleris branch `claude/nga-photos`: 24 open-access paintings for the `openaccess` demo (fetched by a GitHub runner, 11 Oct)
-- [ ] Bedrock: needs an AWS account (not the Amazon Developer one) — or submit without Nova
+- [x] Nova without AWS: through Vercel's AI Gateway, signed in by OIDC (12 Oct). Owner: check AI Gateway credit in Vercel, then ask "Why those colours?"
 
 - [ ] Bedrock key → Vercel
 - [ ] GitHub → gaid → Settings → Security → private vulnerability reporting ON

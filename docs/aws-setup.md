@@ -1,5 +1,23 @@
 # Switching Amazon Nova on
 
+## The easy way: Vercel's AI Gateway (no AWS account)
+
+Added 12 October, when AWS sign-in failed. GAID on Vercel reaches Amazon Nova
+(`amazon/nova-2-lite`) through Vercel's AI Gateway and signs in with the
+deployment's own identity (OIDC), so there is no key to create.
+
+1. Vercel → the **gaid** project → **AI Gateway**: check it is available for
+   the team and has credit. Pricing is per million tokens; see Vercel's page.
+2. Redeploy (any push does it).
+3. Check: ask something the gallery did not write, such as "Why those
+   colours?". A considered answer, not "I only know what … wrote", means
+   Nova replied. Its calls appear in the AI Gateway logs after about 90 s.
+
+To turn it off: set `GAID_NOVA=off` in the project's environment variables.
+Off Vercel, set `AI_GATEWAY_API_KEY` instead.
+
+## The direct way: your own AWS account
+
 About 20 minutes. Without this, GAID still works and answers from the
 gallery's own words only.
 
