@@ -31,6 +31,17 @@ ok(/National Gallery of Art/.test(faq?.say ?? ''), 'curator answer, word for wor
 const nova = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Why is the background gold?' });
 out.push(`INFO  open question → source: ${nova?.source} — ${nova?.say?.slice(0, 160)}`);
 
+const nxt = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'switch to the next artwork' });
+ok(nxt?.action?.type === 'goto' && nxt?.action?.id !== 'p1', '"next artwork" moves', JSON.stringify(nxt?.action));
+const intro = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Tell me about the work in front of me' });
+out.push(`INFO  introduction → source: ${intro?.source} — ${intro?.say?.slice(0, 200)}`);
+const sp = await fetch(`${SITE}/api/speak`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ phrase: 'paired', lang: 'English' }) });
+out.push(`INFO  voice copy: ${sp.status} ${sp.headers.get('content-type')} ${sp.status === 200 ? (await sp.arrayBuffer()).byteLength + ' bytes' : ''}`);
+const va = await fetch(`${SITE}/_vercel/insights/script.js`);
+out.push(`INFO  Vercel Analytics script: ${va.status} (404 until Web Analytics is switched on in Vercel)`);
+const v = await fetch(`${SITE}/vendor/vercel-analytics.js`);
+ok(v.status === 200, 'analytics module is served');
+
 const topic = topicFor('openaccess', newCode());
 const heard = new Promise((res) => { const tv = openRelay({ topic, onMessage: (m) => { tv.close(); res(m); } }); setTimeout(() => res(null), 20000); });
 await new Promise((r) => setTimeout(r, 3000));
