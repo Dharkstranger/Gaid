@@ -34,23 +34,27 @@
   <p id="cap" class="v-cap" aria-live="polite" hidden></p>
 
   <nav class="v-dock" aria-label="GAID">
-    <button id="look" class="v-icon v-side" type="button" data-aria="look">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8v6M8 11h6"/></svg>
-    </button>
-    <button id="lang" class="v-icon v-side" type="button" data-aria="language">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
-      <span id="langDots" class="v-dots" aria-hidden="true"></span>
-    </button>
+    <div class="v-side-group">
+      <button id="look" class="v-icon v-side" type="button" data-aria="look">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5M11 8v6M8 11h6"/></svg>
+      </button>
+      <button id="lang" class="v-icon v-side" type="button" data-aria="language">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+        <span id="langDots" class="v-dots" aria-hidden="true"></span>
+      </button>
+    </div>
     <button id="talk" class="v-talk" type="button" aria-pressed="false" data-state="idle" data-aria="talk">
       <svg class="v-mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
       <span class="v-voice" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
     </button>
-    <button id="next" class="v-icon v-side" type="button" data-aria="next">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6"/></svg>
-    </button>
-    <button id="home" class="v-icon v-side" type="button" data-aria="home">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
-    </button>
+    <div class="v-side-group">
+      <button id="next" class="v-icon v-side" type="button" data-aria="next">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <button id="home" class="v-icon v-side" type="button" data-aria="home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      </button>
+    </div>
   </nav>
 
   <div id="works" class="v-strip" role="group" data-aria="works"></div>
