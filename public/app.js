@@ -14,7 +14,7 @@ import { callTool } from './mcp-client.js';
 import { openRelay, newCode, topicFor, CODE } from './relay.js';
 import { visitWords } from './visit.js';
 import { scan, pairingIn } from './scan.js';
-import { listen, say, hush, canListen, canSpeak, sayNatural, useNatural, naturalOn } from './voice.js';
+import { listen, say, hush, canListen, canSpeak, sayNatural, useNatural } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -302,7 +302,6 @@ async function begin() {
   let first = true;
   try { first = !localStorage.getItem('gaid.first'); localStorage.setItem('gaid.first', '1'); } catch { /* private window */ }
   if (first) await speak(W.say.first, { lang: 'English', phrase: 'first' });
-  if (first && naturalOn()) await speak(W.say.cloned, { lang: 'English', phrase: 'cloned' });   // never pass a copy off as the person
   if (room && !$('paired').hidden) await speak(W.say.paired, { lang: 'English', phrase: 'paired' });
   await tellMe();
 }

@@ -13,7 +13,6 @@ import { W } from '../public/words.js';
 
 const PHRASES = {
   first: () => W.say.first,
-  cloned: () => W.say.cloned,
   offline: () => W.say.offline,
   paired: () => W.say.paired,
   noScreen: () => W.say.noScreen,

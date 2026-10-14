@@ -76,7 +76,6 @@ let natural = false;
 let playing = null;
 let ticket = 0;                                  // a stop while the audio is on its way wins
 export function useNatural(on) { natural = Boolean(on); }
-export const naturalOn = () => natural;
 export async function sayNatural({ voice, phrase, words, lang = 'English', onState } = {}) {
   if (!natural || (!voice && !phrase)) return false;
   const mine = ++ticket;

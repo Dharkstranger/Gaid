@@ -10,9 +10,8 @@ Until it is set up, GAID uses the most natural voice on each phone.
   itself produced and signed, or one of GAID's fixed lines. Nobody can send
   it a sentence of their own, so nobody can make the voice say something you
   never said. A test proves it, and fails when that check is removed.
-- **It says it is a copy.** On a visitor's first visit GAID says: "This voice
-  is an AI copy of a real person's voice, used with their permission." The
-  About page says the same.
+- **No announcement.** The owner decided (14 October) that GAID does not
+  announce the voice is a copy. Use only a voice whose owner has agreed.
 - **English, Pidgin and French.** Yoruba, Igbo and Hausa are not among the
   voice model's languages, so the phone's own voice says those.
 - **Any failure, and the phone speaks instead.** No error is ever shown.
