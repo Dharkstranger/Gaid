@@ -36,7 +36,7 @@ ok(nxt?.action?.type === 'goto' && nxt?.action?.id !== 'p1', '"next artwork" mov
 const intro = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Tell me about the work in front of me' });
 out.push(`INFO  introduction → source: ${intro?.source} — ${intro?.say?.slice(0, 200)}`);
 const sp = await fetch(`${SITE}/api/speak`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ phrase: 'paired', lang: 'English' }) });
-out.push(`INFO  voice copy: ${sp.status} ${sp.headers.get('content-type')} ${sp.status === 200 ? (await sp.arrayBuffer()).byteLength + ' bytes' : ''}`);
+out.push(`INFO  voice copy: ${sp.status} why=${sp.headers.get('x-gaid-voice')} ${sp.headers.get('content-type')} ${sp.status === 200 ? (await sp.arrayBuffer()).byteLength + ' bytes' : ''}`);
 const va = await fetch(`${SITE}/_vercel/insights/script.js`);
 out.push(`INFO  Vercel Analytics script: ${va.status} (404 until Web Analytics is switched on in Vercel)`);
 const v = await fetch(`${SITE}/vendor/vercel-analytics.js`);
