@@ -43,6 +43,16 @@ grey, wait a few minutes for Galleris to rebuild, or use `gallery=sample`
       them (true for this gallery). To see the button: open
       `LIVE/home?gallery=sample`, press Enquire. An email button appears. Do not send.
 
+## 4b. The TV on its own (no phone)
+- [ ] Open `LIVE/screen` on the Fire TV (Silk browser) or laptop. "Press OK" shows.
+- [ ] Press OK (Enter on a laptop): GAID tells the painting's story aloud.
+- [ ] Up: Look closer. Down: stop. Left/right: the next painting. Play: a tour of the room.
+
+## 4c. One TV, two paintings
+- [ ] Open `LIVE/screen?at=p1`: this TV belongs beside Saint James Major.
+- [ ] Phone A scans it (opens at Saint James Major). Phone B opens `LIVE/?gallery=openaccess&at=p5` and types the same four letters.
+- [ ] Phone B asks and presses Look closer: the TV does not move. Phone A does the same: the TV follows.
+
 ## 5. The gallery learns
 - [ ] Open `LIVE/curator?gallery=openaccess`. The question nobody answered ("Who owns it now?") is on the list.
       (Needs `GAID_DB_SECRET` set in Vercel and its hash in the database.)

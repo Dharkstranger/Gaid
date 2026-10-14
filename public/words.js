@@ -58,6 +58,7 @@ export const W = {
   captions: 'Captions',
   pairScreen: 'Pair a screen',
   scanToPair: 'Scan to pair',
+  pressOk: 'Press OK',
   hearAgain: 'Hear again',
   save: 'Save',
   sayAtHome: (words) => `“Alexa, ask GAID about ${words}”`,

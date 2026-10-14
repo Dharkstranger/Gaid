@@ -57,12 +57,13 @@ Last updated: 11 October 2026.
 6. [ ] Description + feedback (owner's words, Claude types)
 7. [ ] Submit
 
-## Proposed, not yet approved (12 Oct)
+## Approved 13 Oct
 
-- [ ] TV fixed to the painting beside it (two visitors, one TV)
-- [ ] TV-only mode: narrates, driven by the Fire TV remote, no phone needed
-- [ ] GAID reads all Galleris publishes: exhibitions, collections, credits, extra fields
-- [ ] Questions and answers + Background per work, written in the Galleris studio
+- [x] TV fixed to the painting beside it: /screen?at=p1 (13 Oct)
+- [x] TV-only mode: Fire TV remote, OK/up/down/left/right/play (13 Oct)
+- [x] GAID reads all Galleris publishes: credit, accession, fields, collection, exhibitions (13 Oct)
+- [x] GAID reads faq + background and answers from them (13 Oct)
+- [ ] Galleris studio: faq + background fields (agent's PR, owner to merge)
 
 ## Next — after the project works (owner, 11 Oct)
 

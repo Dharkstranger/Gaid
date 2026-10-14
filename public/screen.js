@@ -1,7 +1,15 @@
-/* The screen beside the work. It never listens and never speaks: the phone
-   (index.html) does both, and tells this page what was asked through a
-   BroadcastChannel. Opened on its own it still shows the work, so a screen
-   switched on before anybody has asked anything is never blank.
+/* The screen beside the work. It never listens: the phone (index.html) does,
+   and tells this page what was asked. Opened on its own it still shows the
+   work, so a screen switched on before anybody has asked is never blank.
+
+   FIXED TO ITS PAINTING. /screen?at=p1 is the TV beside p1: it shows that
+   work and only answers about it, so two visitors at two paintings, paired to
+   one TV, never pull it back and forth. Without ?at it follows the phone.
+
+   ON ITS OWN, WITH THE REMOTE. A Fire TV remote in a browser sends arrow keys
+   and Enter: OK tells the story aloud, up looks closer, left and right walk
+   the room (not on a fixed TV), down stops. Play starts a tour of the room.
+   The phone, when one is paired, always wins.
 
    Every word on it is built with textContent: a gallery's file is somebody
    else's writing, and none of it is ever parsed as markup. */
@@ -10,11 +18,15 @@ import { qrSvg } from './qr.js';
 import { CHANNEL, panelFor } from '/scene.js';
 import { W } from '/words.js';
 import { openRelay, newCode, topicFor, CODE } from '/relay.js';
+import { callTool } from './mcp-client.js';
+import { say, hush } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const slug = galleryOf(params);
-const state = { gallery: null, work: null };
+const state = { gallery: null, work: null, lock: null, run: 0, touring: false };
+/* A message about another painting, on a TV fixed to its own: not for us. */
+const notOurs = (workId) => Boolean(state.lock && workId && workId !== state.lock);
 
 const el = (tag, cls, text) => {
   const n = document.createElement(tag);
@@ -200,6 +212,8 @@ function zoom(box) {
 
 async function receive(m) {
   if (!m || typeof m !== 'object' || !state.gallery) return;
+  if (notOurs(m.workId)) return;
+  if (m.type === 'look' || m.type === 'next' || m.type === 'at' || m.type === 'answer') quiet();   // a phone speaks: the TV's own voice stops
   if (m.type === 'look') {                     // numbers only: nothing a stranger could write on the screen
     const work = state.gallery.works.find((w) => w.id === m.workId);
     if (work && work !== state.work) showWork(work);
@@ -226,10 +240,68 @@ async function receive(m) {
   if (m.type !== 'answer' || typeof m.seal !== 'string') return;
   const a = await opened(m.seal);
   if (!a) return;                              // not GAID's, altered, or stale: dropped
+  if (notOurs(a.workId)) return;
   const work = state.gallery.works.find((w) => w.id === a.workId);
   if (work && work !== state.work) showWork(work);
   caption(W.topic[a.topic] ?? '', a.say);
   showPanel(a.topic, a.say);
+}
+
+/* -------------------------------------------------------------- the remote */
+function quiet() { state.run += 1; state.touring = false; hush(); zoom(null); }
+
+async function tellStory(run) {
+  if (!state.work) return;
+  const out = await callTool('ask_work', { gallery: slug, work_id: state.work.id, question: W.chips[0][1] });
+  if (run !== state.run || !out?.say) return;
+  caption('', out.say); showPanel('about', out.say);
+  await say(out.say);
+}
+
+async function lookCloser(run) {
+  if (!state.work) return;
+  zoom({ x: 0.15, y: 0.15, w: 0.7, h: 0.7 });       // move on the press, before the server answers
+  const out = await callTool('look_closer', { gallery: slug, work_id: state.work.id });
+  for (const step of out?.steps ?? []) {
+    if (run !== state.run) return;
+    zoom(step.box);
+    const words = step.say.split(/\s+/).length;
+    await Promise.all([say(step.say), new Promise((ok) => setTimeout(ok, Math.max(2600, words * 380)))]);
+  }
+  if (run === state.run) zoom(null);
+}
+
+function step(by) {
+  const works = state.gallery.works;
+  const i = works.indexOf(state.work);
+  showWork(works[(i + by + works.length) % works.length]);
+  showPanel('about');
+}
+
+async function tour(run) {
+  state.touring = true;
+  while (run === state.run) {
+    await tellStory(run);
+    await new Promise((ok) => setTimeout(ok, 6000));
+    if (run !== state.run) return;
+    step(1);
+  }
+}
+
+function onKey(e) {
+  if (!state.gallery) return;
+  const k = e.key;
+  const known = ['Enter', ' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'MediaPlayPause', 'MediaPlay'];
+  if (!known.includes(k)) return;
+  e.preventDefault();
+  if ((k === 'MediaPlayPause' || k === 'MediaPlay') && state.touring) { quiet(); return; }
+  quiet();
+  const run = state.run;
+  document.body.classList.add('remote');            // somebody is here: the hint has done its job
+  if (k === 'Enter' || k === ' ') tellStory(run);
+  else if (k === 'ArrowUp') lookCloser(run);
+  else if ((k === 'ArrowLeft' || k === 'ArrowRight') && !state.lock) { step(k === 'ArrowLeft' ? -1 : 1); tellStory(run); }
+  else if ((k === 'MediaPlayPause' || k === 'MediaPlay') && !state.lock) tour(run);
 }
 
 async function start() {
@@ -243,7 +315,10 @@ async function start() {
     return;
   }
   state.gallery = data.gallery;
-  showWork(data.gallery.works.find((w) => w.id === params.get('at')) ?? data.gallery.works[0] ?? null);
+  const beside = data.gallery.works.find((w) => w.id === params.get('at'));
+  state.lock = beside?.id ?? null;
+  showWork(beside ?? data.gallery.works[0] ?? null);
+  document.addEventListener('keydown', onKey);
   showPanel('about');
   caption('', W.tvAsk);
 
@@ -262,7 +337,10 @@ async function start() {
   $('code').append(room);
   $('code').setAttribute('aria-label', `${W.pair} ${room}`);
   // The same pairing as a square: the phone's camera opens GAID already joined.
-  $('qr').innerHTML = qrSvg(`${location.origin}/?${new URLSearchParams({ gallery: slug, room })}`, W.scanToPair);
+  // On a TV fixed to a painting, the phone opens at that painting.
+  const join = new URLSearchParams({ gallery: slug, room });
+  if (state.lock) join.set('at', state.lock);
+  $('qr').innerHTML = qrSvg(`${location.origin}/?${join}`, W.scanToPair);
   const relay = openRelay({ topic: topicFor(slug, room), onMessage: receive });
   relay.send({ type: 'hello', slug });
 }

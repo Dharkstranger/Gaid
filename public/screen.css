@@ -106,3 +106,8 @@ body{background-color:var(--bg);background-image:var(--adire);background-size:va
 .qr svg{display:block;width:100%;height:auto}
 .qr-ground{fill:var(--paper)}
 .qr-ink{fill:var(--ink)}
+/* For a visitor with no phone: the remote's centre button. Gone once used. */
+.ok{display:flex;align-items:center;gap:var(--s-2);font-size:var(--t-2);color:var(--text)}
+.ok{padding:var(--s-2) var(--s-4);border:var(--b-2) solid var(--ring);border-radius:var(--r-round);font-weight:var(--w-strong)}
+.ok svg{width:var(--s-6);height:var(--s-6);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.remote .ok{display:none}

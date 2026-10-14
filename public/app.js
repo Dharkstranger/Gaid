@@ -34,7 +34,7 @@ let room = CODE.test((params.get('room') || '').toUpperCase()) ? params.get('roo
 let relay = null;
 let lastSent = null;
 function tellScreen(msg) {
-  const m = { ...msg, slug };
+  const m = { workId: state.work?.id, ...msg, slug };    // which painting: a TV fixed to another ignores it
   if (m.type === 'answer' || m.type === 'at') lastSent = m;
   channel?.postMessage(m);
   relay?.send(m);
