@@ -21,3 +21,12 @@ edit key, and anyone for GAID's public demo galleries (`sample`,
 Someone could type something personal as a question. It is then kept, like
 any other unanswered question, for 180 days, and seen by that gallery's
 curator. It is never shown to another visitor.
+
+
+## The voice copy (optional, added 13 October)
+
+When the owner turns on an AI copy of a voice (`docs/voice-setup.md`), the
+words GAID is about to say are sent to ElevenLabs to be turned into speech.
+Those words are the gallery's own and GAID's answers. Nothing about the
+visitor goes with them: not their question, not their phone, not their
+visit. With the voice off, nothing is sent.

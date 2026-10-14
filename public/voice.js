@@ -68,4 +68,41 @@ export function say(text, { lang = 'English', onState } = {}) {
   });
 }
 
-export function hush() { globalThis.speechSynthesis?.cancel(); }
+/* The owner's voice copy (api/speak.js), when the gallery says it is set up.
+   Only GAID's own signed words (`voice`) or its fixed lines (`phrase`) can be
+   spoken in it. Resolves true when it played; false means "use the phone's
+   voice" — not set up, a language it does not speak, offline, or blocked. */
+let natural = false;
+let playing = null;
+let ticket = 0;                                  // a stop while the audio is on its way wins
+export function useNatural(on) { natural = Boolean(on); }
+export const naturalOn = () => natural;
+export async function sayNatural({ voice, phrase, words, lang = 'English', onState } = {}) {
+  if (!natural || (!voice && !phrase)) return false;
+  const mine = ++ticket;
+  let url = null;
+  try {
+    const res = await fetch('/api/speak', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ voice, phrase, words, lang }),
+    });
+    if (res.status !== 200 || !String(res.headers.get('content-type')).startsWith('audio/')) return false;
+    const blob = await res.blob();
+    if (mine !== ticket) return true;               // stopped meanwhile: say nothing at all
+    url = URL.createObjectURL(blob);
+    const a = new Audio(url);
+    playing = a;
+    await a.play();                                // refused (no tap yet): the phone's voice instead
+    onState?.('speaking');
+    await new Promise((ok) => { a.onended = a.onerror = a.onpause = ok; });
+    onState?.('idle');
+    return true;
+  } catch {
+    return false;
+  } finally {
+    if (url) URL.revokeObjectURL(url);
+    playing = null;
+  }
+}
+
+export function hush() { ticket += 1; globalThis.speechSynthesis?.cancel(); playing?.pause(); }

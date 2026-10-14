@@ -59,6 +59,8 @@ Last updated: 11 October 2026.
 
 ## Approved 13 Oct
 
+- [x] Voice: the phone's most natural voice; an AI copy of the owner's voice through ElevenLabs, signed words only (13 Oct). Owner: docs/voice-setup.md
+
 - [x] TV fixed to the painting beside it: /screen?at=p1 (13 Oct)
 - [x] TV-only mode: Fire TV remote, OK/up/down/left/right/play (13 Oct)
 - [x] GAID reads all Galleris publishes: credit, accession, fields, collection, exhibitions (13 Oct)

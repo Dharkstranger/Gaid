@@ -9,13 +9,15 @@ delete process.env.AWS_BEARER_TOKEN_BEDROCK;
 delete process.env.GAID_AWS_ACCESS_KEY_ID;
 delete process.env.AI_GATEWAY_API_KEY;   // and never Vercel's AI Gateway: a test spends nothing
 delete process.env.VERCEL;
+delete process.env.ELEVENLABS_API_KEY;    // nor the voice service: no test speaks in anybody's voice
+delete process.env.GAID_VOICE_ID;
 
 // And if anything still tries, the file fails — even though the store, rightly,
 // swallows every network error so a visitor never sees one.
 const reached = [];
 const real = globalThis.fetch;
 globalThis.fetch = (url, init) => {
-  if (/gudymczklujytsozwrsy\.supabase\.co|ai-gateway\.vercel\.sh/.test(String(url))) {
+  if (/gudymczklujytsozwrsy\.supabase\.co|ai-gateway\.vercel\.sh|api\.elevenlabs\.io/.test(String(url))) {
     reached.push(String(url));
     return Promise.reject(new Error('a test reached production'));
   }

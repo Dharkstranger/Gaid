@@ -13,7 +13,7 @@ import { W } from './words.js';
 import { callTool } from './mcp-client.js';
 import { openRelay, newCode, topicFor, CODE } from './relay.js';
 import { visitWords } from './visit.js';
-import { listen, say, hush, canListen, canSpeak } from './voice.js';
+import { listen, say, hush, canListen, canSpeak, sayNatural, useNatural, naturalOn } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -98,8 +98,9 @@ function setVoice(s) {
 /* ---------------------------------------------------------------- speaking */
 // A curator's own recording beats any voice; then the phone's voice in the
 // visitor's language; with none for that language, the original in English.
-async function speak(text, { lang = state.lang, original, recording } = {}) {
+async function speak(text, { lang = state.lang, original, recording, voice, phrase, words } = {}) {
   caption(text);
+  if (!recording?.src && await sayNatural({ voice, phrase, words, lang, onState: setVoice })) return;
   if (recording?.src) {
     const clip = $('clip');
     clip.src = recording.src;
@@ -139,7 +140,7 @@ async function ask(question, { quiet = false } = {}) {
       if (out?.ok !== true) out = null;
     } catch { out = null; }
   }
-  if (!out || typeof out.say !== 'string') { setVoice('idle'); await speak(W.say.offline, { lang: 'English' }); return null; }
+  if (!out || typeof out.say !== 'string') { setVoice('idle'); await speak(W.say.offline, { lang: 'English', phrase: 'offline' }); return null; }
   const a = out.action;
   if (a?.type === 'goto') { const w = state.gallery.works.find((x) => x.id === a.id); if (w) show(w); }
   if (a?.type === 'lang' && state.langs.includes(a.lang)) setLang(a.lang, { quiet: true });
@@ -147,7 +148,7 @@ async function ask(question, { quiet = false } = {}) {
   if (a?.type === 'stop') { setVoice('idle'); return out; }
   if (!quiet) {
     const playable = a?.type === 'play' || a?.type === 'goto' || a?.type === 'lang';
-    await speak(out.say, { lang: out.lang ?? state.lang, original: out.original, recording: playable ? state.work?.audio?.[state.lang] : null });
+    await speak(out.say, { lang: out.lang ?? state.lang, original: out.original, recording: playable ? state.work?.audio?.[state.lang] : null, voice: out.voice });
   }
   return out;
 }
@@ -173,7 +174,7 @@ async function lookCloser() {
     // At least as long as the sentence takes to say, even where the voice
     // fails or ends early: the picture moves at the pace of the words.
     const words = step.say.split(/\s+/).length;
-    await Promise.all([speak(step.say, { lang: state.gallery.languages[0] }), new Promise((ok) => setTimeout(ok, Math.max(2600, words * 380)))]);
+    await Promise.all([speak(step.say, { lang: state.gallery.languages[0], voice: step.voice }), new Promise((ok) => setTimeout(ok, Math.max(2600, words * 380)))]);
   }
   if (state.busy !== run) return;
   zoom(null);
@@ -188,13 +189,13 @@ async function whereNext() {
   stopAll();
   setVoice('thinking');
   const out = await callTool('where_next', { gallery: slug, work_id: state.work.id, seen: state.seen });
-  if (!out?.next) { setVoice('idle'); if (out?.say) await speak(out.say); return; }
+  if (!out?.next) { setVoice('idle'); if (out?.say) await speak(out.say, { voice: out.voice }); return; }
   nextUp = state.gallery.works.find((w) => w.id === out.next.id) ?? null;
   $('nextArt').src = out.next.image || '/brand/gaid-mark.svg';
   $('goNext').setAttribute('aria-label', W.goTo(out.next.title));
   openSheet('nextSheet');
   tellScreen({ type: 'next', workId: state.work.id, nextId: out.next.id });
-  await speak(out.say);
+  await speak(out.say, { voice: out.voice });
 }
 
 /* ---------------------------------------------------------------- take home */
@@ -215,7 +216,7 @@ async function takeHome() {
   $('sayHome').textContent = W.sayAtHome(words.join(', '));
   state.homeLink = `${location.origin}/home?${new URLSearchParams({ gallery: slug, words: words.join(', ') })}`;
   openSheet('homeSheet');
-  await speak(W.say.home(words.join(', ')), { lang: 'English' });
+  await speak(W.say.home(words.join(', ')), { lang: 'English', phrase: 'home', words });
 }
 
 /* ---------------------------------------------------------------- language */
@@ -244,7 +245,7 @@ function setLang(lang, { quiet = false } = {}) {
 /* ---------------------------------------------------------------- sheets */
 function openSheet(id) {
   for (const s of document.querySelectorAll('.v-sheet')) s.hidden = s.id !== id;
-  if (id === 'pairSheet') { $('pair').setAttribute('aria-expanded', 'true'); $('room').focus(); speak(W.say.pairHow, { lang: 'English' }); }
+  if (id === 'pairSheet') { $('pair').setAttribute('aria-expanded', 'true'); $('room').focus(); speak(W.say.pairHow, { lang: 'English', phrase: 'pairHow' }); }
 }
 function closeSheet(id) { $(id).hidden = true; if (id === 'pairSheet') $('pair').setAttribute('aria-expanded', 'false'); }
 
@@ -277,8 +278,9 @@ async function begin() {
   if (!state.gallery) { await speak(state.why === 'not-on' ? W.closedSay(state.name) : W.say.offline, { lang: 'English' }); return; }
   let first = true;
   try { first = !localStorage.getItem('gaid.first'); localStorage.setItem('gaid.first', '1'); } catch { /* private window */ }
-  if (first) await speak(W.say.first, { lang: 'English' });
-  if (room) await speak(W.say.paired, { lang: 'English' });
+  if (first) await speak(W.say.first, { lang: 'English', phrase: 'first' });
+  if (first && naturalOn()) await speak(W.say.cloned, { lang: 'English', phrase: 'cloned' });   // never pass a copy off as the person
+  if (room) await speak(W.say.paired, { lang: 'English', phrase: 'paired' });
   await tellMe();
 }
 
@@ -291,6 +293,7 @@ async function start() {
   if (data?.ok && data.gallery) {
     state.gallery = data.gallery;
     state.translate = data.translate === true;
+    useNatural(data.voice === true);
     state.lang = data.gallery.languages[0] ?? 'English';
     refreshLangs();
     globalThis.speechSynthesis?.addEventListener?.('voiceschanged', refreshLangs);
@@ -313,13 +316,13 @@ async function start() {
   $('look').addEventListener('click', () => { state.started = true; $('start').hidden = true; lookCloser(); });
   $('next').addEventListener('click', () => { state.started = true; $('start').hidden = true; whereNext(); });
   $('home').addEventListener('click', () => { state.started = true; $('start').hidden = true; takeHome(); });
-  $('hearAgain').addEventListener('click', () => speak(W.say.home(homeWords().join(', ')), { lang: 'English' }));
+  $('hearAgain').addEventListener('click', () => speak(W.say.home(homeWords().join(', ')), { lang: 'English', phrase: 'home', words: homeWords() }));
   // Save: the phone's own share sheet (messages, notes, email), else the link copied.
   $('share').addEventListener('click', async () => {
     const url = state.homeLink;
     if (!url) return;
     try { if (navigator.share) { await navigator.share({ title: W.name, text: homeWords().join(', '), url }); return; } } catch { return; }
-    try { await navigator.clipboard.writeText(url); speak(W.say.saved, { lang: 'English' }); } catch { location.href = url; }
+    try { await navigator.clipboard.writeText(url); speak(W.say.saved, { lang: 'English', phrase: 'saved' }); } catch { location.href = url; }
   });
   $('lang').addEventListener('click', () => setLang(state.langs[(state.langs.indexOf(state.lang) + 1) % state.langs.length]));
   $('goNext').addEventListener('click', () => { closeSheet('nextSheet'); if (nextUp) { show(nextUp); tellScreen({ type: 'at', workId: nextUp.id }); tellMe(); } });
@@ -328,7 +331,7 @@ async function start() {
   $('room').addEventListener('input', (e) => {
     const v = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     e.target.value = v;
-    if (v.length === 4) { pairWith(v); closeSheet('pairSheet'); speak(W.say.paired, { lang: 'English' }); }
+    if (v.length === 4) { pairWith(v); closeSheet('pairSheet'); speak(W.say.paired, { lang: 'English', phrase: 'paired' }); }
   });
   for (const b of document.querySelectorAll('[data-close]')) b.addEventListener('click', () => closeSheet(b.dataset.close));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { stopAll(); for (const s of document.querySelectorAll('.v-sheet')) closeSheet(s.id); } });

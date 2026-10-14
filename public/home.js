@@ -9,7 +9,7 @@
 import { galleryOf } from './config.js';
 import { W } from './words.js';
 import { callTool } from './mcp-client.js';
-import { listen, say, hush, canListen } from './voice.js';
+import { listen, say, hush, canListen, sayNatural, useNatural } from './voice.js';
 import { intentOf } from './intent.js';
 
 const $ = (id) => document.getElementById(id);
@@ -30,7 +30,11 @@ function caption(text) {
   $('cap').textContent = state.said;
   $('cap').hidden = !(state.cc && state.said);
 }
-async function speak(text) { caption(text); await say(text, { onState: setVoice }); }
+async function speak(text, voice) {
+  caption(text);
+  if (await sayNatural({ voice, onState: setVoice })) return;
+  await say(text, { onState: setVoice });
+}
 
 function show(w) {
   state.work = w;
@@ -72,7 +76,7 @@ async function enquire() {
     $('send').href = out.href; $('send').setAttribute('aria-label', W.sendOn(how));
     $('sendBox').hidden = false;
   }
-  await speak(out.say);
+  await speak(out.say, out.voice);
 }
 
 async function ask(raw) {
@@ -96,7 +100,7 @@ async function ask(raw) {
     out = await callTool('ask_work', { gallery: slug, work_id: state.work?.id, question: q });
   }
   setVoice('idle');
-  await speak(out?.say ?? W.say.offline);
+  await speak(out?.say ?? W.say.offline, out?.voice);
 }
 
 async function begin() {
@@ -104,10 +108,12 @@ async function begin() {
   state.started = true;
   $('start').hidden = true;
   const out = await recall();
-  await speak(out?.say ?? W.say.offline);
+  await speak(out?.say ?? W.say.offline, out?.voice);
 }
 
 async function start() {
+  // Whether the owner's voice copy is set up for this gallery.
+  fetch(`/api/gallery?slug=${encodeURIComponent(slug)}`).then((r) => r.json()).then((d) => useNatural(d?.voice === true)).catch(() => {});
   for (const el of document.querySelectorAll('[data-aria]')) { const v = W[el.dataset.aria]; if (typeof v === 'string') el.setAttribute('aria-label', v); }
   setVoice('idle');
   await recall();                                  // the pictures, before the first tap
@@ -118,7 +124,7 @@ async function start() {
     if (!canListen) return ask(W.chips[0][1]);
     state.stop = listen({ onText: (t) => ask(t), onState: (s) => { setVoice(s); if (s === 'idle') state.stop = null; } });
   });
-  $('visit').addEventListener('click', async () => { state.started = true; $('start').hidden = true; const out = await recall(); await speak(out?.say ?? W.say.offline); });
+  $('visit').addEventListener('click', async () => { state.started = true; $('start').hidden = true; const out = await recall(); await speak(out?.say ?? W.say.offline, out?.voice); });
   $('enquire').addEventListener('click', () => { state.started = true; $('start').hidden = true; enquire(); });
   $('cc').addEventListener('click', () => { state.cc = !state.cc; $('cc').setAttribute('aria-pressed', String(state.cc)); caption(state.said); });
 }

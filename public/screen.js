@@ -19,7 +19,7 @@ import { CHANNEL, panelFor } from '/scene.js';
 import { W } from '/words.js';
 import { openRelay, newCode, topicFor, CODE } from '/relay.js';
 import { callTool } from './mcp-client.js';
-import { say, hush } from './voice.js';
+import { say, hush, sayNatural, useNatural } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
@@ -255,7 +255,7 @@ async function tellStory(run) {
   const out = await callTool('ask_work', { gallery: slug, work_id: state.work.id, question: W.chips[0][1] });
   if (run !== state.run || !out?.say) return;
   caption('', out.say); showPanel('about', out.say);
-  await say(out.say);
+  if (!(await sayNatural({ voice: out.voice }))) await say(out.say);
 }
 
 async function lookCloser(run) {
@@ -266,7 +266,8 @@ async function lookCloser(run) {
     if (run !== state.run) return;
     zoom(step.box);
     const words = step.say.split(/\s+/).length;
-    await Promise.all([say(step.say), new Promise((ok) => setTimeout(ok, Math.max(2600, words * 380)))]);
+    const spoken = sayNatural({ voice: step.voice }).then((done) => done || say(step.say));
+    await Promise.all([spoken, new Promise((ok) => setTimeout(ok, Math.max(2600, words * 380)))]);
   }
   if (run === state.run) zoom(null);
 }
@@ -315,6 +316,7 @@ async function start() {
     return;
   }
   state.gallery = data.gallery;
+  useNatural(data.voice === true);
   const beside = data.gallery.works.find((w) => w.id === params.get('at'));
   state.lock = beside?.id ?? null;
   showWork(beside ?? data.gallery.works[0] ?? null);
