@@ -27,7 +27,8 @@ Four moments, on the devices Alexa+ already lives on.
    into the painting part by part as the story is told. **Where next** points
    to the next work and says why.
 2. **The room answers (Fire TV).** The screen beside the work shows a QR
-   code. Point your phone's camera at it and you are paired: no typing, no app.
+   code. Point your phone's camera at it, or tap Scan inside GAID, and you
+   are paired: no typing, no app. The TV confirms it before the phone says so.
    Ask a question and the TV answers in pictures: the artist, a timeline, the
    work to scale beside a person, the room on a plan. Look closer moves on the
    TV and the phone together. Each TV belongs to the painting beside it, so two
@@ -66,10 +67,14 @@ Gallery).
   GAID's own secret, the TV shows only words GAID's server has signed, and
   every caller is rate-limited.
 - **Phone and TV** talk over a realtime channel named by the pairing code;
-  nothing is stored.
+  nothing is stored. The link was tested live, from a separate machine,
+  against the real service, which caught a fault no local test could.
+- **The gallery's own voice.** A story can play the curator's or artist's
+  recording, or a voice copy of the gallery owner, saying only words GAID
+  itself signed.
 - **Galleris galleries switch GAID on** (paid plans, off by default). GAID
   reads only what a gallery has published.
-- Static pages and Node functions on Vercel; 96 automated tests, each one
+- Static pages and Node functions on Vercel; 103 automated tests, each one
   proved by putting its bug back and watching it fail.
 
 ## Challenges

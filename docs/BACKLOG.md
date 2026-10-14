@@ -65,7 +65,8 @@ Last updated: 11 October 2026.
 - [x] TV-only mode: Fire TV remote, OK/up/down/left/right/play (13 Oct)
 - [x] GAID reads all Galleris publishes: credit, accession, fields, collection, exhibitions (13 Oct)
 - [x] GAID reads faq + background and answers from them (13 Oct)
-- [ ] Galleris studio: faq + background fields (agent's PR, owner to merge)
+- [x] Galleris studio: faq + background fields (PR #9, merged 14 Oct)
+- [x] Pairing fixed live (join reply) and confirmed by the TV; Scan button (14 Oct)
 
 ## Next — after the project works (owner, 11 Oct)
 
