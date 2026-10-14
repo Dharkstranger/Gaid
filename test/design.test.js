@@ -133,3 +133,7 @@ test('danfo yellow is never text or an edge on the wall: 1.5:1', () => {
     }
   }
 });
+
+test('every page counts its views with Vercel Web Analytics', () => {
+  for (const f of pages) assert.match(read(f), /<script type="module" src="\/insights\.js"><\/script>/, f);
+});

@@ -70,3 +70,15 @@ test('with Amazon Nova on, “tell me about it” is an introduction made from t
     assert.match(sent[0].messages.at(-1).content, /Use only the facts\. No guesses, no filler/);
   } finally { globalThis.fetch = real; delete process.env.AI_GATEWAY_API_KEY; }
 });
+
+test('“next artwork” moves to it, and the TV is told the new one', async () => {
+  for (const q of ['switch to the next artwork', 'next one', 'go to the next painting']) {
+    assert.deepEqual(ask(q).action, { type: 'goto', id: g.works[1].id }, q);
+  }
+  assert.deepEqual(ask('previous painting').action, { type: 'goto', id: g.works.at(-1).id });
+  assert.equal(ask('what else is in this room').topic, 'nearby', 'nearby is not "next"');
+  const { ask: guide } = await import('../lib/guide.js');
+  const { unseal } = await import('../lib/seal.js');
+  const out = await guide({ slug: 'sample', workId: g.works[0].id, question: 'next artwork', caller: 'next-test' });
+  assert.equal(unseal(out.seal).workId, g.works[1].id, 'the seal names the work it moved to');
+});

@@ -100,6 +100,8 @@ async function ask(raw) {
     out = await callTool('ask_work', { gallery: slug, work_id: state.work?.id, question: q });
   }
   setVoice('idle');
+  // "Next artwork": the screen moves to it, then says it.
+  if (out?.action?.type === 'goto') { const w = state.works.find((x) => x.id === out.action.id) ?? (out.work?.id === out.action.id ? out.work : null); if (w) show(w); }
   await speak(out?.say ?? W.say.offline, out?.voice);
 }
 

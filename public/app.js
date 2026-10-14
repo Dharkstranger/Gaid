@@ -165,7 +165,7 @@ async function ask(question, { quiet = false } = {}) {
   }
   if (!out || typeof out.say !== 'string') { setVoice('idle'); await speak(W.say.offline, { lang: 'English', phrase: 'offline' }); return null; }
   const a = out.action;
-  if (a?.type === 'goto') { const w = state.gallery.works.find((x) => x.id === a.id); if (w) show(w); }
+  if (a?.type === 'goto') { const w = state.gallery.works.find((x) => x.id === a.id); if (w) { show(w); tellScreen({ type: 'at', workId: w.id }); } }
   if (a?.type === 'lang' && state.langs.includes(a.lang)) setLang(a.lang, { quiet: true });
   if (out.seal) tellScreen({ type: 'answer', seal: out.seal });
   if (a?.type === 'stop') { setVoice('idle'); return out; }

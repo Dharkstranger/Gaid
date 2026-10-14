@@ -30,3 +30,10 @@ words GAID is about to say are sent to ElevenLabs to be turned into speech.
 Those words are the gallery's own and GAID's answers. Nothing about the
 visitor goes with them: not their question, not their phone, not their
 visit. With the voice off, nothing is sent.
+
+
+## Page views (Vercel Web Analytics, added 14 October)
+
+Vercel counts page views on GAID's pages: which page, roughly where from,
+which kind of device. It sets no cookies. It does not receive anything a
+visitor says or asks, which works they looked at, or their visit words.
