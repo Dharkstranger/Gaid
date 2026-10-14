@@ -7,6 +7,7 @@
    server (/api/mcp), the way Alexa+ would ask; /api/ask is the fallback.
 
    docs/product.md says why each of these exists. */
+import { inject } from '@vercel/analytics';
 import { galleryOf } from './config.js';
 import { CHANNEL } from './scene.js';
 import { W } from './words.js';
@@ -15,6 +16,8 @@ import { openRelay, newCode, topicFor, CODE } from './relay.js';
 import { visitWords } from './visit.js';
 import { scan, pairingIn } from './scan.js';
 import { listen, say, hush, canListen, canSpeak, sayNatural, useNatural } from './voice.js';
+
+inject();
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
