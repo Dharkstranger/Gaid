@@ -62,3 +62,12 @@ test('with no Amazon key, another language falls back to the gallery’s own wor
   assert.equal(out.translated, undefined);
   assert.equal(out.lang, 'English');
 });
+
+test('the phone’s most natural voice is chosen before its oldest', async () => {
+  const list = [{ name: 'English United Kingdom', lang: 'en-GB' }, { name: 'Microsoft Sonia Online (Natural)', lang: 'en-GB' }, { name: 'Daniel (Enhanced)', lang: 'en-GB' }];
+  globalThis.speechSynthesis = { getVoices: () => list, addEventListener() {}, cancel() {}, speak() {} };
+  try {
+    const { voiceFor } = await import('../public/voice.js');
+    assert.match(voiceFor('English').name, /Natural|Enhanced/);
+  } finally { delete globalThis.speechSynthesis; }
+});

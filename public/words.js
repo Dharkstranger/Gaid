@@ -92,7 +92,7 @@ export const W = {
     home: (words) => `Your three words: ${words}. At home, say: Alexa, ask GAID about ${words}. Or press Save.`,
     offline: 'I cannot reach the gallery right now.',
     paired: 'The screen is with you.',
-    pairHow: 'Point your camera at the square on the screen. Or type its four letters here.',
+    pairHow: 'Point your phone camera at the QR code on the TV. Or type the four letters under it.',
     saved: 'Link copied. Open it at home, or say the three words to Alexa.',
     noVoice: (lang) => `This phone cannot speak ${lang}. Here it is in English.`,
   },

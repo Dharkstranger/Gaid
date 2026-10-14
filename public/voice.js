@@ -14,10 +14,17 @@ const LOOSE = new Set(['English', 'Pidgin']);
 const voices = () => globalThis.speechSynthesis?.getVoices?.() ?? [];
 globalThis.speechSynthesis?.addEventListener?.('voiceschanged', () => {});
 
-/** A voice for the language, or null if this phone has none. */
+/* Most phones carry several voices for a language, and the first one listed
+   is often the oldest and most robotic. The better ones say so in their
+   names: Natural, Neural, Enhanced, Premium (Edge, Windows, iOS, macOS), or
+   Google's own. Those come first; then the rest in the order given. */
+const NATURAL = /natural|neural|enhanced|premium|wavenet|google/i;
+export const rank = (list) => [...list].sort((a, b) => Number(NATURAL.test(b.name ?? '')) - Number(NATURAL.test(a.name ?? '')));
+
+/** The best voice this phone has for the language, or null if it has none. */
 export function voiceFor(lang) {
   const tag = (BCP[lang] ?? lang ?? 'en-GB').toLowerCase();
-  const all = voices();
+  const all = rank(voices());
   return all.find((v) => v.lang?.toLowerCase() === tag)
     ?? all.find((v) => v.lang?.toLowerCase().startsWith(tag.slice(0, 2)))
     ?? (LOOSE.has(lang) ? all.find((v) => v.lang?.toLowerCase().startsWith('en')) : null)

@@ -23,14 +23,14 @@ grey, wait a few minutes for Galleris to rebuild, or use `gallery=sample`
 - [ ] No globe button: languages appear only when they can really play (needs Amazon Nova).
 
 ## 2. The room answers — Phone A + laptop
-- [ ] Point Phone A's camera at the square code on the laptop. Tap the link. GAID opens, already paired (a yellow dot on the screen icon).
+- [ ] Point Phone A's camera at the QR code on the laptop. Tap the link. GAID opens, already paired (a yellow dot on the screen icon).
       No camera reader? Press the screen icon and type the four letters.
 - [ ] Ask "When was it made?". The laptop changes to a timeline.
 - [ ] Ask "How big is it?". The laptop shows the work beside a person.
 - [ ] Look closer: the laptop moves with the phone.
 
 ## 3. Two people — Phone B
-- [ ] Phone B scans the same square. Asks a question. The laptop answers Phone B.
+- [ ] Phone B scans the same QR code. Asks a question. The laptop answers Phone B.
 - [ ] Phone B never sees Phone A's questions on its own screen.
 
 ## 4. It follows you home — Phone A

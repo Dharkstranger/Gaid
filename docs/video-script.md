@@ -10,7 +10,7 @@ Captions (CC) on, so viewers can read what GAID says.
 | 0:10–0:30 | Phone: Saint James Major full screen. Press ▶. GAID speaks; the phone fades | "GAID tells it, in the gallery's own words. Eyes on the painting, not the phone." |
 | 0:30–0:50 | Hold talk: "Who made it?" "How big is it?" | "Ask anything. The answers come from what the gallery wrote." |
 | 0:50–1:05 | "Who owns it now?" → GAID will not guess | "If the gallery has not said, GAID says so. It never makes up a name, a date or a price." |
-| 1:05–1:25 | Phone camera points at the square code on the TV; paired. Ask "When was it made?" → timeline on the TV | "The screen beside the work joins in. Point your camera at it: no app, no typing." |
+| 1:05–1:25 | Phone camera points at the QR code on the TV; paired. Ask "When was it made?" → timeline on the TV | "The screen beside the work joins in. Point your camera at it: no app, no typing." |
 | 1:25–1:45 | Look closer: the face, then the scroll, on phone and TV together | "Look closer." |
 | 1:45–1:55 | Where next: arrow, next painting | "Where next, and why." |
 | 1:55–2:20 | Take home: three pictures, three words, the sentence. Cut to evening, Echo Show: "Alexa, ask GAID about Major, Red, Intruder" | "Three words to take home. That evening, the visit comes back." |

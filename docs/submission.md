@@ -26,7 +26,7 @@ Four moments, on the devices Alexa+ already lives on.
    fades, so you look up at the painting ("Eyes up"). **Look closer** zooms
    into the painting part by part as the story is told. **Where next** points
    to the next work and says why.
-2. **The room answers (Fire TV).** The screen beside the work shows a square
+2. **The room answers (Fire TV).** The screen beside the work shows a QR
    code. Point your phone's camera at it and you are paired: no typing, no app.
    Ask a question and the TV answers in pictures: the artist, a timeline, the
    work to scale beside a person, the room on a plan. Look closer moves on the
