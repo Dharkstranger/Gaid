@@ -30,7 +30,10 @@ Four moments, on the devices Alexa+ already lives on.
    code. Point your phone's camera at it and you are paired: no typing, no app.
    Ask a question and the TV answers in pictures: the artist, a timeline, the
    work to scale beside a person, the room on a plan. Look closer moves on the
-   TV and the phone together.
+   TV and the phone together. Each TV belongs to the painting beside it, so two
+   visitors at two paintings never pull it back and forth. With no phone at
+   all, the Fire TV remote works it: OK tells the story aloud, up looks closer,
+   play tours the room.
 3. **It follows you home (Echo Show).** Leaving, GAID gives you three words,
    one for each work you stood in front of. That evening: "Alexa, ask GAID
    about Major, Red, Intruder." The visit comes back, ready for questions, and
@@ -49,10 +52,13 @@ Gallery).
   `recall_visit`, `where_next`, `look_closer`, `send_enquiry`,
   `visitor_questions`. The phone's simulated Alexa+ calls it for every
   question, the way Alexa+ would call a connected service.
-- **One brain** answers phone, TV and Echo Show alike: the gallery's own words
-  by rule first, then Amazon Nova Lite through the Bedrock Converse API, given
-  only that gallery's facts and told to say "the gallery has not said" rather
-  than guess. It never invents a name, a date, a price or an owner.
+- **One brain** answers phone, TV and Echo Show alike. A curator's own
+  questions and answers come first, word for word; then the gallery's record
+  by rule; then Amazon Nova, given everything the gallery published (the
+  description, a longer background, credit line, collection, exhibitions) and
+  told to say "the gallery has not said" rather than guess. It never invents a
+  name, a date, a price or an owner. Nova is reached through Amazon Bedrock
+  or, with no AWS account, through Vercel's AI Gateway.
 - **Honest by design.** A language is offered only when it can really be
   spoken. Every failure (network, model, database, TV link) falls back
   quietly; a visitor never sees an error screen.
@@ -63,7 +69,7 @@ Gallery).
   nothing is stored.
 - **Galleris galleries switch GAID on** (paid plans, off by default). GAID
   reads only what a gallery has published.
-- Static pages and Node functions on Vercel; 89 automated tests, each one
+- Static pages and Node functions on Vercel; 96 automated tests, each one
   proved by putting its bug back and watching it fail.
 
 ## Challenges
