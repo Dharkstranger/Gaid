@@ -212,6 +212,8 @@ function zoom(box) {
 
 async function receive(m) {
   if (!m || typeof m !== 'object' || !state.gallery) return;
+  // A phone asking whether this code is a real screen: answer, so it can say it is paired.
+  if (m.type === 'ping') { if (!m.slug || m.slug === slug) state.answerPing?.(); return; }
   if (notOurs(m.workId)) return;
   if (m.type === 'look' || m.type === 'next' || m.type === 'at' || m.type === 'answer') quiet();   // a phone speaks: the TV's own voice stops
   if (m.type === 'look') {                     // numbers only: nothing a stranger could write on the screen
@@ -326,6 +328,7 @@ async function start() {
 
   if ('BroadcastChannel' in window) {
     const ch = new BroadcastChannel(CHANNEL);
+    state.channel = ch;
     ch.onmessage = (e) => receive(e.data);
     ch.postMessage({ type: 'hello', slug });       // a phone already open answers with where it is
   }
@@ -344,6 +347,7 @@ async function start() {
   if (state.lock) join.set('at', state.lock);
   $('qr').innerHTML = qrSvg(`${location.origin}/?${join}`, W.scanToPair);
   const relay = openRelay({ topic: topicFor(slug, room), onMessage: receive });
+  state.answerPing = () => { relay.send({ type: 'here', slug }); state.channel?.postMessage({ type: 'here', slug }); };
   relay.send({ type: 'hello', slug });
 }
 

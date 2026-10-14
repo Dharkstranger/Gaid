@@ -45,7 +45,8 @@ test('what is sent before the join is answered waits, then goes', async () => {
   await tick();
   const [ws] = sockets;
   assert.equal(ws.sent.length, 1, 'only the join so far');
-  ws.hear({ topic: 'realtime:t', event: 'phx_reply', ref: ws.sent[0].ref, join_ref: ws.sent[0].ref, payload: { status: 'ok', response: {} } });
+  // Exactly as the real service replied on 14 October: a ref, and no join_ref.
+  ws.hear({ ref: ws.sent[0].ref, event: 'phx_reply', payload: { status: 'ok', response: { postgres_changes: [] } }, topic: 'realtime:t' });
   const b = ws.sent[1];
   assert.equal(b.event, 'broadcast');
   assert.deepEqual(b.payload, { type: 'broadcast', event: 'gaid', payload: { type: 'answer', topic: 'artist' } });

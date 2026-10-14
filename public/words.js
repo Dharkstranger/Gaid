@@ -92,6 +92,7 @@ export const W = {
     home: (words) => `Your three words: ${words}. At home, say: Alexa, ask GAID about ${words}. Or press Save.`,
     offline: 'I cannot reach the gallery right now.',
     paired: 'The screen is with you.',
+    noScreen: 'No screen answered that code. Check the four letters on the TV, and try again.',
     cloned: 'This voice is an AI copy of a real person’s voice, used with their permission.',
     pairHow: 'Point your phone camera at the QR code on the TV. Or type the four letters under it.',
     saved: 'Link copied. Open it at home, or say the three words to Alexa.',
