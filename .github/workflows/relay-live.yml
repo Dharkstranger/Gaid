@@ -1,0 +1,18 @@
+# One-off live check of the phone-to-TV link against the real Supabase
+# Realtime, from a machine that can reach it. Only on this branch.
+name: relay-live
+on:
+  push:
+    branches: ['claude/relay-check']
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/relay-live.mjs
