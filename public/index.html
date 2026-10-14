@@ -89,10 +89,21 @@
   </section>
 
   <section id="pairSheet" class="v-sheet" hidden aria-label="Pair a screen">
-    <svg class="v-scan" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><path d="M2 12h20"/></svg>
+    <button id="scan" class="v-icon v-labelled" type="button" data-aria="scan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><path d="M2 12h20"/></svg>
+      <span data-w="scan">Scan</span>
+    </button>
     <label class="sr" for="room" data-w="screen">Screen</label>
     <input id="room" class="v-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
     <button class="v-icon" type="button" data-close="pairSheet" data-aria="close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </section>
+
+  <section id="scanSheet" class="v-scanner" hidden aria-label="Scan">
+    <video id="cam" playsinline muted></video>
+    <span class="v-frame" aria-hidden="true"></span>
+    <button class="v-icon v-close" type="button" data-close="scanSheet" data-aria="close">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </section>

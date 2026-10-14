@@ -13,6 +13,7 @@ import { W } from './words.js';
 import { callTool } from './mcp-client.js';
 import { openRelay, newCode, topicFor, CODE } from './relay.js';
 import { visitWords } from './visit.js';
+import { scan, pairingIn } from './scan.js';
 import { listen, say, hush, canListen, canSpeak, sayNatural, useNatural, naturalOn } from './voice.js';
 
 const $ = (id) => document.getElementById(id);
@@ -355,6 +356,20 @@ async function start() {
     e.target.value = v;
     if (v.length === 4) { pairWith(v); closeSheet('pairSheet'); }
   });
+  // Scan: the camera inside GAID, pointed at the TV's QR code.
+  let scanning = null;
+  $('scan').addEventListener('click', async () => {
+    closeSheet('pairSheet');
+    $('scanSheet').hidden = false;
+    scanning = scan($('cam'), (text) => pairingIn(text, location.origin));
+    const hit = await scanning.result;
+    scanning = null;
+    $('scanSheet').hidden = true;
+    if (hit) { pairWith(hit.room); return; }
+    if (!$('scanSheet').dataset.closed) { openSheet('pairSheet'); speak(W.say.noCamera, { lang: 'English', phrase: 'noCamera' }); }
+    delete $('scanSheet').dataset.closed;
+  });
+  $('scanSheet').querySelector('[data-close]').addEventListener('click', () => { $('scanSheet').dataset.closed = '1'; scanning?.stop(); });
   for (const b of document.querySelectorAll('[data-close]')) b.addEventListener('click', () => closeSheet(b.dataset.close));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { stopAll(); for (const s of document.querySelectorAll('.v-sheet')) closeSheet(s.id); } });
 }

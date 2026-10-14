@@ -17,6 +17,7 @@ const PHRASES = {
   offline: () => W.say.offline,
   paired: () => W.say.paired,
   noScreen: () => W.say.noScreen,
+  noCamera: () => W.say.noCamera,
   pairHow: () => W.say.pairHow,
   saved: () => W.say.saved,
   // The three words to take home: letters only, three at most.

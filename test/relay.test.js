@@ -84,3 +84,13 @@ test('no WebSocket at all is not an error', () => {
   r.send({ a: 1 });
   r.close();
 });
+
+test('a scanned QR code pairs only when it is this GAID’s link with a real code', async () => {
+  const { pairingIn } = await import('../public/scan.js');
+  const o = 'https://gaid-taupe.vercel.app';
+  assert.deepEqual(pairingIn(`${o}/?gallery=openaccess&room=K7MP&at=p1`, o), { room: 'K7MP', at: 'p1' });
+  assert.deepEqual(pairingIn(`${o}/?gallery=openaccess&room=k7mp`, o), { room: 'K7MP', at: null });
+  assert.equal(pairingIn('https://evil.example/?room=K7MP', o), null, 'another site');
+  assert.equal(pairingIn(`${o}/?room=0000`, o), null, 'not a code GAID makes');
+  assert.equal(pairingIn('just some text', o), null);
+});

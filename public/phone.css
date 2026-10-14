@@ -101,7 +101,12 @@ button,input{font:inherit;color:inherit}
 .v-icon.v-labelled{gap:var(--s-2);padding:0 var(--s-4);font-weight:var(--w-strong);white-space:nowrap}
 .v-say{margin:0;text-align:center;font-weight:var(--w-strong)}
 .v-row{display:flex;justify-content:center;gap:var(--s-4)}
-.v-scan{width:var(--s-6);height:var(--s-6);fill:none;stroke:var(--text-2);stroke-width:1.8;stroke-linecap:round}
+.v-scanner{position:fixed;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;background:var(--ink)}
+.v-scanner[hidden]{display:none}
+.v-scanner video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Where to hold the code: a clear square in the middle of the camera's view. */
+.v-frame{position:relative;width:70%;max-width:calc(var(--s-7) * 6);aspect-ratio:1;border:var(--b-focus) solid var(--paper);border-radius:var(--r-1)}
+.v-scanner .v-close{position:absolute;top:calc(env(safe-area-inset-top, 0px) + var(--s-3));right:var(--gut);background:var(--paper)}
 .v-code{flex:1;min-width:0;min-height:var(--tap);padding:0 var(--s-3);border:var(--b-1) solid var(--edge);border-radius:var(--r-1);background:var(--surface);
   font:var(--w-display) var(--t-4)/1 var(--font-display);letter-spacing:var(--track-label);text-align:center;text-transform:uppercase}
 
