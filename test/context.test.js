@@ -40,3 +40,33 @@ test('Amazon Nova is given the background and the curator’s answers too', () =
   assert.match(f, /Background on the gallery: Lagoon Gallery opened in 2019/);
   assert.match(f, /Credit line: Gift of the artist, 2020/);
 });
+
+test('“the other artworks here” tells about the works nearby, never the one in front', () => {
+  for (const q of ['tell me about the other artworks here', 'what other paintings are around', 'what else is in this room']) {
+    const out = ask(q);
+    assert.equal(out.topic, 'nearby', q);
+    assert.ok(!out.say.startsWith(w.title), q);
+    assert.match(out.say, /, by /, `${q}: who made each`);
+  }
+});
+
+test('a sentence that guesses is not read out; nothing is added', async () => {
+  const { sure } = await import('../lib/answer.js');
+  assert.equal(sure('A man holds a scroll. There is a thin circle, perhaps a halo. The ground is gold.'), 'A man holds a scroll. The ground is gold.');
+});
+
+test('with Amazon Nova on, “tell me about it” is an introduction made from the facts', async () => {
+  process.env.AI_GATEWAY_API_KEY = 'test-key';
+  const real = globalThis.fetch; const sent = [];
+  globalThis.fetch = async (url, init) => {
+    if (String(url).startsWith('https://ai-gateway.vercel.sh/')) { sent.push(JSON.parse(init.body)); return new Response(JSON.stringify({ choices: [{ message: { content: 'A sunrise over the lagoon, painted at dawn.' } }] }), { status: 200 }); }
+    return real(url, init);
+  };
+  try {
+    const { ask: guide } = await import('../lib/guide.js');
+    const out = await guide({ slug: 'sample', workId: w.id, question: 'Tell me about the work in front of me', caller: 'intro-test' });
+    assert.equal(out.say, 'A sunrise over the lagoon, painted at dawn.');
+    assert.equal(out.source, 'nova');
+    assert.match(sent[0].messages.at(-1).content, /Use only the facts\. No guesses, no filler/);
+  } finally { globalThis.fetch = real; delete process.env.AI_GATEWAY_API_KEY; }
+});
