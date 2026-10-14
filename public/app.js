@@ -40,15 +40,37 @@ function tellScreen(msg) {
   relay?.send(m);
 }
 channel && (channel.onmessage = (e) => { if (e.data?.type === 'hello' && e.data.slug === slug && lastSent) channel.postMessage(lastSent); });
-function pairWith(code) {
+/* Paired only when a TV answers. The phone asks ("ping"); a TV showing that
+   code answers ("here"). Typing four letters that no TV is showing used to
+   light the dot anyway, and nothing ever reached a screen. */
+const PAIR_WAIT_MS = 7000;
+let pairTimer = null;
+function paired(yes) {
+  clearTimeout(pairTimer);
+  $('paired').hidden = !yes;
+  $('pair').setAttribute('aria-label', yes ? `${W.pairScreen}: ${room}` : W.pairScreen);
+}
+function pairWith(code, { quiet = false } = {}) {
   if (!CODE.test(code) || code === room) return;
   relay?.close();
   room = code;
-  relay = openRelay({ topic: topicFor(slug, room), onMessage: (m) => { if (m?.type === 'hello' && lastSent) relay.send(lastSent); } });
+  paired(false);
+  relay = openRelay({ topic: topicFor(slug, room), onMessage: (m) => {
+    if (m?.type !== 'here' && m?.type !== 'hello') return;
+    const first = $('paired').hidden;
+    paired(true);
+    if (lastSent) relay.send(lastSent);
+    if (first && !quiet) speak(W.say.paired, { lang: 'English', phrase: 'paired' });
+  } });
+  relay.send({ type: 'ping', slug });
   $('room').value = room;
-  $('paired').hidden = false;
+  pairTimer = setTimeout(() => {               // nobody answered: say so, and let them try again
+    relay?.close(); relay = null; room = null; $('room').value = '';
+    paired(false);
+    if (state.work) remember(state.work);
+    speak(W.say.noScreen, { lang: 'English', phrase: 'noScreen' });
+  }, PAIR_WAIT_MS);
   if (state.work) remember(state.work);
-  if (lastSent) relay.send(lastSent);
 }
 
 /* ---------------------------------------------------------------- what is on screen */
@@ -280,7 +302,7 @@ async function begin() {
   try { first = !localStorage.getItem('gaid.first'); localStorage.setItem('gaid.first', '1'); } catch { /* private window */ }
   if (first) await speak(W.say.first, { lang: 'English', phrase: 'first' });
   if (first && naturalOn()) await speak(W.say.cloned, { lang: 'English', phrase: 'cloned' });   // never pass a copy off as the person
-  if (room) await speak(W.say.paired, { lang: 'English', phrase: 'paired' });
+  if (room && !$('paired').hidden) await speak(W.say.paired, { lang: 'English', phrase: 'paired' });
   await tellMe();
 }
 
@@ -304,7 +326,7 @@ async function start() {
     state.why = data?.why; state.name = data?.name;
     $('art').src = '/brand/gaid-mark.svg'; $('art').alt = state.why === 'not-on' ? W.notOn : W.notFound;
   }
-  if (room) { const r = room; room = null; pairWith(r); }
+  if (room) { const r = room; room = null; pairWith(r, { quiet: true }); }
 
   $('start').addEventListener('click', begin);
   $('talk').addEventListener('click', () => {
@@ -331,7 +353,7 @@ async function start() {
   $('room').addEventListener('input', (e) => {
     const v = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     e.target.value = v;
-    if (v.length === 4) { pairWith(v); closeSheet('pairSheet'); speak(W.say.paired, { lang: 'English', phrase: 'paired' }); }
+    if (v.length === 4) { pairWith(v); closeSheet('pairSheet'); }
   });
   for (const b of document.querySelectorAll('[data-close]')) b.addEventListener('click', () => closeSheet(b.dataset.close));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { stopAll(); for (const s of document.querySelectorAll('.v-sheet')) closeSheet(s.id); } });
