@@ -27,7 +27,7 @@ export const topicFor = (slug, code) => `gaid-${slug}-${code}`;
  * Returns { send(payload), close() }. Never throws.
  */
 export function openRelay({ topic, onMessage, WS = globalThis.WebSocket, url = SUPABASE_URL, key = SUPABASE_KEY }) {
-  let ws = null; let ref = 0; let joinRef = null; let beat = null; let closed = false; let wait = 1000;
+  let ws = null; let ref = 0; let joinRef = null; let asked = null; let beat = null; let closed = false; let wait = 1000;
   const queue = [];
   const full = `realtime:${topic}`;
   const push = (msg) => { try { ws?.send(JSON.stringify(msg)); } catch { /* not up */ } };
@@ -42,6 +42,7 @@ export function openRelay({ topic, onMessage, WS = globalThis.WebSocket, url = S
       wait = 1000;
       ref += 1; joinRef = null;
       const r = String(ref);
+      asked = r;
       push({ topic: full, event: 'phx_join', ref: r, join_ref: r, payload: {
         config: { broadcast: { ack: false, self: false }, presence: { enabled: false }, postgres_changes: [], private: false },
       } });
@@ -51,8 +52,11 @@ export function openRelay({ topic, onMessage, WS = globalThis.WebSocket, url = S
     ws.onmessage = (e) => {
       let m; try { m = JSON.parse(e.data); } catch { return; }
       if (m?.topic !== full) return;
-      if (m.event === 'phx_reply' && m.payload?.status === 'ok' && m.ref === m.join_ref) {
-        joinRef = m.ref;
+      // The real service answers a join with its ref and NO join_ref (seen
+      // live, 14 October): match on the ref we sent. Waiting for join_ref
+      // held every message back, and nothing ever reached a TV.
+      if (m.event === 'phx_reply' && m.payload?.status === 'ok' && joinRef === null && m.ref === asked) {
+        joinRef = asked;
         while (queue.length) send(queue.shift());
         return;
       }
