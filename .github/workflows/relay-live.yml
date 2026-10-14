@@ -15,4 +15,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: node scripts/relay-live.mjs
+      - run: node scripts/live-check.mjs
