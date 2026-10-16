@@ -156,7 +156,7 @@ in Chrome that service is Google's.
 
 ## Team
 
-Emeka Ugochukwu and Obianuju Nnadi, Hoo Socials Limited, Lagos.
+Emeka Ugochukwu and Jessica Obianuju Nnadi, Hoo Socials Limited, Lagos.
 
 ## Licence
 
