@@ -1,8 +1,37 @@
-# GAID in your own voice (an AI copy)
+# GAID's voice
 
-GAID can speak in an AI copy of a real person's voice: the owner's for now,
-later a curator's or an artist's, always with that person's permission.
-Until it is set up, GAID uses the most natural voice on each phone.
+**The Amazon voice is the default** (owner, 17 October: "use an Amazon voice
+always"). GAID speaks with Amazon Polly's voice **Ruth**, on its generative
+engine, on every phone, TV and Echo Show, so the guide sounds the same in
+every hand. Before this, each device used its own voice: a man on one phone,
+a woman on the next.
+
+It is **not Alexa's own voice**. Amazon does not let anybody else use that;
+on a real Echo, Alexa speaks with her own.
+
+**A gallery's own voice is a drop-in.** GAID is open source: put an
+ElevenLabs key and voice ID in (below) and GAID speaks in that voice. If it
+refuses (a wrong key, an unpaid plan), the Amazon voice speaks instead.
+Until either is set up, the phone speaks, choosing a woman's voice to match.
+
+## Setting up the Amazon voice (about 10 minutes)
+
+1. Sign in to the AWS console (console.aws.amazon.com).
+2. Open **IAM → Users → Create user**. Name it `gaid-voice`. No console access.
+3. **Attach policies directly** → choose **AmazonPollyReadOnlyAccess**
+   (it includes `polly:SynthesizeSpeech`, which is all GAID uses).
+4. Open the user → **Security credentials → Create access key** →
+   "Application running outside AWS". Copy both values once.
+5. In Vercel → the **gaid** project → **Settings → Environment Variables**,
+   add for Production:
+   - `GAID_AWS_ACCESS_KEY_ID`
+   - `GAID_AWS_SECRET_ACCESS_KEY`
+   - optional: `GAID_POLLY_VOICE` (default `Ruth`; e.g. `Danielle`, `Joanna`)
+6. Redeploy. The live check prints `voice copy: 200` when it speaks.
+
+Never paste the keys into a chat, the code or the repository.
+
+# A gallery's own voice (ElevenLabs, optional)
 
 ## What it does and does not do
 

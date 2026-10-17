@@ -71,3 +71,17 @@ test('the phone’s most natural voice is chosen before its oldest', async () =>
     assert.match(voiceFor('English').name, /Natural|Enhanced/);
   } finally { delete globalThis.speechSynthesis; }
 });
+
+test('every phone picks the same kind of voice: a woman’s, like the Amazon voice', async () => {
+  // Two phones, the man listed first on both: each must still pick the woman.
+  for (const list of [
+    [{ name: 'Daniel (Enhanced)', lang: 'en-GB' }, { name: 'Serena (Enhanced)', lang: 'en-GB' }],
+    [{ name: 'Google UK English Male', lang: 'en-GB' }, { name: 'Google UK English Female', lang: 'en-GB' }],
+  ]) {
+    globalThis.speechSynthesis = { getVoices: () => list, addEventListener() {}, cancel() {}, speak() {} };
+    try {
+      const { voiceFor } = await import('../public/voice.js');
+      assert.match(voiceFor('English').name, /Serena|Female/);
+    } finally { delete globalThis.speechSynthesis; }
+  }
+});

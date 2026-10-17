@@ -1,13 +1,17 @@
 /* POST /api/speak — { voice, lang } or { phrase, words, lang } -> audio/mpeg, or 204.
 
-   The owner's voice copy speaks only what GAID itself produced:
+   Whose voice: a gallery's own ElevenLabs voice if one is set (drop in
+   ELEVENLABS_API_KEY and GAID_VOICE_ID), else the Amazon voice (lib/polly.js).
+   If the first refuses, the second speaks. Either speaks only what GAID
+   itself produced:
    - `voice`: a seal from one of GAID's own answers (lib/seal.js), or
    - `phrase`: one of GAID's fixed lines in public/words.js, by name.
    Anything else is refused, so nobody can make the voice say a sentence of
    their own. 204 means "use the phone's voice": not set up, a language the
    copy does not speak, a limit reached, or a failure. Never an error page. */
 import { unseal } from '../lib/seal.js';
-import { synth, enabled, lastProblem } from '../lib/clone.js';
+import * as clone from '../lib/clone.js';
+import * as polly from '../lib/polly.js';
 import { allow } from '../lib/limit.js';
 import { W } from '../public/words.js';
 
@@ -27,6 +31,9 @@ const PHRASES = {
 const none = () => new Response(null, { status: 204, headers: { 'cache-control': 'no-store' } });
 const caller = (r) => r.headers.get('x-real-ip') || r.headers.get('x-forwarded-for')?.split(',').pop()?.trim() || 'unknown';
 
+/** Is any voice set up? The pages ask, through /api/gallery. */
+export const enabled = () => clone.enabled() || polly.enabled();
+
 export async function POST(request) {
   if (!enabled()) return none();
   if (!allow(caller(request), Date.now(), 40, 'speak')) return none();
@@ -37,8 +44,11 @@ export async function POST(request) {
   if (typeof body?.voice === 'string') text = unseal(body.voice)?.say ?? null;
   else if (typeof body?.phrase === 'string' && Object.hasOwn(PHRASES, body.phrase)) text = PHRASES[body.phrase](body.words);
   if (!text) return none();
-  const audio = await synth(text, lang);
-  // The voice service's own status code, if it refused: no secret in it.
-  if (!audio) return new Response(null, { status: 204, headers: { 'cache-control': 'no-store', 'x-gaid-voice': lastProblem || 'none' } });
+  const audio = (await clone.synth(text, lang)) ?? (await polly.synth(text, lang));
+  // Why each voice refused, as status codes and error names: no secret in it.
+  if (!audio) {
+    const why = [clone.enabled() && `own:${clone.lastProblem || 'none'}`, polly.enabled() && `amazon:${polly.lastProblem || 'none'}`].filter(Boolean).join(' ');
+    return new Response(null, { status: 204, headers: { 'cache-control': 'no-store', 'x-gaid-voice': why } });
+  }
   return new Response(audio, { status: 200, headers: { 'content-type': 'audio/mpeg', 'cache-control': 'private, max-age=3600' } });
 }

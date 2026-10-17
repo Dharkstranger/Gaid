@@ -78,7 +78,7 @@ export const W = {
     'Answers: the gallery’s own words, then Amazon Nova',
     'Never invents a name, date or price',
     'Keeps nothing about you',
-    'Voice: your phone, or the owner’s own',
+    'Voice: Amazon Polly, or the gallery’s own',
     'Simulated Alexa+ · Not an Amazon product',
     'Demo works: National Gallery of Art, open access',
     'Not endorsed by the Gallery',

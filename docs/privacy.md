@@ -23,6 +23,13 @@ any other unanswered question, for 180 days, and seen by that gallery's
 curator. It is never shown to another visitor.
 
 
+## The Amazon voice (added 17 October)
+
+The words GAID is about to say are sent to Amazon Polly to be turned into
+speech. Only GAID's own words go: never the visitor's question, their voice,
+or anything that identifies them. Amazon returns the audio and GAID keeps
+nothing.
+
 ## The voice copy (optional, added 13 October)
 
 When the owner turns on an AI copy of a voice (`docs/voice-setup.md`), the

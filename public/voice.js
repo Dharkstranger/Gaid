@@ -19,7 +19,15 @@ globalThis.speechSynthesis?.addEventListener?.('voiceschanged', () => {});
    names: Natural, Neural, Enhanced, Premium (Edge, Windows, iOS, macOS), or
    Google's own. Those come first; then the rest in the order given. */
 const NATURAL = /natural|neural|enhanced|premium|wavenet|google/i;
-export const rank = (list) => [...list].sort((a, b) => Number(NATURAL.test(b.name ?? '')) - Number(NATURAL.test(a.name ?? '')));
+/* And one kind of voice everywhere. Left to itself a phone picked a man on
+   one device and a woman on the next, so GAID sounded like a different guide
+   in every hand. The Amazon voice is a woman's (lib/polly.js); the fallback
+   matches it. Browsers do not report a voice's sex, only its name, so these
+   are the women's voices the main systems ship, by name. */
+const WOMAN = /female|samantha|karen|moira|tessa|serena|kate|martha|fiona|victoria|allison|ava|susan|zira|aria|jenny|sonia|libby|hazel|natasha|clara|ezinne|abeo|amelie|amélie|audrey|marie|denise|julie|hortense/i;
+const MAN = /\bmale\b|daniel|arthur|oliver|alex\b|fred|thomas|george|ryan|guy|david|mark|james|chilemba/i;
+const score = (v) => 2 * Number(NATURAL.test(v.name ?? '')) + Number(WOMAN.test(v.name ?? '') && !MAN.test(v.name ?? ''));
+export const rank = (list) => [...list].sort((a, b) => score(b) - score(a));
 
 /** The best voice this phone has for the language, or null if it has none. */
 export function voiceFor(lang) {

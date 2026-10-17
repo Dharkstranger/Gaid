@@ -3,7 +3,7 @@
    is on another site, and so the browser and the guide read the same thing. */
 import { loadGallery, SLUG } from '../lib/gallery.js';
 import { enabled } from '../lib/bedrock.js';
-import { enabled as voiceOn } from '../lib/clone.js';
+import { enabled as voiceOn } from './speak.js';
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status,
