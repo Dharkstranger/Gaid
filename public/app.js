@@ -25,6 +25,7 @@ const state = {
   langs: ['English'], translate: false,
   gallery: null, work: null, lang: 'English', seen: [], cc: false, busy: 0,
   stop: null, started: false, lastSay: '',
+  offered: false,                                  // the gallery's contact, offered aloud once
 };
 
 /* ---------------------------------------------------------------- the screen beside the work
@@ -89,6 +90,7 @@ function show(work) {
   art.alt = `${work.title}${work.artist ? ', ' + work.artist : ''}`;
   $('h1').textContent = work.title;              // for a screen reader; nothing on screen
   zoom(null);
+  $('enquire').hidden = true;                      // a message is about one work
   for (const b of document.querySelectorAll('#works button')) b.setAttribute('aria-current', String(b.dataset.id === work.id));
   remember(work);
 }
@@ -152,12 +154,12 @@ async function ask(question, { quiet = false } = {}) {
   if (!q || !state.gallery) return null;
   stopAll();
   setVoice('thinking');
-  let out = await callTool('ask_work', { gallery: slug, work_id: state.work?.id, question: q, language: state.lang });
+  let out = await callTool('ask_work', { gallery: slug, work_id: state.work?.id, question: q, language: state.lang, offered: state.offered });
   if (!out || out.found === false) {
     try {
       const res = await fetch('/api/ask', {
         method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ slug, workId: state.work?.id, question: q, lang: state.lang }),
+        body: JSON.stringify({ slug, workId: state.work?.id, question: q, lang: state.lang, offered: state.offered }),
       });
       out = await res.json();
       if (out?.ok !== true) out = null;
@@ -167,6 +169,9 @@ async function ask(question, { quiet = false } = {}) {
   const a = out.action;
   if (a?.type === 'goto') { const w = state.gallery.works.find((x) => x.id === a.id); if (w) { show(w); tellScreen({ type: 'at', workId: w.id }); } }
   if (a?.type === 'lang' && state.langs.includes(a.lang)) setLang(a.lang, { quiet: true });
+  // The gallery's WhatsApp or email: a link the visitor presses, never sent for them.
+  const e = out.enquire;
+  if (e && /^(https:\/\/wa\.me\/|mailto:)/.test(String(e.href ?? ''))) { $('enquire').href = e.href; $('enquire').hidden = false; state.offered = true; }
   if (out.seal) tellScreen({ type: 'answer', seal: out.seal });
   if (a?.type === 'stop') { setVoice('idle'); return out; }
   if (!quiet) {

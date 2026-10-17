@@ -42,6 +42,8 @@ button,input{font:inherit;color:inherit}
 .v-cap{margin:0;padding:var(--s-3) var(--s-4);background:var(--surface);border-radius:var(--r-1);font-size:var(--t-3);line-height:var(--lh-snug);
   max-height:calc(var(--t-3) * 5);overflow:auto}
 .v-cap[hidden]{display:none}
+.v-ask{text-decoration:none}
+.v-ask[hidden]{display:none}
 
 /* ---------------------------------------------------------------- the dock */
 /* The voice in the middle and the same width either side of it, however many

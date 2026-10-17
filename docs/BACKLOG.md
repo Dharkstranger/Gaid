@@ -1,7 +1,7 @@
 # GAID backlog
 
 **Read this first, every session.** Then `CLAUDE.md`. Update it when anything moves.
-Last updated: 11 October 2026.
+Last updated: 17 October 2026.
 
 ## North star
 
@@ -22,6 +22,18 @@ Last updated: 11 October 2026.
 - [ ] Team on Devpost: Emeka Ugochukwu, Obianuju Nnadi
 
 ## Now — finish the project
+
+0. **Galleris handover, 16 October** (the contract: Galleris publishes, GAID reads).
+   - [x] For sale: status; a price only from `sale.price`; never `value` or `notes`
+   - [x] No answer about a gallery whose `publishedAt` is blank or not a date (demos excepted)
+   - [x] Gallery hasn't said → its WhatsApp, else email, offered aloud once; Enquire button on the phone
+   - [x] Two sentences, then stop (rules and Nova; the introduction and "tell me more" stay longer)
+   - [x] `/api/ask` takes `at` and replies `{ ok, answer, sources, unknown }`
+   - [x] What GAID is: "a living label", never "an AI", never a person (owner, 17 Oct)
+   - [x] Amazon voice (Polly, Ruth) on every device; a gallery's ElevenLabs voice is a drop-in
+   - [ ] Owner: AWS keys for the Amazon voice in Vercel (`docs/voice-setup.md`)
+   - [ ] `/api/unanswered?slug&key` checked against Galleris's edit key — needs a Galleris database change; timed with the owner
+   - [ ] Handover 5.4 asks for a "Generated voice" mark; the owner decided against it (14 and 17 Oct). Galleris's copy to be updated
 
 1. **Architecture: GAID's server is the only door** (`docs/architecture.md`). Approved? → build.
    - [x] Public access to the two database functions revoked (11 Oct)

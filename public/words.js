@@ -98,6 +98,17 @@ export const W = {
     pairHow: 'Point your phone camera at the QR code on the TV. Or type the four letters under it.',
     saved: 'Link copied. Open it at home, or say the three words to Alexa.',
     noVoice: (lang) => `This phone cannot speak ${lang}. Here it is in English.`,
+    // What GAID is, when asked (owner, 17 October): a living label — part of
+    // the works and the people who made them, never "an AI", never a person.
+    whoAmI: (name) => `I am GAID, a living label. I am part of these works: their makers and their story, in ${name}'s own words, given a voice.`,
+    notHuman: (name) => `No. I am GAID, a living label: part of these works, in ${name}'s own words, given a voice.`,
+    // For sale (Galleris handover, section 4.6): the status; a price only if the gallery showed one.
+    available: (title, price) => (price ? `${title} is available, at ${price}.` : `${title} is available. Price on request.`),
+    reserved: (title) => `${title} is reserved.`,
+    sold: (title) => `${title} has been sold.`,
+    noSale: (title) => `The gallery has not said whether ${title} is for sale.`,
+    // Offered once, when the gallery has not said (handover, section 4.5).
+    askGallery: (channel) => `You can ask the gallery on ${channel}. Press Enquire.`,
   },
 
   // the screen beside the work
