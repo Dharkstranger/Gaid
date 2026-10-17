@@ -31,6 +31,12 @@ ok(/National Gallery of Art/.test(faq?.say ?? ''), 'curator answer, word for wor
 const nova = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Why is the background gold?' });
 out.push(`INFO  open question → source: ${nova?.source} — ${nova?.say?.slice(0, 160)}`);
 
+const me = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Are you AI?' });
+ok(/living label/.test(me?.say ?? '') && !/\bAI\b/.test(me?.say ?? ''), 'what GAID is: a living label', me?.say);
+const sale = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Is it for sale?' });
+out.push(`INFO  for sale → ${sale?.say} | enquire: ${sale?.enquire?.channel ?? 'none'}`);
+const api = await (await fetch(`${SITE}/api/ask`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ slug: 'openaccess', at: 'p1', question: 'Are the works real?' }) })).json().catch(() => null);
+ok(api?.ok === true && typeof api.answer === 'string' && Array.isArray(api.sources) && typeof api.unknown === 'boolean', 'Galleris contract: { ok, answer, sources, unknown }', JSON.stringify(api?.sources));
 const nxt = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'switch to the next artwork' });
 ok(nxt?.action?.type === 'goto' && nxt?.action?.id !== 'p1', '"next artwork" moves', JSON.stringify(nxt?.action));
 const intro = await mcp('ask_work', { gallery: 'openaccess', work_id: 'p1', question: 'Tell me about the work in front of me' });
