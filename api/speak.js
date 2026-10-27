@@ -12,6 +12,8 @@
 import { unseal } from '../lib/seal.js';
 import * as clone from '../lib/clone.js';
 import * as polly from '../lib/polly.js';
+import { loadGallery, SLUG } from '../lib/gallery.js';
+import { pick } from '../lib/voices.js';
 import { allow } from '../lib/limit.js';
 import { W } from '../public/words.js';
 
@@ -32,7 +34,17 @@ const none = () => new Response(null, { status: 204, headers: { 'cache-control':
 const caller = (r) => r.headers.get('x-real-ip') || r.headers.get('x-forwarded-for')?.split(',').pop()?.trim() || 'unknown';
 
 /** Is any voice set up? The pages ask, through /api/gallery. */
-export const enabled = () => clone.enabled() || polly.enabled();
+export const enabled = () => clone.ready() || polly.enabled();
+
+/* The person whose voice the gallery chose for this work, if they may speak
+   (lib/voices.js: consent, likeness checked, not withdrawn, the language). */
+async function chosen(slug, workId, lang) {
+  if (!slug || !SLUG.test(slug)) return null;
+  const gallery = await loadGallery(slug);
+  if (!gallery?.open) return null;
+  return pick(gallery, gallery.works.find((w) => w.id === workId) ?? null, lang);
+}
+const sayIn = (v, text, lang) => (v.provider === 'elevenlabs' ? clone.synth(text, lang, v.voiceId) : polly.synth(text, lang, v.voiceId));
 
 export async function POST(request) {
   if (!enabled()) return none();
@@ -40,14 +52,19 @@ export async function POST(request) {
   let body;
   try { body = await request.json(); } catch { return none(); }
   const lang = typeof body?.lang === 'string' ? body.lang : 'English';
-  let text = null;
-  if (typeof body?.voice === 'string') text = unseal(body.voice)?.say ?? null;
+  let text = null; let where = null;
+  if (typeof body?.voice === 'string') { where = unseal(body.voice); text = where?.say ?? null; }
   else if (typeof body?.phrase === 'string' && Object.hasOwn(PHRASES, body.phrase)) text = PHRASES[body.phrase](body.words);
   if (!text) return none();
-  const audio = (await clone.synth(text, lang)) ?? (await polly.synth(text, lang));
+  // The gallery's chosen person first — the gallery and work come from the
+  // seal, never from the request, so one gallery's voice cannot be made to
+  // read another's words. Then GAID's own voice, then the Amazon voice.
+  const person = where ? await chosen(where.slug, where.workId, lang) : null;
+  const audio = (person ? await sayIn(person, text, lang) : null)
+    ?? (clone.enabled() ? await clone.synth(text, lang) : null) ?? (await polly.synth(text, lang));
   // Why each voice refused, as status codes and error names: no secret in it.
   if (!audio) {
-    const why = [clone.enabled() && `own:${clone.lastProblem || 'none'}`, polly.enabled() && `amazon:${polly.lastProblem || 'none'}`].filter(Boolean).join(' ');
+    const why = [person && `person:${person.provider}`, clone.enabled() && `own:${clone.lastProblem || 'none'}`, polly.enabled() && `amazon:${polly.lastProblem || 'none'}`].filter(Boolean).join(' ');
     return new Response(null, { status: 204, headers: { 'cache-control': 'no-store', 'x-gaid-voice': why } });
   }
   return new Response(audio, { status: 200, headers: { 'content-type': 'audio/mpeg', 'cache-control': 'private, max-age=3600' } });

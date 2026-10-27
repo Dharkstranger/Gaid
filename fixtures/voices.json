@@ -1,0 +1,26 @@
+{
+  "slug": "voices",
+  "plan": "paid",
+  "gaid": { "on": true },
+  "publishedAt": "2026-10-27T00:00:00.000Z",
+  "brand": { "name": "Test voices" },
+  "info": {},
+  "languages": ["English"],
+  "voice": "curator",
+  "voices": [
+    { "id": "ada", "name": "Ada Obi", "provider": "elevenlabs", "voiceId": "AdaVoice0001", "languages": ["English"],
+      "consent": { "kind": "self", "at": "2026-10-20", "ref": "consent-001" }, "check": { "passed": true, "similarity": 0.88, "at": "2026-10-21" } },
+    { "id": "elder", "name": "The late Chief Bello", "provider": "elevenlabs", "voiceId": "ElderVoice02", "languages": ["English"],
+      "consent": { "kind": "estate", "at": "2026-10-20", "ref": "estate-002" }, "check": { "passed": true, "similarity": 0.81, "at": "2026-10-21" }, "withdrawn": true },
+    { "id": "curator", "name": "The curator", "provider": "elevenlabs", "voiceId": "CuratorVc03", "languages": ["English"],
+      "consent": { "kind": "self", "at": "2026-10-20", "ref": "consent-003" }, "check": { "passed": true, "similarity": 0.9, "at": "2026-10-21" } },
+    { "id": "nobody", "name": "No consent", "provider": "elevenlabs", "voiceId": "NobodyVc004", "languages": ["English"],
+      "check": { "passed": true } }
+  ],
+  "artists": [{ "id": "a1", "name": "Ada Obi", "voice": "ada" }, { "id": "a2", "name": "Chief Bello", "voice": "elder" }, { "id": "a3", "name": "Unknown", "voice": "nobody" }],
+  "pieces": [
+    { "id": "w1", "title": "Lagoon", "artistId": "a1", "description": "A lagoon at dawn." },
+    { "id": "w2", "title": "Elder", "artistId": "a2", "description": "A portrait." },
+    { "id": "w3", "title": "Unsigned", "artistId": "a3", "description": "A study." }
+  ]
+}

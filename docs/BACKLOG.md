@@ -1,7 +1,7 @@
 # GAID backlog
 
 **Read this first, every session.** Then `CLAUDE.md`. Update it when anything moves.
-Last updated: 17 October 2026.
+Last updated: 27 October 2026.
 
 ## North star
 
@@ -22,6 +22,14 @@ Last updated: 17 October 2026.
 - [ ] Team on Devpost: Emeka Ugochukwu, Obianuju Nnadi
 
 ## Now — finish the project
+
+00. **Voices: whose voice GAID speaks in** (owner, 27 Oct; `docs/voices.md`).
+   - [x] Stage 1, the voice library: work → artist → gallery voice; only with consent, a passed likeness test, not withdrawn, in the language; chosen from the seal
+   - [ ] Stage 2: upload → consent → ElevenLabs voice ID; estates by written permission
+   - [ ] Likeness test tooling (machine score + listener test)
+   - [ ] Consent and estate forms, reviewed by a lawyer
+   - [ ] Galleris publishes `voices` and `voice` (fields in `docs/voices.md` §1)
+   - [ ] Stage 4: contributed Nigerian-language translation, Yoruba, Igbo, Hausa and Pidgin first
 
 0. **Galleris handover, 16 October** (the contract: Galleris publishes, GAID reads).
    - [x] For sale: status; a price only from `sale.price`; never `value` or `notes`
