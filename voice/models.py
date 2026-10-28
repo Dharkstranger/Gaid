@@ -12,6 +12,7 @@ import numpy as np
 import torch
 import torchaudio.functional as AF
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS, Conditionals
+from huggingface_hub import snapshot_download
 from speechbrain.inference.speaker import EncoderClassifier
 
 
@@ -21,8 +22,10 @@ class Models:
     def __init__(self, device=None, cache='/cache'):
         self.device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
         self.tts = ChatterboxMultilingualTTS.from_pretrained(device=self.device)
-        self.ecapa = EncoderClassifier.from_hparams(source='speechbrain/spkrec-ecapa-voxceleb',
-                                                    savedir=f'{cache}/ecapa', run_opts={'device': self.device})
+        # Downloaded here and loaded from disk, so SpeechBrain never calls the
+        # download library itself (its own call broke on a newer one).
+        ecapa = snapshot_download('speechbrain/spkrec-ecapa-voxceleb', cache_dir=f'{cache}/hf')
+        self.ecapa = EncoderClassifier.from_hparams(source=ecapa, savedir=f'{cache}/ecapa', run_opts={'device': self.device})
 
     def embed(self, wav16k):
         with torch.inference_mode():
