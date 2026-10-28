@@ -1,0 +1,44 @@
+# Put GAID's voice engine on Modal, from GitHub, with no terminal.
+# Needs three repository secrets (Settings → Secrets and variables → Actions):
+#   MODAL_TOKEN_ID, MODAL_TOKEN_SECRET  from modal.com → Settings → API Tokens
+#   GAID_VOICE_TOKEN                     a long random word, also put in Vercel
+# Run it from the Actions tab: "voice-deploy" → Run workflow → branch "voices".
+# The last lines of the log give the engine's address.
+name: voice-deploy
+on:
+  workflow_dispatch:
+    inputs:
+      sites:
+        description: Addresses allowed to upload voices, comma-separated
+        default: https://gaid-git-voices-strangers-projects-2df697c0.vercel.app,https://gaid-taupe.vercel.app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+      MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+      GAID_VOICE_TOKEN: ${{ secrets.GAID_VOICE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Check the three secrets are set (their values are never printed)
+        run: |
+          for k in MODAL_TOKEN_ID MODAL_TOKEN_SECRET GAID_VOICE_TOKEN; do
+            if [ -z "${!k}" ]; then echo "::error::The repository secret $k is missing."; exit 1; fi
+          done
+          if [ ${#GAID_VOICE_TOKEN} -lt 32 ]; then echo "::error::GAID_VOICE_TOKEN must be at least 32 characters."; exit 1; fi
+      - run: pip install -q modal
+      - name: Give the engine its secret
+        run: modal secret create gaid-voice GAID_VOICE_TOKEN="$GAID_VOICE_TOKEN" GAID_SITE="${{ inputs.sites }}" --force
+      - name: Deploy
+        run: modal deploy voice/modal_app.py 2>&1 | tee deploy.log
+      - name: The engine's address
+        run: |
+          url=$(grep -oE 'https://[a-z0-9-]+--gaid-voice-web[a-z0-9-]*\.modal\.run' deploy.log | head -1)
+          echo "ENGINE ADDRESS: $url"
+          echo "### Engine address: $url" >> "$GITHUB_STEP_SUMMARY"
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 300 "$url/health" || true)
+          echo "HEALTH: $code (200 means it is up; the first call starts a GPU, about a minute)"

@@ -22,7 +22,9 @@ def create(models_factory, root=None, token=None, site=None, saved=lambda: None,
     read: on Modal they commit and reload the shared disk, so every machine
     sees a new or withdrawn voice at once."""
     app = FastAPI(title='GAID voice engine', docs_url=None, redoc_url=None)
-    app.add_middleware(CORSMiddleware, allow_origins=[site or os.environ.get('GAID_SITE', 'https://gaid-taupe.vercel.app')],
+    # GAID_SITE may name several addresses, comma-separated: the preview and the live site.
+    sites = [x.strip() for x in (site or os.environ.get('GAID_SITE', 'https://gaid-taupe.vercel.app')).split(',') if x.strip()]
+    app.add_middleware(CORSMiddleware, allow_origins=sites,
                        allow_methods=['POST'], allow_headers=['content-type'])
     lock = threading.Lock()
     state = {}

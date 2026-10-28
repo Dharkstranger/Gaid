@@ -20,7 +20,7 @@ class Doors(unittest.TestCase):
     def setUpClass(cls):
         from voice.app import create
         cls.root = tempfile.mkdtemp()
-        cls.client = TestClient(create(fake.Models, root=cls.root, token='t0ken', site='https://gaid.example'))
+        cls.client = TestClient(create(fake.Models, root=cls.root, token='t0ken', site='https://gaid.example, https://preview.example'))
         cls.files = [('samples', ('a.wav', fake.audio(A, 40, 1), 'audio/wav')), ('samples', ('b.wav', fake.audio(A, 40, 2), 'audio/wav')),
                      ('consent', ('c.wav', fake.audio(A, 6, 9), 'audio/wav'))]
         cls.form = {'name': 'Ada Obi', 'kind': 'self', 'at': '2026-10-28', 'ref': 'consent-001', 'languages': 'English,Pidgin'}
@@ -49,6 +49,8 @@ class Doors(unittest.TestCase):
     def test_only_gaid_site_may_send_from_a_browser(self):
         ok = self.client.options('/enrol', headers={'origin': 'https://gaid.example', 'access-control-request-method': 'POST'})
         self.assertEqual(ok.headers.get('access-control-allow-origin'), 'https://gaid.example')
+        two = self.client.options('/enrol', headers={'origin': 'https://preview.example', 'access-control-request-method': 'POST'})
+        self.assertEqual(two.headers.get('access-control-allow-origin'), 'https://preview.example')
         bad = self.client.options('/enrol', headers={'origin': 'https://evil.example', 'access-control-request-method': 'POST'})
         self.assertNotEqual(bad.headers.get('access-control-allow-origin'), 'https://evil.example')
 
