@@ -1,6 +1,6 @@
 # GAID voice engine. Pinned: a voice must sound the same next month.
 chatterbox-tts==0.1.7
-speechbrain==1.1.2
+speechbrain==1.0.3
 fastapi==0.115.12
 python-multipart==0.0.20
 numpy<2.0.0
