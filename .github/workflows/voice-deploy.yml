@@ -2,21 +2,22 @@
 # Needs three repository secrets (Settings → Secrets and variables → Actions):
 #   MODAL_TOKEN_ID, MODAL_TOKEN_SECRET  from modal.com → Settings → API Tokens
 #   GAID_VOICE_TOKEN                     a long random word, also put in Vercel
-# Run it from the Actions tab: "voice-deploy" → Run workflow → branch "voices".
-# The last lines of the log give the engine's address.
+# It runs by itself when the voices branch changes (a "Run workflow" button
+# only appears for workflows on main, which is frozen for judging), and can be
+# re-run from its page. Without the secrets it stops quietly. The last lines
+# of the log give the engine's address.
 name: voice-deploy
 on:
-  workflow_dispatch:
-    inputs:
-      sites:
-        description: Addresses allowed to upload voices, comma-separated
-        default: https://gaid-git-voices-strangers-projects-2df697c0.vercel.app,https://gaid-taupe.vercel.app
+  push:
+    branches: [voices]
+    paths: ['voice/**', '.github/workflows/voice-deploy.yml']
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
+      SITES: https://gaid-git-voices-strangers-projects-2df697c0.vercel.app,https://gaid-taupe.vercel.app
       MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
       MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
       GAID_VOICE_TOKEN: ${{ secrets.GAID_VOICE_TOKEN }}
@@ -25,17 +26,23 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
       - name: Check the three secrets are set (their values are never printed)
+        id: ready
         run: |
           for k in MODAL_TOKEN_ID MODAL_TOKEN_SECRET GAID_VOICE_TOKEN; do
-            if [ -z "${!k}" ]; then echo "::error::The repository secret $k is missing."; exit 1; fi
+            if [ -z "${!k}" ]; then echo "::notice::The repository secret $k is not set yet, so nothing was deployed."; echo "go=no" >> "$GITHUB_OUTPUT"; exit 0; fi
           done
           if [ ${#GAID_VOICE_TOKEN} -lt 32 ]; then echo "::error::GAID_VOICE_TOKEN must be at least 32 characters."; exit 1; fi
-      - run: pip install -q modal
+          echo "go=yes" >> "$GITHUB_OUTPUT"
+      - if: steps.ready.outputs.go == 'yes'
+        run: pip install -q modal
       - name: Give the engine its secret
-        run: modal secret create gaid-voice GAID_VOICE_TOKEN="$GAID_VOICE_TOKEN" GAID_SITE="${{ inputs.sites }}" --force
+        if: steps.ready.outputs.go == 'yes'
+        run: modal secret create gaid-voice GAID_VOICE_TOKEN="$GAID_VOICE_TOKEN" GAID_SITE="$SITES" --force
       - name: Deploy
+        if: steps.ready.outputs.go == 'yes'
         run: modal deploy voice/modal_app.py 2>&1 | tee deploy.log
       - name: The engine's address
+        if: steps.ready.outputs.go == 'yes'
         run: |
           url=$(grep -oE 'https://[a-z0-9-]+--gaid-voice-web[a-z0-9-]*\.modal\.run' deploy.log | head -1)
           echo "ENGINE ADDRESS: $url"
