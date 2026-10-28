@@ -12,8 +12,23 @@ import numpy as np
 import torch
 import torchaudio.functional as AF
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS, Conditionals
-from huggingface_hub import snapshot_download
+import huggingface_hub
 from speechbrain.inference.speaker import EncoderClassifier
+
+# SpeechBrain 1.0.3 passes `use_auth_token`, which the Hugging Face library
+# Chatterbox needs has removed (it is now `token`). SpeechBrain 1.1, which
+# fixes it, needs a newer torch than Chatterbox allows. So the old argument is
+# translated here, once, and nothing else changes.
+_download = huggingface_hub.hf_hub_download
+
+
+def _hf_hub_download(*args, use_auth_token=None, **kwargs):
+    if use_auth_token not in (None, False) and 'token' not in kwargs:
+        kwargs['token'] = use_auth_token
+    return _download(*args, **kwargs)
+
+
+huggingface_hub.hf_hub_download = _hf_hub_download
 
 
 class Models:
@@ -22,10 +37,8 @@ class Models:
     def __init__(self, device=None, cache='/cache'):
         self.device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
         self.tts = ChatterboxMultilingualTTS.from_pretrained(device=self.device)
-        # Downloaded here and loaded from disk, so SpeechBrain never calls the
-        # download library itself (its own call broke on a newer one).
-        ecapa = snapshot_download('speechbrain/spkrec-ecapa-voxceleb', cache_dir=f'{cache}/hf')
-        self.ecapa = EncoderClassifier.from_hparams(source=ecapa, savedir=f'{cache}/ecapa', run_opts={'device': self.device})
+        self.ecapa = EncoderClassifier.from_hparams(source='speechbrain/spkrec-ecapa-voxceleb',
+                                                    savedir=f'{cache}/ecapa', run_opts={'device': self.device})
 
     def embed(self, wav16k):
         with torch.inference_mode():
