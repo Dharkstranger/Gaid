@@ -78,37 +78,75 @@ somebody else's account will be refused.
 
 ---
 
-## 2. Stage 2: from upload to voice ID (not built yet)
+## 2. Stage 2: GAID's own voice engine (built 28 October, on the `voices` branch)
 
-### A living person (ElevenLabs Professional Voice Cloning)
+Owner, 28 October: "ElevenLabs is too expensive; do ours." Training a voice
+model from nothing needs thousands of hours of speech and large computers.
+GAID instead runs its **own engine on an open model**, with no per-use fee:
 
-ElevenLabs' requirements, from its own documentation
-([Professional Voice Cloning](https://elevenlabs.io/docs/eleven-creative/voices/voice-cloning/professional-voice-cloning),
-[voice cloning](https://elevenlabs.io/docs/eleven-api/concepts/voice-cloning)):
+| Part | What | Licence |
+|---|---|---|
+| Copying and speaking | Chatterbox Multilingual, Resemble AI (pypi `chatterbox-tts` 0.1.7) | MIT |
+| Likeness fingerprints | ECAPA-TDNN on VoxCeleb, SpeechBrain (`speechbrain/spkrec-ecapa-voxceleb`) | Apache-2.0 (check the model card before commercial use) |
+| Where it runs | Modal, a T4 GPU that switches off when idle (`voice/modal_app.py`) | — |
 
-| Need | Detail |
-|---|---|
-| Audio | 30 minutes at the very least; 2 to 3 hours recommended for the closest copy. One speaker, no music, no echo, no other voices |
-| Proof it is them | The person reads a prompt aloud live, and ElevenLabs compares it with the uploaded samples. Nobody can do this for somebody else |
-| Plan | Creator or above (the current account refuses with "payment required") |
+Every clip the engine makes carries Resemble's **inaudible Perth watermark**.
 
-Steps:
-1. The person signs the consent form (section 4) and reads the consent sentence aloud. That recording is kept with the form.
-2. Upload the audio, then pass ElevenLabs' live check.
-3. ElevenLabs trains the voice, which produces the voice ID.
-4. Run the likeness test (section 3). Only a pass sets `check.passed: true`.
-5. The gallery publishes the voice record. GAID uses it on the next question.
+**Languages:** the 23 Chatterbox speaks, among them English, French and
+Swahili. Pidgin is spoken as English. **Yoruba, Igbo and Hausa are not among
+them**; those wait for Stage 4.
+
+### How a voice is made (`voice/engine.py`), and each rule's test (`voice/tests/`)
+
+1. On `/voice`, the person fills in the consent (section 4). Then they record
+   or upload at least a minute of speech: the page gives a passage to read.
+   **Refused under a minute** (`too-short`).
+2. A living person then **reads the consent sentence aloud, live**. The engine
+   checks that it is the same voice as the recordings, by the same 90% bar as
+   the copy. **Refused if somebody else reads it** (`consent-voice-differs`). An
+   estate signs instead (`kind: estate`).
+3. The speech is cut into five-second pieces. **Every third piece is held back**
+   and never shown to the copier.
+4. The two neighbouring pieces most like the person, the clearest ten seconds,
+   become the reference the copier speaks from.
+5. The copy says three test sentences. The likeness test (section 3) compares
+   them with the held-back pieces. **A copy that fails is deleted, and nothing
+   of it is kept** (`not-alike`).
+6. A pass gives a **voice ID** (`gv` + 16 hex characters, random) and the voice
+   record to publish (section 1, `provider: "gaid"`).
+
+**Who may make one:** a person with the invitation the owner gives out
+(`GAID_VOICE_INVITE`). GAID's server gives their browser a pass that lasts half
+an hour (`/api/voice-ticket`), and the recordings go from the browser straight
+to the engine. The engine's secret never reaches a browser.
+
+**Withdrawing:** `/voice` → Withdraw (`/api/voice-withdraw`) deletes the copy,
+the reference, the held-back pieces and the consent recording from the engine.
+The gallery also marks the record `withdrawn`, which stops GAID within a minute.
+
+### Setting it up (the owner, about 20 minutes)
+
+1. Make an account at modal.com (the free plan), and install Modal's tool: `pip install modal`, then `modal setup`.
+2. Make a long random secret, and keep it out of chats and the repository.
+3. `modal secret create gaid-voice GAID_VOICE_TOKEN=<secret> GAID_SITE=<GAID's address>`
+4. From the repository, on the `voices` branch: `modal deploy voice/modal_app.py`. Modal prints the engine's address.
+5. In Vercel (preview, for the `voices` branch), set `GAID_VOICE_URL` (the address), `GAID_VOICE_TOKEN` (the same secret) and `GAID_VOICE_INVITE` (an invitation word).
+6. Open `/voice` on the preview, and make your voice.
+7. Put the voice record it prints into `GAID_VOICES` in Vercel, for example
+   `{"openaccess":{"voice":"emeka","voices":[ <the record, with "id":"emeka"> ]}}`.
+   GAID's demo gallery then speaks in your voice.
+
+**The first request after the engine has been idle** waits while the GPU starts
+and loads the models, about a minute. GAID does not make the visitor wait: after
+15 seconds the Amazon voice, then the phone, speaks instead. The voice is cached
+once spoken.
 
 ### A person who has died (estate permission)
 
-The live check is impossible, so Professional Voice Cloning is not available.
-
-1. The estate signs the permission form (section 4). The form names who may give permission and how that right is shown.
-2. Use real recordings: archive interviews, speeches, broadcasts. The gallery must also hold the right to use those recordings.
-3. Make the voice ID with ElevenLabs' Instant Voice Cloning (shorter samples), or later with GAID's own model. Instant copies are usually less exact, so the likeness test matters more here, not less.
-4. Likeness test, then publish with `consent.kind: "estate"`.
-
----
+The live consent check is impossible, so the estate signs
+`docs/legal/estate-permission.md`, and the gallery must hold the rights to the
+archive recordings. Recordings of one speaker, at least a minute, as clean as
+the archive allows. The likeness test applies in full.
 
 ## 3. "The exact replica": the likeness test
 
@@ -127,9 +165,10 @@ is never used. Both parts must pass.
 2. **The bar:** they get no more than 60% right. 50% is pure guessing.
 3. The result goes into the consent file, with the date.
 
-**Run again** every time the voice is retrained, and whenever the service changes
-its model. Tooling for Part 1 is to be built in Stage 2, on a GitHub runner,
-because this container cannot reach ElevenLabs.
+**Run again** every time the voice is remade, and whenever the model changes.
+Part 1 is built into the engine (`voice/likeness.py`); every enrolment runs it.
+Part 2, the listener test, is not built yet: it needs a page that plays
+real and copied clips in a random order and records the answers.
 
 ---
 
@@ -184,12 +223,15 @@ this stage), native-speaker reviewers per language, and a contributor agreement.
 
 | Need | Who | Status |
 |---|---|---|
-| ElevenLabs Creator plan or above | owner | refusing: payment required |
-| `ELEVENLABS_API_KEY` in Vercel | owner | set |
+| Modal account (free plan), the `gaid-voice` secret, `modal deploy` (section 2) | owner | not done |
+| `GAID_VOICE_URL`, `GAID_VOICE_TOKEN`, `GAID_VOICE_INVITE`, then `GAID_VOICES` in Vercel | owner | not set |
+| A minute or more of the owner's speech, and the signed consent form | owner | — |
+| Voice consent form and estate permission form | drafted (`docs/legal/`); a lawyer to review | drafted |
 | AWS keys for the default Amazon voice | owner | not set |
-| Voice consent form, estate permission form, contributor agreement | owner, with a lawyer | not written |
+| ElevenLabs | not needed any more; optional for anybody running GAID | — |
 | Galleris: upload, consent and voice records in the published file (section 1) | Galleris | not built |
-| Likeness test tooling (section 3) | GAID, Stage 2 | not built |
+| Likeness test, by machine (section 3) | GAID | built, in every enrolment |
+| Listener test page (section 3) | GAID | not built |
 | Listeners for each voice | owner, gallery | — |
-| GPU for the translation model | owner | to be priced |
+| Contributor agreement and GPU for the translation model (section 5) | owner | to be priced |
 | Native-speaker reviewers per language | contributors | — |
