@@ -11,6 +11,7 @@ delete process.env.AI_GATEWAY_API_KEY;   // and never Vercel's AI Gateway: a tes
 delete process.env.VERCEL;
 delete process.env.ELEVENLABS_API_KEY;    // nor the voice service: no test speaks in anybody's voice
 delete process.env.GAID_VOICE_ID;
+for (const k of ['GAID_VOICE_URL', 'GAID_VOICE_TOKEN', 'GAID_VOICE_INVITE', 'GAID_VOICES']) delete process.env[k];   // nor GAID's own voice engine
 
 // And if anything still tries, the file fails — even though the store, rightly,
 // swallows every network error so a visitor never sees one.

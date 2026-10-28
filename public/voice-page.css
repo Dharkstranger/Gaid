@@ -1,0 +1,24 @@
+/* Give your voice. Values from tokens.css only. */
+.vp{display:flex;flex-direction:column;gap:var(--s-6);max-width:var(--measure)}
+.vp-step{display:flex;flex-direction:column;gap:var(--s-3);margin:0}
+.vp [hidden]{display:none}
+.vp-h{margin:0;font:var(--w-display) var(--t-4)/var(--lh-tight) var(--font-display);letter-spacing:var(--track-display)}
+.vp-sub{margin:0;color:var(--text-2);font-size:var(--t-1);font-weight:var(--w-strong);letter-spacing:var(--track-label);text-transform:uppercase}
+.vp-field{display:flex;flex-direction:column;gap:var(--s-1);margin:0;padding:0;border:0;font-weight:var(--w-strong)}
+.vp-field legend{padding:0;margin-bottom:var(--s-1)}
+.vp-field input[type=text],.vp-field input[type=password],.vp-field input[type=date]{min-height:var(--tap);padding:0 var(--s-3);
+  border:var(--b-1) solid var(--edge);border-radius:var(--r-1);background:var(--surface);font-weight:var(--w-body)}
+.vp-choice{display:flex;align-items:center;gap:var(--s-2);min-height:var(--tap);font-weight:var(--w-body)}
+.vp-choice input{width:var(--s-5);height:var(--s-5);margin:0;accent-color:var(--ink)}
+.vp-links{margin:0}
+.vp-links a{display:inline-flex;align-items:center;min-height:var(--tap)}
+.vp-passage{margin:0;padding:var(--s-4) var(--s-4) var(--s-4) var(--s-6);background:var(--surface);border-radius:var(--r-1);
+  display:flex;flex-direction:column;gap:var(--s-2);font-size:var(--t-3);line-height:var(--lh-body)}
+.vp-read{margin:0;padding:var(--s-4);background:var(--surface);border-radius:var(--r-1);font-size:var(--t-3);line-height:var(--lh-body)}
+.vp-row{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.vp-file{display:inline-flex;align-items:center;cursor:pointer}
+.vp-file:focus-within{outline:var(--b-focus) solid var(--focus);outline-offset:var(--b-2)}
+.vp-meter{width:100%;height:var(--s-3)}
+.vp-record{margin:0;padding:var(--s-3);background:var(--raised);border-radius:var(--r-1);font-size:var(--t-1);overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.go[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.talk[aria-busy=true]{opacity:.7}

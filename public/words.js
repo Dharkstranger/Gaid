@@ -38,6 +38,59 @@ export const W = {
   // at home: a simulated Alexa+ on an Echo Show
   yourVisit: 'Your visit',
 
+  // the voice page (/voice): a person gives GAID their voice
+  voiceTag: 'Your voice',
+  voiceTitle: 'Give your voice',
+  invite: 'Invitation',
+  next: 'Continue',
+  fullName: 'Full name',
+  whose: 'Whose voice',
+  myself: 'Myself',
+  anEstate: 'An estate',
+  formRef: 'Form number',
+  formDate: 'Date signed',
+  consentForm: 'Consent form',
+  estateForm: 'Estate form',
+  agree: 'I agree',
+  voiceLangs: 'Languages',
+  recordings: 'Recordings',
+  addFiles: 'Add files',
+  record: 'Record',
+  stopRec: 'Stop',
+  readThis: 'Read aloud',
+  consentLine: 'Consent sentence',
+  makeVoice: 'Make voice',
+  making: 'Making…',
+  voiceMade: 'Voice made',
+  copyRecord: 'Copy record',
+  copied: 'Copied',
+  withdrawTitle: 'Withdraw',
+  voiceIdLabel: 'Voice ID',
+  withdrawBtn: 'Withdraw voice',
+  withdrawn: 'Withdrawn',
+  heard: (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')} of 1:00`,
+  likeness: (r) => `Likeness ${Math.round(r * 100)}%`,
+  // why a voice was not made, in a few words
+  voiceWhy: {
+    ticket: 'Invitation expired', invite: 'Wrong invitation', off: 'Engine off', network: 'Engine unreachable',
+    'too-short': 'Under a minute', 'no-consent': 'Consent incomplete', 'no-name': 'Name missing',
+    'no-consent-recording': 'Consent sentence missing', 'consent-voice-differs': 'Different voice',
+    'not-alike': 'Not alike enough', 'not-audio': 'Not audio', samples: 'Recordings missing',
+  },
+  // read aloud for the recordings: a minute and more of ordinary speech
+  passage: [
+    'Welcome. Take your time in this room, and look closely before you read the label.',
+    'This painting was made in Lagos, on a canvas the artist stretched by hand.',
+    'Notice the light on the water, and the small boat near the edge of the frame.',
+    'The colours were mixed from earth, ash and indigo, the way her teacher showed her.',
+    'Some visitors stand very close. Others step back to the far wall. Both are right.',
+    'In the next room you will find sculpture in bronze and carved wood.',
+    'The gallery bought this work in the spring, after the artist’s first show.',
+    'If you have a question, ask me. I will tell you what the gallery has written.',
+    'Who made it? When was it made? What is it made of? How big is it?',
+    'Thank you for listening. Enjoy the rest of your visit.',
+  ],
+
   // the curator's list
   curatorTag: 'For curators',
   asked: 'Asked',
@@ -109,6 +162,8 @@ export const W = {
     noSale: (title) => `The gallery has not said whether ${title} is for sale.`,
     // Offered once, when the gallery has not said (handover, section 4.5).
     askGallery: (channel) => `You can ask the gallery on ${channel}. Press Enquire.`,
+    // read aloud, live, by the person giving their voice (docs/legal/voice-consent.md, section 10)
+    consent: (name, date) => `I am ${name}. I agree that GAID may speak in a copy of my voice, as set out in the form I signed on ${date}.`,
   },
 
   // the screen beside the work

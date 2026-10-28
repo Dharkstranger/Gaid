@@ -1,0 +1,39 @@
+# GAID's own voice engine: the tests with a stand-in model on every push, and
+# the real models (Chatterbox, ECAPA) end to end on a CPU runner.
+name: voice-engine
+on:
+  push:
+    branches: [voices]
+    paths: ['voice/**', '.github/workflows/voice-engine.yml']
+  workflow_dispatch:
+
+jobs:
+  rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: sudo apt-get update -q && sudo apt-get install -yq ffmpeg
+      - run: pip install -q 'numpy<2' fastapi==0.115.12 python-multipart==0.0.20 httpx
+      - run: python -m unittest discover -s voice/tests -t . -v
+
+  real-model:
+    needs: rules
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: sudo apt-get update -q && sudo apt-get install -yq ffmpeg espeak-ng mbrola mbrola-us1 mbrola-us2
+      - run: pip install -q torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -q -r voice/requirements.txt
+      - run: python -m voice.prove voice-proof
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: voice-proof
+          path: |
+            voice-proof/report.json
+            voice-proof/copy-of-A.mp3

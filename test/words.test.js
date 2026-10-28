@@ -21,7 +21,7 @@ test('every label is one or two words, a phrase at most', () => {
 
 test('no sentence of GAID’s own is hidden in a page', () => {
   const pub = new URL('../public/', import.meta.url);
-  for (const f of readdirSync(pub).filter((x) => /^(app|screen|home|curator)\.js$/.test(x))) {
+  for (const f of readdirSync(pub).filter((x) => /^(app|screen|home|curator|voice-page)\.js$/.test(x))) {
     const src = readFileSync(new URL(f, pub), 'utf8').replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
     const strings = [...src.matchAll(/(['`])((?:(?!\1)[^(){};=\n])*[a-z]{2,}(?: [a-z]+){3,}(?:(?!\1)[^(){};=\n])*)\1/gi)].map((m) => m[2]);
     assert.deepEqual(strings, [], `${f} has words that belong in words.js`);
@@ -29,7 +29,7 @@ test('no sentence of GAID’s own is hidden in a page', () => {
 });
 
 test('nothing in a page hides the words under another W', () => {
-  for (const f of ['app.js', 'screen.js', 'home.js', 'curator.js']) {
+  for (const f of ['app.js', 'screen.js', 'home.js', 'curator.js', 'voice-page.js']) {
     const src = readFileSync(new URL(`../public/${f}`, import.meta.url), 'utf8');
     assert.doesNotMatch(src, /\b(const|let|var)\s+W\b|\(\s*W\s*[,)=]/, `${f} declares its own W`);
   }

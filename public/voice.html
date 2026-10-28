@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAID voice</title>
+<meta name="description" content="GAID, pronounced “guide”. Give your voice, with your consent.">
+<meta name="theme-color" content="#F4F4F1">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/voice-page.css">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="/" aria-label="GAID, home"><img src="/brand/gaid-wordmark.svg" alt="" width="120" height="40"></a>
+  <p class="tag" data-w="voiceTag">Your voice</p>
+</header>
+<main class="wrap vp">
+  <h1 class="title" data-w="voiceTitle">Give your voice</h1>
+
+  <form id="who" class="vp-step">
+    <label class="vp-field"><span data-w="invite">Invitation</span>
+      <input id="invite" type="password" autocomplete="off" spellcheck="false" required></label>
+
+    <fieldset class="vp-field">
+      <legend data-w="whose">Whose voice</legend>
+      <label class="vp-choice"><input type="radio" name="kind" value="self" checked> <span data-w="myself">Myself</span></label>
+      <label class="vp-choice"><input type="radio" name="kind" value="estate"> <span data-w="anEstate">An estate</span></label>
+    </fieldset>
+
+    <label class="vp-field"><span data-w="fullName">Full name</span>
+      <input id="name" type="text" autocomplete="name" maxlength="120" required></label>
+    <label class="vp-field"><span data-w="formRef">Form number</span>
+      <input id="ref" type="text" autocomplete="off" maxlength="120" required></label>
+    <label class="vp-field"><span data-w="formDate">Date signed</span>
+      <input id="at" type="date" required></label>
+
+    <p class="vp-links">
+      <a id="formLink" href="https://github.com/Dharkstranger/gaid/blob/voices/docs/legal/voice-consent.md" target="_blank" rel="noopener" data-w="consentForm">Consent form</a>
+    </p>
+    <label class="vp-choice"><input id="agree" type="checkbox" required> <span data-w="agree">I agree</span></label>
+
+    <fieldset class="vp-field">
+      <legend data-w="voiceLangs">Languages</legend>
+      <label class="vp-choice"><input type="checkbox" name="lang" value="English" checked> English</label>
+      <label class="vp-choice"><input type="checkbox" name="lang" value="Pidgin" checked> Pidgin</label>
+      <label class="vp-choice"><input type="checkbox" name="lang" value="French"> Français</label>
+    </fieldset>
+  </form>
+
+  <section class="vp-step" aria-labelledby="recH">
+    <h2 id="recH" class="vp-h" data-w="recordings">Recordings</h2>
+    <h3 class="vp-sub" data-w="readThis">Read aloud</h3>
+    <ol id="passage" class="vp-passage"></ol>
+    <div class="vp-row">
+      <button id="recSamples" class="go" type="button" aria-pressed="false" data-w="record">Record</button>
+      <label class="go vp-file"><span data-w="addFiles">Add files</span>
+        <input id="files" class="sr" type="file" accept="audio/*" multiple></label>
+    </div>
+    <p id="heard" class="source" aria-live="polite"></p>
+    <meter id="heardBar" class="vp-meter" min="0" max="60" value="0" aria-labelledby="heard"></meter>
+  </section>
+
+  <section id="consentStep" class="vp-step" aria-labelledby="conH">
+    <h2 id="conH" class="vp-h" data-w="consentLine">Consent sentence</h2>
+    <p id="consentText" class="vp-read"></p>
+    <button id="recConsent" class="go" type="button" aria-pressed="false" data-w="record">Record</button>
+    <p id="consentState" class="source" aria-live="polite"></p>
+  </section>
+
+  <div class="vp-step">
+    <button id="make" class="talk" type="button" data-w="makeVoice">Make voice</button>
+    <p id="state" class="source" aria-live="polite"></p>
+    <div id="made" class="said" hidden>
+      <p class="vp-h" data-w="voiceMade">Voice made</p>
+      <p id="likeness" class="reply"></p>
+      <pre id="record" class="vp-record"></pre>
+      <button id="copy" class="go" type="button" data-w="copyRecord">Copy record</button>
+    </div>
+  </div>
+
+  <form id="out" class="vp-step">
+    <h2 class="vp-h" data-w="withdrawTitle">Withdraw</h2>
+    <label class="vp-field"><span data-w="voiceIdLabel">Voice ID</span>
+      <input id="voiceId" type="text" autocomplete="off" spellcheck="false" pattern="gv[0-9a-f]{16}" required></label>
+    <button class="go" type="submit" data-w="withdrawBtn">Withdraw voice</button>
+    <p id="outState" class="source" aria-live="polite"></p>
+  </form>
+
+  <p class="foot" data-w="foot">Not an Amazon product</p>
+</main>
+<script type="module" src="/voice-page.js"></script>
+<script type="module" src="/insights.js"></script>
+</body>
+</html>
