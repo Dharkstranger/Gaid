@@ -1,7 +1,7 @@
 # GAID backlog
 
 **Read this first, every session.** Then `CLAUDE.md`. Update it when anything moves.
-Last updated: 27 October 2026.
+Last updated: 28 October 2026.
 
 ## North star
 
@@ -25,9 +25,13 @@ Last updated: 27 October 2026.
 
 00. **Voices: whose voice GAID speaks in** (owner, 27 Oct; `docs/voices.md`).
    - [x] Stage 1, the voice library: work → artist → gallery voice; only with consent, a passed likeness test, not withdrawn, in the language; chosen from the seal
-   - [ ] Stage 2: upload → consent → ElevenLabs voice ID; estates by written permission
-   - [ ] Likeness test tooling (machine score + listener test)
-   - [ ] Consent and estate forms, reviewed by a lawyer
+   - [x] **Hackathon freeze (28 Oct):** `main` and gaid-taupe.vercel.app back to 17 Oct (b38bcc5); all new work on the `voices` branch until judging ends. Vercel production was rolled back, so it no longer follows `main` automatically: promote after judging
+   - [x] Stage 2, GAID's own engine (`voice/`, Chatterbox MIT + ECAPA likeness), no ElevenLabs: enrol, speak, withdraw; `/voice` page; `/api/voice-ticket`, `/api/voice-withdraw`; provider `gaid`
+   - [x] Real model proven on GitHub (`voice-engine.yml`): another voice's consent refused; copy 0.72 like A against 0.30 like B; a robotic stand-in voice refused at the 90% bar
+   - [x] Likeness test by machine, in every enrolment
+   - [ ] Owner: Modal account, `modal deploy`, Vercel preview env vars, record own voice (`docs/voices.md` §2)
+   - [ ] Listener test page
+   - [x] Consent and estate forms drafted (`docs/legal/`); [ ] reviewed by a lawyer
    - [ ] Galleris publishes `voices` and `voice` (fields in `docs/voices.md` §1)
    - [ ] Stage 4: contributed Nigerian-language translation, Yoruba, Igbo, Hausa and Pidgin first
 
