@@ -67,7 +67,9 @@ def clean_meta(meta):
     return {'name': name, 'consent': {'kind': kind, 'at': at, 'ref': ref}, 'languages': langs}
 
 
-def enrol(models, root, samples, consent_clip, meta, today=None):
+def enrol(models, root, samples, consent_clip, meta, today=None, bar=L.PASS_RATIO):
+    """`bar` is the likeness bar. It is lowered ONLY by voice/prove.py, to run the
+    speaking path on a computer voice; app.py never passes it."""
     m = clean_meta(meta)
     speech = np.concatenate([L.speech_only(store.decode(s, EMBED_SR), EMBED_SR) for s in samples]) if samples else np.zeros(0, np.float32)
     seconds = len(speech) / EMBED_SR
@@ -109,7 +111,7 @@ def enrol(models, root, samples, consent_clip, meta, today=None):
 
         copies = [models.generate(t, 'en', conds) for t in TEST_SENTENCES]
         cv = [models.embed(rs(w, SR, EMBED_SR)) for w in copies]
-        check = L.likeness(tv, hv, cv)
+        check = L.likeness(tv, hv, cv, bar)
         check['at'] = (today or dt.date.today()).isoformat()
         check['method'] = getattr(models, 'METHOD', 'ecapa')
         if not check['passed']:

@@ -47,6 +47,10 @@ class Enrol(unittest.TestCase):
         self.assertLess(r.exception.detail['ratio'], L.PASS_RATIO)
         self.assertEqual(self.left(), [], 'nothing of a failed copy is kept')
 
+    def test_the_web_door_never_lowers_the_bar(self):
+        src = (Path(__file__).parents[1] / 'app.py').read_text()
+        self.assertNotIn('bar=', src)
+
     def test_less_than_a_minute_of_speech_is_refused(self):
         with self.assertRaises(engine.Refused) as r:
             self.enrol(samples=[fake.audio(A, 40)])

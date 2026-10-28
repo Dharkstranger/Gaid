@@ -69,6 +69,14 @@ def main(out):
             vid = None
         report['enrol_s'] = round(time.time() - t0, 1)
 
+        # 2b. A robotic computer voice may fairly fail the 90% bar. To run the
+        #     speaking path anyway, enrol once more with the bar at zero - in
+        #     this proof only; the engine's web door never lowers it.
+        if not vid:
+            rec = engine.enrol(m, root, a, consent_a, meta, bar=0.0)
+            vid = rec['voiceId']
+            report['pipeline_only_enrol'] = {'voiceId': vid, 'ratio': rec['check']['ratio']}
+
         # 3. The copy is closer to A than to B, measured on fresh speech.
         if vid:
             t0 = time.time()
@@ -84,7 +92,7 @@ def main(out):
     (out / 'report.json').write_text(json.dumps(report, indent=2))
     must = [
         isinstance(report.get('other_voice_consent'), dict) and report['other_voice_consent'].get('refused') == 'consent-voice-differs',
-        'copy_vs_A' not in report or report['copy_vs_A'] > report['copy_vs_B'],
+        report.get('copy_vs_A', 0) > report.get('copy_vs_B', 1),
     ]
     if not all(must):
         sys.exit(1)
