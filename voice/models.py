@@ -25,7 +25,14 @@ _download = huggingface_hub.hf_hub_download
 def _hf_hub_download(*args, use_auth_token=None, **kwargs):
     if use_auth_token not in (None, False) and 'token' not in kwargs:
         kwargs['token'] = use_auth_token
-    return _download(*args, **kwargs)
+    try:
+        return _download(*args, **kwargs)
+    except Exception as e:
+        # SpeechBrain asks for an optional custom.py and expects a missing file
+        # to come back as ValueError, as the older library reported it.
+        if 'EntryNotFound' in type(e).__name__:
+            raise ValueError(f'File not found on HF hub: {e}') from e
+        raise
 
 
 huggingface_hub.hf_hub_download = _hf_hub_download
