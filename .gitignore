@@ -1,3 +1,6 @@
 node_modules/
 .env
 .vercel/
+__pycache__/
+*.pyc
+voice-proof/
