@@ -1,6 +1,7 @@
 # GAID — working notes
 
 **First, every session: read `docs/BACKLOG.md`** — the goal, what is due, what is next. Keep it current.
+**Then `docs/DECISIONS.md`** — every open decision and action, numbered. Any question left open in an answer to the owner is added there; nothing is closed without the owner's words.
 
 **GAID**, pronounced *guide*. Ask the work in front of you. Built in Lagos by Emeka
 Ugochukwu and Obianuju Nnadi (Hoo Socials Limited) for the Amazon "Build,
