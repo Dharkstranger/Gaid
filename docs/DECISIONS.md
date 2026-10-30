@@ -31,10 +31,6 @@ Last updated: 30 October 2026.
 | D5 | The gallery's unanswered-questions list behind its edit key (`/api/unanswered`) needs a change in Galleris's database | now, coordinated with the owner / later | With D9, since a conversation needs the same link | 16 Oct |
 | D6 | GAID's default voice when no artist voice is set | Amazon Polly (needs AWS keys) / a GAID-engine voice the owner chooses / the phone | A GAID-engine voice: no AWS needed, one bill | 30 Oct |
 | D7 | Tagline: "GAID: making history talk back" | use in submission, video and site / not | Use it | 17 Oct |
-| D8 | Should the artist's voice require a paid Galleris plan, as GAID itself does today (`plan: paid` and `gaid.on`)? | paid only / free too / a trial | Paid only: it costs GPU time | 30 Oct |
-| D9 | Who is speaking in a conversation in the artist's voice? | (a) the artist, in the first person: "I painted this in 2019"; (b) a narrator in the artist's voice: "Ada painted this in 2019"; (c) the artwork itself | (a) for the artist's own words; (b) for everything else | 30 Oct |
-| D10 | How does Galleris show the conversation? | (a) Galleris's own screen calls GAID; (b) Galleris opens GAID's page; (c) GAID's page shown inside Galleris | (a): the visitor never leaves Galleris | 30 Oct |
-| D11 | Keep the voice engine awake during opening hours, so the first answer is not a minute late? | always awake (about $0.59 an hour on a T4, so about $180 a month for 10 hours a day, beyond the free $30) / only during opening hours / never, and pre-record instead | Pre-record every work's introduction and its own questions when the gallery publishes; wake the engine only for open questions | 30 Oct |
 | D12 | Should a visitor be able to interrupt GAID mid-sentence, as with a person? | yes / no | Yes | 30 Oct |
 | D13 | How long should GAID remember a conversation? | this work only / this visit (all works) / nothing | This visit, on the phone only, never on the server | 30 Oct |
 | D14 | Which languages after English, and in what order? | Yoruba, Igbo, Hausa, Pidgin, then contributions | That order; English first (owner, 30 Oct) | 27 Oct |
@@ -75,3 +71,7 @@ Last updated: 30 October 2026.
 | C11 | The answering model | **Amazon Nova through Vercel's AI Gateway** | 14 Oct |
 | C12 | The Galleris handover rules: for sale, drafts, contact offered once, two sentences, `/api/ask` reply shape | **Done** | 17 Oct |
 | C13 | First conversation language | **English** (owner, 30 Oct) | 30 Oct |
+| D8 | Artist's voice on which Galleris plans | **Paid plans only**, as GAID itself | 30 Oct |
+| D9 | Who speaks in the artist's voice | **Mixed**: first person ("I painted this") for the artist's own written words; a narrator in their voice ("Ada painted this") for everything else | 30 Oct |
+| D10 | How Galleris shows the conversation | **Galleris's own screen**, calling GAID behind it; GAID's server accepts Galleris's site only | 30 Oct |
+| D11 | Avoiding the wait when the engine is idle | **Pre-record** each work's introduction and the artist's own answers when the gallery publishes; wake the engine only for unexpected questions | 30 Oct |
