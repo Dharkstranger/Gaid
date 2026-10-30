@@ -28,9 +28,12 @@ Last updated: 30 October 2026.
 | D2 | What comes first: the integration kit or the learning loop? | kit / learning / both | Conversations in the artist's voice first (D9–D14), then the kit, then learning | 30 Oct |
 | D3 | Where does post-deadline work happen? | `voices` branch until judging ends / `main` | `voices` branch | 28 Oct (assumed since; not confirmed in words) |
 | D4 | When does judging end, so `voices` can be merged and production promoted? | a date from Devpost | — | 28 Oct |
-| D5 | The gallery's unanswered-questions list behind its edit key (`/api/unanswered`) needs a change in Galleris's database | now, coordinated with the owner / later | With D9, since a conversation needs the same link | 16 Oct |
 | D6 | GAID's default voice when no artist voice is set | Amazon Polly (needs AWS keys) / a GAID-engine voice the owner chooses / the phone | A GAID-engine voice: no AWS needed, one bill | 30 Oct |
 | D7 | Tagline: "GAID: making history talk back" | use in submission, video and site / not | Use it | 17 Oct |
+| D18 | What GAID shares with the curator about conversations | (a) totals only: which works and topics people asked about, how often, how long they listened; (b) also the questions word for word, with nothing about who asked; (c) whole conversations | (b): it is what a curator needs, and still says nothing about the visitor. Needs a line in the privacy notice | 30 Oct |
+| D19 | The curator tests GAID inside Galleris, before or while visitors use it | test the published gallery only / also unpublished drafts, which Galleris sends with the edit key and GAID never stores | Drafts too | 30 Oct |
+| D20 | Which actions GAID may take for a visitor | take me to a work; play the artist's recording; send the gallery a message (WhatsApp or email); save the work for later; show it on the TV; show the work's room on a map. Never: take money, book or hold a place (Galleris rule) | All six | 30 Oct |
+| D21 | Directions using latitude and longitude | (a) outdoors: sculpture parks, city art trails, between buildings; (b) indoors: by room and floor, and the label the visitor scanned; (c) indoor positioning with beacons, later | (a) and (b) now; (c) later. Phone GPS is about 5 m under open sky and worse indoors (gps.gov) | 30 Oct |
 | D12 | Should a visitor be able to interrupt GAID mid-sentence, as with a person? | yes / no | Yes | 30 Oct |
 | D13 | How long should GAID remember a conversation? | this work only / this visit (all works) / nothing | This visit, on the phone only, never on the server | 30 Oct |
 | D14 | Which languages after English, and in what order? | Yoruba, Igbo, Hausa, Pidgin, then contributions | That order; English first (owner, 30 Oct) | 27 Oct |
@@ -74,4 +77,6 @@ Last updated: 30 October 2026.
 | D8 | Artist's voice on which Galleris plans | **Paid plans only**, as GAID itself | 30 Oct |
 | D9 | Who speaks in the artist's voice | **Mixed**: first person ("I painted this") for the artist's own written words; a narrator in their voice ("Ada painted this") for everything else | 30 Oct |
 | D10 | How Galleris shows the conversation | **Galleris's own screen**, calling GAID behind it; GAID's server accepts Galleris's site only | 30 Oct |
+| D5 | Unanswered questions back to the curator in Galleris (behind the edit key) | **Doing** (owner, 30 Oct: "send all the things it couldn't answer back to Galleris so the curator can view and update") | 30 Oct |
+| D16 | Never invent a fact | **Doing** (owner, 30 Oct: "It just never hallucinate"). Method: a second check on every Amazon Nova answer, sentence by sentence, against the gallery's words; anything not supported is removed, and a fixed set of trick questions is run on every change to measure it | 30 Oct |
 | D11 | Avoiding the wait when the engine is idle | **Pre-record** each work's introduction and the artist's own answers when the gallery publishes; wake the engine only for unexpected questions | 30 Oct |
