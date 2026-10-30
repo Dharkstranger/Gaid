@@ -30,7 +30,6 @@ Last updated: 30 October 2026.
 | D4 | When does judging end, so `voices` can be merged and production promoted? | a date from Devpost | — | 28 Oct |
 | D6 | GAID's default voice when no artist voice is set | Amazon Polly (needs AWS keys) / a GAID-engine voice the owner chooses / the phone | A GAID-engine voice: no AWS needed, one bill | 30 Oct |
 | D7 | Tagline: "GAID: making history talk back" | use in submission, video and site / not | Use it | 17 Oct |
-| D22 | Whole conversations kept for the curator (D18): how long, and what the visitor is told | keep 180 days, as unanswered questions are today / 90 days / 1 year; tell the visitor with one line on screen and in the privacy notice | 180 days; one line on screen; phone numbers and email addresses visitors say are removed before keeping | 30 Oct |
 | D14 | Which languages after English, and in what order? | Yoruba, Igbo, Hausa, Pidgin, then contributions | That order; English first (owner, 30 Oct) | 27 Oct |
 | D15 | The licence for contributed language data | CC BY 4.0 / CC0 / other | CC BY 4.0: anybody may use it, credit kept | 27 Oct |
 
@@ -50,6 +49,7 @@ Last updated: 30 October 2026.
 | A10 | Price the GPU for the Nigerian-language model | Claude | not started |
 | A11 | AWS keys for Amazon Polly, if D6 keeps Polly | owner | depends on D6 |
 | A12 | Website or founder of "Whisper 360", to research the competitor | owner | not given |
+| A14 | Send `docs/galleris-prompt.md` to the Galleris session; bring its reply back to GAID | owner | prompt ready 30 Oct |
 | A13 | Confirm the Devpost submission was made, with the video and the team | owner | not confirmed here |
 
 ## Closed
@@ -80,4 +80,5 @@ Last updated: 30 October 2026.
 | D19 | Curator testing in Galleris | **Yes, unpublished drafts too**, sent with the edit key and never stored | 30 Oct |
 | D20 | Actions GAID may take | **Doing:** go to a work, play a recording; message the gallery; show on the TV or a map. **Not chosen:** save for later (Take home already does it). **Never:** take money, book or hold a place | 30 Oct |
 | D21 | Directions | **Doing:** latitude and longitude outdoors and between buildings; room and floor indoors. **Later:** indoor beacons | 30 Oct |
+| D22 | Keeping whole conversations | **180 days; one line on screen and in the privacy notice; phone numbers and emails removed** (owner, 30 Oct: "Okay" to the recommendation) | 30 Oct |
 | D11 | Avoiding the wait when the engine is idle | **Pre-record** each work's introduction and the artist's own answers when the gallery publishes; wake the engine only for unexpected questions | 30 Oct |
